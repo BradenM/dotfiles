@@ -1,0 +1,56 @@
+config:
+  backup: true
+  banner: true
+  create: true
+  dotpath: dotfiles
+  ignoreempty: false
+  keepdot: false
+  link_dotfile_default: link
+  link_on_import: link_children
+  longkey: false
+  showdiff: false
+  workdir: ~/.config/dotdrop
+dotfiles:
+  d_fontconfig:
+    dst: ~/.config/fontconfig
+    src: config/fontconfig
+    link: link_children
+  d_kitty:
+    dst: ~/.config/kitty
+    src: config/kitty
+    link: link_children
+  d_yay:
+    dst: ~/.config/yay
+    src: config/yay
+    link: link_children
+  f_czrc:
+    dst: ~/.czrc
+    src: czrc
+    link: link
+  f_gitconfig:
+    dst: ~/.gitconfig
+    src: gitconfig
+    link: link
+  f_vimrc:
+    dst: ~/.vimrc
+    src: vimrc
+    link: link
+  f_zshenv:
+    dst: ~/.zshenv
+    src: zshenv
+    link: link
+  f_zshrc:
+    dst: ~/.zshrc
+    src: zshrc
+    link: link
+profiles:
+  braden-desktop:
+    dotfiles:
+      - f_vimrc
+      - d_fontconfig
+      - d_kitty
+      - f_gitconfig
+      - d_yay
+      - f_czrc
+      - f_zshrc
+      - f_zshenv
