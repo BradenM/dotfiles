@@ -1,0 +1,236 @@
+# .zshrc
+# ZSH Config
+#
+# See @ http://zsh.sourceforge.net/Intro/intro_3.html
+
+ZSH_THEME="spaceship"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Oh-My-Zsh Plugins
+plugins=(
+  systemd
+  zsh-nvm
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  docker
+  yarn
+)
+
+# Spaceship Prompt
+SPACESHIP_PROMPT_ORDER=(
+  # time        # Time stamps section (Disabled)
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  # hg          # Mercurial section (hg_branch  + hg_status)
+  # package     # Package version (Disabled)
+  node          # Node.js section
+  ruby          # Ruby section
+  # elixir        # Elixir section
+  # xcode       # Xcode section (Disabled)
+  # swift       # Swift section
+  # golang      # Go section
+  # php         # PHP section
+  # rust        # Rust section
+  # haskell     # Haskell Stack section
+  # julia       # Julia section (Disabled)
+  docker     
+  aws           # Amazon Web Services section
+  venv          # virtualenv section
+  # conda       # conda virtualenv section
+  pyenv         # Pyenv section
+  # dotnet      # .NET section
+  # ember       # Ember.js section (Disabled)
+  kubecontext   # Kubectl context section
+  # terraform   # Terraform workspace section
+  exec_time     # Execution time
+  line_sep      # Line break
+  # battery     # Battery level and status
+  # vi_mode     # Vi-mode indicator (Disabled)
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
+
+# ZSH-NVM Config
+export NVM_DIR="$HOME/.nvm"
+export NVM_LAZY_LOAD=true # Get rid of a 3s startup time
+
+# Load Oh-My-Zsh
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# Preferred editor for local and remote sessions
+# export EDITOR='vim'
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+
+# Config Aliases
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+alias src="source ~/.zshrc"
+
+# Dotdrop
+export DOTFILES="$HOME/dotfiles"
+alias dotdrop="$DOTFILES/dotdrop.sh --cfg=$DOTFILES/config.yaml"
+# Dotfile Paths
+export DOTF_SCRIPTS="$HOME/.scripts"
+
+
+# Spaceship Theme Options
+SPACESHIP_CHAR_SYMBOL="❯ "
+
+
+# IP Aliases
+alias myip="ip addr | grep -m 1 -o '192.*.*.*' | cut -d '/' -f 1"
+alias wanip="curl -s -X GET https://checkip.amazonaws.com"
+
+
+# Add Yarn Global Bin Path
+export PATH="$HOME/.yarn/bin:$PATH"
+
+
+# cls Alias (Prints ls with permission numerical values)
+alias cls="ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}'"
+
+
+# Lazy Load Rbenv
+rbenv() {
+	unset -f rbenv
+	unalias ls
+	alias ls="colorls --gs"
+	export PATH="$HOME/.rbenv/bin:$PATH"
+	eval "$(rbenv init -)"
+	export PATH="$HOME/.rbenv/bin:$PATH"
+	[ -z "$1" ] && rbenv "$@" && return
+	"$1" "${@:2}"
+}
+alias ls="rbenv colorls --gs"
+
+# Android Env
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:~/.android/avd
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
+
+# Set CLI Color
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# Aliases
+alias ll="ls -l"
+alias la="ls -a"
+
+# Local Binaries
+export PATH="$HOME/.local/bin:$PATH"
+
+# Jabba (Java Version Manager) Lazy Load
+jabba() {
+	unset -f jabba
+	unalias java
+	[ -s "/home/bradenmars/.jabba/jabba.sh" ] && source "/home/bradenmars/.jabba/jabba.sh"
+	[ -z "$1" ] && jabba "$@" && return
+	"$1" "${@:2}"
+}
+alias java="jabba java"
+
+# Pyenv (Lazy Load)
+export CFLAGS='-O2'
+pyenv() {
+	unset -f pyenv
+	unalias pip python pipenv
+	export PATH="/home/bradenmars/.pyenv/bin:$PATH"
+	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
+	[ -z "$1" ] && pyenv "$@" && return
+	"$1" "${@:2}"
+}
+alias pip="pyenv pip"
+alias python="pyenv python"
+alias pipenv="pyenv pipenv"
+
+# Spotify (Arch w/ Snap)
+alias spotify="nohup snap run spotify --force-device-scale-factor=2 > /dev/null 2> /dev/null < /dev/null &"
+
+# Text Color
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+LIME_YELLOW=$(tput setaf 190)
+POWDER_BLUE=$(tput setaf 153)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+BRIGHT=$(tput bold)
+NORMAL=$(tput sgr0)
+BLINK=$(tput blink)
+REVERSE=$(tput smso)
+UNDERLINE=$(tput smul)
+
+# Qt5 HiDPI Scaling
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+# ESP Xtensa
+export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH"
+
+# Disk Analyzer
+alias disk-analyze="sudo baobab"
+
+# Safe RM
+alias rm='trash'
+
+# Load Dotfiles
+source "$DOTF_SCRIPTS/load"
+
+# .vimrc
+export MYVIMRC="~/.vimrc"
+
+# virtualenvwrapper 
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/projects
+source $HOME/.local/bin/virtualenvwrapper_lazy.sh
+
+# XDG Config
+export XDG_CONFIG_HOME=$HOME/.config
+
+# Kitty
+#: Env
+export KITTY_THEME="Monokai Soda"
+#: Load
+autoload -Uz compinit
+compinit
+#: Completion
+kitty + complete setup zsh | source /dev/stdin
+
+# Serverless 
+# [[ -f /home/bradenmars/Documents/projects/warriorbeat/WarriorBeatGraphQL/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/bradenmars/Documents/projects/warriorbeat/WarriorBeatGraphQL/node_modules/tabtab/.completions/serverless.zsh
+
+# added by travis gem
+#[ -f /home/bradenmars/.travis/travis.sh ] && source /home/bradenmars/.travis/travis.sh
