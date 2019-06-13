@@ -1,0 +1,7 @@
+[user]
+	email = BradenM@users.noreply.github.com
+	name = Braden Mars
+[core]
+	editor = vim
+[credential]
+	helper = store
