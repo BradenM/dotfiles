@@ -13,44 +13,49 @@ config:
 dotfiles:
   d_fontconfig:
     dst: ~/.config/fontconfig
-    src: config/fontconfig
     link: link_children
+    src: config/fontconfig
   d_kitty:
     dst: ~/.config/kitty
-    src: config/kitty
     link: link_children
+    src: config/kitty
+  d_scripts:
+    dst: ~/.scripts
+    link: link_children
+    src: scripts
   d_yay:
     dst: ~/.config/yay
-    src: config/yay
     link: link_children
+    src: config/yay
   f_czrc:
     dst: ~/.czrc
-    src: czrc
     link: link
+    src: czrc
   f_gitconfig:
     dst: ~/.gitconfig
-    src: gitconfig
     link: link
+    src: gitconfig
   f_vimrc:
     dst: ~/.vimrc
-    src: vimrc
     link: link
+    src: vimrc
   f_zshenv:
     dst: ~/.zshenv
-    src: zshenv
     link: link
+    src: zshenv
   f_zshrc:
     dst: ~/.zshrc
-    src: zshrc
     link: link
+    src: zshrc
 profiles:
   braden-desktop:
     dotfiles:
-      - f_vimrc
-      - d_fontconfig
-      - d_kitty
-      - f_gitconfig
-      - d_yay
-      - f_czrc
-      - f_zshrc
-      - f_zshenv
+    - f_vimrc
+    - d_fontconfig
+    - d_kitty
+    - f_gitconfig
+    - d_yay
+    - f_czrc
+    - f_zshrc
+    - f_zshenv
+    - d_scripts
