@@ -149,6 +149,10 @@ alias la="ls -a"
 # Local Binaries
 export PATH="$HOME/.local/bin:$PATH"
 
+# Go Env
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+
 # Jabba (Java Version Manager) Lazy Load
 jabba() {
 	unset -f jabba
