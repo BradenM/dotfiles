@@ -47,6 +47,10 @@ dotfiles:
     dst: ~/.zshrc
     link: link
     src: zshrc
+  d_hotkeys:
+    src: hotkeys
+    dst: ~/.hotkeys
+    link: link_children
 profiles:
   braden-desktop:
     dotfiles:
@@ -59,3 +63,4 @@ profiles:
     - f_zshrc
     - f_zshenv
     - d_scripts
+    - d_hotkeys
