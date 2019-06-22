@@ -181,6 +181,7 @@ alias pipenv="pyenv pipenv"
 # Spotify (Arch w/ Snap)
 alias spotify="nohup snap run spotify --force-device-scale-factor=2 > /dev/null 2> /dev/null < /dev/null &"
 
+
 # Text Color
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
@@ -233,8 +234,6 @@ compinit
 #: Completion
 kitty + complete setup zsh | source /dev/stdin
 
-# Serverless 
-# [[ -f /home/bradenmars/Documents/projects/warriorbeat/WarriorBeatGraphQL/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/bradenmars/Documents/projects/warriorbeat/WarriorBeatGraphQL/node_modules/tabtab/.completions/serverless.zsh
-
-# added by travis gem
-#[ -f /home/bradenmars/.travis/travis.sh ] && source /home/bradenmars/.travis/travis.sh
+if [[ "$TERM" == "xterm-kitty" ]]; then
+	alias ssh="kitty +kitten ssh"
+fi
