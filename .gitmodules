@@ -1,11 +1,4 @@
 [submodule "dotdrop"]
 	path = dotdrop
 	url = https://github.com/deadc0de6/dotdrop.git
-[submodule "dotfiles/oh-my-zsh/custom/plugins/zsh-autosuggestions"]
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "dotfiles/oh-my-zsh/custom/plugins/zsh-nvm"]
-	url = https://github.com/lukechilds/zsh-nvm.git
-[submodule "dotfiles/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "dotfiles/oh-my-zsh/custom/themes/spaceship-prompt"]
-	url = https://github.com/denysdovhan/spaceship-prompt.git
+

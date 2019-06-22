@@ -63,9 +63,6 @@ dotfiles:
     src: hotkeys
     dst: ~/.hotkeys
     link: link_children
-  d_custom:
-    src: oh-my-zsh/custom
-    dst: ~/.oh-my-zsh/custom
 profiles:
   braden-desktop:
     dotfiles:
@@ -79,7 +76,6 @@ profiles:
       - f_zshenv
       - d_scripts
       - d_hotkeys
-      - d_custom
   braden-pc:
     include:
       - braden-desktop
