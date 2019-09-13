@@ -31,6 +31,44 @@ plugins=(
   yarn
 )
 
+# Zsh Syntax Highlight
+
+typeset -A ZSH_HIGHLIGHT_STYLES
+
+if [ -n "$ZSH_REC_MODE" ]; then
+	echo "ZSH LOADED IN REC MODE"
+	noload=(zsh-autosuggestions)
+	for p in ${noload[@]}; do
+		plugins=( ${plugins[@]/$p} )
+	done
+	echo $plugins
+	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+	ZSH_HIGHLIGHT_STYLES[unknown-token]=none
+	alias lstree="tree -a -L 2"
+fi
+
+
+#ZSH_HIGHLIGHT_STYLES[default]=none
+#ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=green
+#ZSH_HIGHLIGHT_STYLES[alias]=none
+#ZSH_HIGHLIGHT_STYLES[builtin]=none
+#ZSH_HIGHLIGHT_STYLES[function]=none
+#ZSH_HIGHLIGHT_STYLES[command]=green
+#ZSH_HIGHLIGHT_STYLES[precommand]=none
+#ZSH_HIGHLIGHT_STYLES[commandseparator]=none
+#ZSH_HIGHLIGHT_STYLES[hashed-command]=none
+ZSH_HIGHLIGHT_STYLES[path]=cyan
+#ZSH_HIGHLIGHT_STYLES[globbing]=none
+#ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue
+#ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=none
+#ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=none
+#ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
+#ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
+#ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
+#ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
+#ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
+#ZSH_HIGHLIGHT_STYLES[assign]=none
+
 # Spaceship Prompt
 SPACESHIP_PROMPT_ORDER=(
   # time        # Time stamps section (Disabled)
@@ -165,18 +203,31 @@ alias java="jabba java"
 
 # Pyenv (Lazy Load)
 export CFLAGS='-O2'
-pyenv() {
-	unset -f pyenv
-	unalias pip python pipenv
-	export PATH="/home/bradenmars/.pyenv/bin:$PATH"
-	eval "$(pyenv init -)"
-	eval "$(pyenv virtualenv-init -)"
-	[ -z "$1" ] && pyenv "$@" && return
-	"$1" "${@:2}"
-}
-alias pip="pyenv pip"
-alias python="pyenv python"
-alias pipenv="pyenv pipenv"
+# pyenv() {
+#	unset -f pyenv
+#	unalias pip python pipenv
+#	export PATH="/home/bradenmars/.pyenv/bin:$PATH"
+#	eval "$(pyenv init -)"
+#	eval "$(pyenv virtualenv-init -)"
+#	[ -z "$1" ] && pyenv "$@" && return
+#	"$1" "${@:2}"
+#}
+#alias pip="pyenv pip"
+#alias python="pyenv python"
+#alias pipenv="pyenv pipenv"
+
+export PATH="/home/bradenmars/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PATH="$(pyenv root)/shims:$PATH"
+source $(pyenv root)/completions/pyenv.zsh
+pyenv rehash
+
+
+if [ -n "$ZSH_REC_MODE" ]; then
+	pip > /dev/null
+	clear
+fi
 
 # Spotify (Arch w/ Snap)
 alias spotify="nohup snap run spotify --force-device-scale-factor=2 > /dev/null 2> /dev/null < /dev/null &"
@@ -236,4 +287,20 @@ kitty + complete setup zsh | source /dev/stdin
 
 if [[ "$TERM" == "xterm-kitty" ]]; then
 	alias ssh="kitty +kitten ssh"
+	kittyrec() {
+		kitty --title="Micropy Cli" -o initial_window_width=80c -o initial_window_height=25c
+	}
 fi
+
+
+
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/bradenmars/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/bradenmars/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/bradenmars/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/bradenmars/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /home/bradenmars/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh ]] && . /home/bradenmars/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh

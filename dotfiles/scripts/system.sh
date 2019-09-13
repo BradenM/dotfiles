@@ -73,3 +73,10 @@ list-usb() {
                 echo "/dev/$devname - $ID_SERIAL"
         done
 }
+
+# Clear Font Cache
+clear-fc-cache() {
+	echo "Clearing Font Cache..."
+	sudo fc-cache -rfv && fc-cache -rv
+	echo "Font Cache Cleared. You should reboot soon!"
+}
