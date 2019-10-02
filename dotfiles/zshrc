@@ -292,7 +292,11 @@ if [[ "$TERM" == "xterm-kitty" ]]; then
 	}
 fi
 
+# Force Load XResources
+xrdb ~/.Xresources
 
+# Force DPI
+xrandr --output XWAYLAND1 --dpi 90
 
 
 # tabtab source for serverless package
