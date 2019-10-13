@@ -1,6 +1,7 @@
 actions:
   vimplug: vim +PlugInstall +qall
   czdeps: yarn global add commitizen @metahub/cz-conventional-commit
+  install_fonts: yay -S --needed --noconfirm otf-san-francisco otf-san-francisco-mono nerd-fonts-fira-code
   post:
     loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
     fontcache: fc-cache -rv
@@ -24,6 +25,7 @@ dotfiles:
     link: link_children
     src: config/fontconfig
     actions:
+      - install_fonts
       - fontcache
   d_kitty:
     dst: ~/.config/kitty
