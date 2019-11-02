@@ -79,3 +79,13 @@ clear-fc-cache() {
   sudo fc-cache -rfv && fc-cache -rv
   echo "Font Cache Cleared. You should reboot soon!"
 }
+
+# Mount FreeNas
+mntnas() {
+  local base="/mnt/Storage"
+  local remote
+  local mount_point
+  remote=${1="bradenmars"}
+  mount_point=${2="/storage"}
+  sudo mount -t nfs -o rsize=65536,wsize=65536,vers=4,noatime,hard,intr,noacl,nocto,nodiratime,user "freenas:${base}/${remote}" "${mount_point}"
+}
