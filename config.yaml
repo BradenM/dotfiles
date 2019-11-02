@@ -4,6 +4,8 @@ actions:
   install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
   loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
   fontcache: fc-cache -rv
+  pre:
+    install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
 config:
   backup: true
   banner: true
@@ -38,6 +40,9 @@ dotfiles:
     dst: ~/.config/yay
     link: link_children
     src: config/yay
+    actions:
+      - install_pkgs
+      - fontcache
   f_czrc:
     dst: ~/.czrc
     link: link
