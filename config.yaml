@@ -65,6 +65,10 @@ dotfiles:
     src: hotkeys
     dst: ~/.hotkeys
     link: link_children
+  f_xresources:
+    dst: ~/.Xresources
+    link: link
+    src: Xresources
 profiles:
   braden-desktop:
     dotfiles:
