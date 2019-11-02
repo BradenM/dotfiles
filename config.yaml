@@ -1,10 +1,9 @@
 actions:
   vimplug: vim +PlugInstall +qall
   czdeps: yarn global add commitizen @metahub/cz-conventional-commit
-  install_fonts: yay -S --needed --noconfirm otf-san-francisco otf-san-francisco-mono && ./dotfiles/config/fontconfig/fonts/install.sh
-  post:
-    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
-    fontcache: fc-cache -rv
+  install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
+  loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
+  fontcache: fc-cache -rv
 config:
   backup: true
   banner: true

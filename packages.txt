@@ -1,0 +1,11 @@
+## List of required packages
+
+# Font Config
+freetype2-infinality-remix
+fontconfig-infinality-remix 
+cairo-infinality-remix
+
+# Fonts
+otf-san-francisco
+otf-san-francisco-mono
+nerd-fonts-fira-code
