@@ -13,6 +13,10 @@ androidsim () {
         printf "App Data Cleared \n"
     else
         printf "Starting Emulator... \n"
-        optirun emulator -netdelay none -netspeed full -gpu host -accel on -avd Nexus_28
+	if ! type optirun 2>/dev/null; then
+        	emulator -netdelay none -netspeed full -gpu host -accel on -avd Pixel2_29
+	else
+		optirun emulator -netdelay none -netspeed full -gpu host -accel on -avd Nexus_28
+	fi
     fi
 }
