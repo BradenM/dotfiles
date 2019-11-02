@@ -89,8 +89,10 @@ profiles:
       - f_xresources
     variables:
       dpi: 90
+      kitty_font_size: 14
   braden-pc:
     include:
       - braden-desktop
     variables:
       dpi: 260
+      kitty_font_size: 11
