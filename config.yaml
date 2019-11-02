@@ -81,6 +81,11 @@ profiles:
       - f_zshenv
       - d_scripts
       - d_hotkeys
+      - f_xresources
+    variables:
+      dpi: 90
   braden-pc:
     include:
       - braden-desktop
+    variables:
+      dpi: 260
