@@ -262,6 +262,9 @@ alias disk-analyze="sudo baobab"
 # Safe RM
 alias rm='trash'
 
+# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
+alias cp='gcp'
+
 # Load Dotfiles
 source "$DOTF_SCRIPTS/load"
 

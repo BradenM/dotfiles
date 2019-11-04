@@ -4,6 +4,8 @@ actions:
   install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
   loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
   fontcache: fc-cache -rv
+  install_pip: pip install --user -r pip-packages.txt
+  install_pyenv: command -v pyenv || curl https://pyenv.run | bash
   pre:
     install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
 config:
@@ -65,6 +67,9 @@ dotfiles:
     dst: ~/.zshrc
     link: link
     src: zshrc
+    actions:
+      - install_pyenv
+      - install_pip
   d_hotkeys:
     src: hotkeys
     dst: ~/.hotkeys

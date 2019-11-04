@@ -1,0 +1,7 @@
+## List of packages from PyPi
+
+# System Utils
+gcp
+
+# Misc Requirements
+progressbar # required by gcp
