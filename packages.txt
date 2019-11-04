@@ -6,6 +6,7 @@ fontconfig-infinality-remix
 cairo-infinality-remix
 
 # Fonts
+fontforge
 otf-san-francisco
 otf-san-francisco-mono
 nerd-fonts-fira-code
