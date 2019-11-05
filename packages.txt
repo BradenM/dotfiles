@@ -9,4 +9,9 @@ cairo-infinality-remix
 fontforge
 otf-san-francisco
 otf-san-francisco-mono
-nerd-fonts-fira-code
+
+# Apps
+kitty
+
+# System Utils
+autofs
