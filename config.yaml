@@ -3,14 +3,15 @@ actions:
   czdeps: yarn global add commitizen @metahub/cz-conventional-commit
   fontcache: fc-cache -rv
   install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
+  exec_yay: yay -S --needed --noconfirm --useask {0}
+  exec_pipenv: pipenv install --dev && pipenv run {0}
   pre:
     install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
     install_pip: pip install --user -r pip-packages.txt
     install_pyenv: command -v pyenv || curl https://pyenv.run | bash
-    setup_venv: pipenv install --dev
   post:
     loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
-    setup_autofs: pipenv run sudo python ./dotfiles/config/autofs/install.py
+    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck && popd
 config:
   backup: true
   banner: true
@@ -44,8 +45,8 @@ dotfiles:
     actions:
       - install_pkgs
       - install_pip
-      - setup_venv
-      - setup_autofs
+      - make_pkg "autofs"
+      - exec_pipenv "sudo python ./dotfiles/config/autofs/install.py"
   d_scripts:
     dst: ~/.scripts
     link: link_children
