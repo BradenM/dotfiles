@@ -1,13 +1,16 @@
 actions:
   vimplug: vim +PlugInstall +qall
   czdeps: yarn global add commitizen @metahub/cz-conventional-commit
-  install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
-  loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
   fontcache: fc-cache -rv
-  install_pip: pip install --user -r pip-packages.txt
-  install_pyenv: command -v pyenv || curl https://pyenv.run | bash
+  install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
   pre:
-    install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
+    install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
+    install_pip: pip install --user -r pip-packages.txt
+    install_pyenv: command -v pyenv || curl https://pyenv.run | bash
+    setup_venv: pipenv install --dev
+  post:
+    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
+    setup_autofs: pipenv run sudo python ./dotfiles/config/autofs/install.py
 config:
   backup: true
   banner: true
@@ -34,6 +37,15 @@ dotfiles:
     dst: ~/.config/kitty
     link: link_children
     src: config/kitty
+  d_autofs:
+    dst: ~/.config/autofs
+    link: link_children
+    src: config/autofs
+    actions:
+      - install_pkgs
+      - install_pip
+      - setup_venv
+      - setup_autofs
   d_scripts:
     dst: ~/.scripts
     link: link_children
@@ -92,6 +104,7 @@ profiles:
       - d_scripts
       - d_hotkeys
       - f_xresources
+      - d_autofs
     variables:
       dpi: 90
       kitty_font_size: 14
