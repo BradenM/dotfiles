@@ -1,0 +1,39 @@
+---
+- name: freenas
+  root: '/mnt/Storage'
+  timeout: 5
+  ghost: true
+  options:
+    - rw
+    - intr
+    - noacl
+    - nocto
+    - nodiratime
+    - noatime
+    - user
+    - soft
+
+---
+- name: shares
+  host: freenas
+  root: bradenmars
+  mount: /storage
+  options:
+    - 'fstype=nfs4'
+    - 'rsize=32786'
+    - 'wsize=32768'
+  mounts:
+    - projects
+    - tools
+    - school
+
+- name: backups
+  host: freenas
+  root: backups
+  mount: /backups
+  options:
+    - 'fstype=nfs4'
+    - 'rsize=65572'
+    - 'wsize=65572'
+  mounts:
+    - images
