@@ -10,6 +10,10 @@ fontforge
 otf-san-francisco
 otf-san-francisco-mono
 
+# GTK Theme
+arc-gtk-theme
+numix-circle-icon-theme-git
+
 # Apps
 kitty
 
