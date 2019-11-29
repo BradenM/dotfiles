@@ -29,6 +29,7 @@ plugins=(
   zsh-syntax-highlighting
   docker
   yarn
+  poetry # Python env management
 )
 
 # Zsh Syntax Highlight

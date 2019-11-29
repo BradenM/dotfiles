@@ -9,6 +9,10 @@ actions:
     install_pkgs: yay -S --needed --noconfirm --useask $(grep -v '^\s*$\|^\s*\#' packages.txt)
     install_pip: pip install --user -r pip-packages.txt
     install_pyenv: command -v pyenv || curl https://pyenv.run | bash
+    install_poetry: |
+      curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+      mkdir $ZSH/plugins/poetry
+      poetry completions zsh > $ZSH/plugins/poetry/_poetry
   post:
     loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
     make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck && popd
@@ -83,6 +87,7 @@ dotfiles:
     actions:
       - install_pyenv
       - install_pip
+      - install_poetry
   d_hotkeys:
     src: hotkeys
     dst: ~/.hotkeys
