@@ -36,17 +36,16 @@ plugins=(
 typeset -A ZSH_HIGHLIGHT_STYLES
 
 if [ -n "$ZSH_REC_MODE" ]; then
-	echo "ZSH LOADED IN REC MODE"
-	noload=(zsh-autosuggestions)
-	for p in ${noload[@]}; do
-		plugins=( ${plugins[@]/$p} )
-	done
-	echo $plugins
-	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-	ZSH_HIGHLIGHT_STYLES[unknown-token]=none
-	alias lstree="tree -a -L 2"
+  echo "ZSH LOADED IN REC MODE"
+  noload=(zsh-autosuggestions)
+  for p in ${noload[@]}; do
+    plugins=(${plugins[@]/$p/})
+  done
+  echo $plugins
+  ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+  ZSH_HIGHLIGHT_STYLES[unknown-token]=none
+  alias lstree="tree -a -L 2"
 fi
-
 
 #ZSH_HIGHLIGHT_STYLES[default]=none
 #ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=green
@@ -72,14 +71,14 @@ ZSH_HIGHLIGHT_STYLES[path]=cyan
 # Spaceship Prompt
 SPACESHIP_PROMPT_ORDER=(
   # time        # Time stamps section (Disabled)
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
+  user # Username section
+  dir # Current directory section
+  host # Hostname section
+  git # Git section (git_branch + git_status)
   # hg          # Mercurial section (hg_branch  + hg_status)
   # package     # Package version (Disabled)
-  node          # Node.js section
-  ruby          # Ruby section
+  node # Node.js section
+  ruby # Ruby section
   # elixir        # Elixir section
   # xcode       # Xcode section (Disabled)
   # swift       # Swift section
@@ -88,24 +87,23 @@ SPACESHIP_PROMPT_ORDER=(
   # rust        # Rust section
   # haskell     # Haskell Stack section
   # julia       # Julia section (Disabled)
-  docker     
-  aws           # Amazon Web Services section
-  venv          # virtualenv section
+  docker
+  aws # Amazon Web Services section
+  venv # virtualenv section
   # conda       # conda virtualenv section
-  pyenv         # Pyenv section
+  pyenv # Pyenv section
   # dotnet      # .NET section
   # ember       # Ember.js section (Disabled)
-  kubecontext   # Kubectl context section
+  kubecontext # Kubectl context section
   # terraform   # Terraform workspace section
-  exec_time     # Execution time
-  line_sep      # Line break
+  exec_time # Execution time
+  line_sep # Line break
   # battery     # Battery level and status
   # vi_mode     # Vi-mode indicator (Disabled)
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
+  jobs # Background jobs indicator
+  exit_code # Exit code section
+  char # Prompt character
 )
-
 
 # ZSH-NVM Config
 export NVM_DIR="$HOME/.nvm"
@@ -115,15 +113,6 @@ export NVM_LAZY_LOAD=true # Get rid of a 3s startup time
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# Preferred editor for local and remote sessions
-# export EDITOR='vim'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
 
 # Config Aliases
 alias zshconfig="vim ~/.zshrc"
@@ -136,34 +125,29 @@ alias dotdrop="$DOTFILES/dotdrop.sh --cfg=$DOTFILES/config.yaml"
 # Dotfile Paths
 export DOTF_SCRIPTS="$HOME/.scripts"
 
-
 # Spaceship Theme Options
 SPACESHIP_CHAR_SYMBOL="❯ "
-
 
 # IP Aliases
 alias myip="ip addr | grep -m 1 -o '192.*.*.*' | cut -d '/' -f 1"
 alias wanip="curl -s -X GET https://checkip.amazonaws.com"
 
-
 # Add Yarn Global Bin Path
 export PATH="$HOME/.yarn/bin:$PATH"
-
 
 # cls Alias (Prints ls with permission numerical values)
 alias cls="ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}'"
 
-
 # Lazy Load Rbenv
 rbenv() {
-	unset -f rbenv
-	unalias ls
-	alias ls="colorls --gs"
-	export PATH="$HOME/.rbenv/bin:$PATH"
-	eval "$(rbenv init -)"
-	export PATH="$HOME/.rbenv/bin:$PATH"
-	[ -z "$1" ] && rbenv "$@" && return
-	"$1" "${@:2}"
+  unset -f rbenv
+  unalias ls
+  alias ls="colorls --gs"
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  [ -z "$1" ] && rbenv "$@" && return
+  "$1" "${@:2}"
 }
 alias ls="rbenv colorls --gs"
 
@@ -193,45 +177,21 @@ export PATH="$GOPATH/bin:$PATH"
 
 # Jabba (Java Version Manager) Lazy Load
 jabba() {
-	unset -f jabba
-	unalias java
-	[ -s "/home/bradenmars/.jabba/jabba.sh" ] && source "/home/bradenmars/.jabba/jabba.sh"
-	[ -z "$1" ] && jabba "$@" && return
-	"$1" "${@:2}"
+  unset -f jabba
+  unalias java
+  [ -s "/home/bradenmars/.jabba/jabba.sh" ] && source "/home/bradenmars/.jabba/jabba.sh"
+  [ -z "$1" ] && jabba "$@" && return
+  "$1" "${@:2}"
 }
 alias java="jabba java"
 
-# Pyenv (Lazy Load)
-export CFLAGS='-O2'
-# pyenv() {
-#	unset -f pyenv
-#	unalias pip python pipenv
-#	export PATH="/home/bradenmars/.pyenv/bin:$PATH"
-#	eval "$(pyenv init -)"
-#	eval "$(pyenv virtualenv-init -)"
-#	[ -z "$1" ] && pyenv "$@" && return
-#	"$1" "${@:2}"
-#}
-#alias pip="pyenv pip"
-#alias python="pyenv python"
-#alias pipenv="pyenv pipenv"
-
-export PATH="/home/bradenmars/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export PATH="$(pyenv root)/shims:$PATH"
-source $(pyenv root)/completions/pyenv.zsh
-pyenv rehash
-
-
 if [ -n "$ZSH_REC_MODE" ]; then
-	pip > /dev/null
-	clear
+  pip >/dev/null
+  clear
 fi
 
 # Spotify (Arch w/ Snap)
 alias spotify="nohup snap run spotify --force-device-scale-factor=2 > /dev/null 2> /dev/null < /dev/null &"
-
 
 # Text Color
 BLACK=$(tput setaf 0)
@@ -271,7 +231,7 @@ source "$DOTF_SCRIPTS/load"
 # .vimrc
 export MYVIMRC="~/.vimrc"
 
-# virtualenvwrapper 
+# virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
 source $HOME/.local/bin/virtualenvwrapper_lazy.sh
@@ -289,10 +249,10 @@ compinit
 kitty + complete setup zsh | source /dev/stdin
 
 if [[ "$TERM" == "xterm-kitty" ]]; then
-	alias ssh="kitty +kitten ssh"
-	kittyrec() {
-		kitty --title="Micropy Cli" -o initial_window_width=80c -o initial_window_height=25c
-	}
+  alias ssh="kitty +kitten ssh"
+  kittyrec() {
+    kitty --title="Micropy Cli" -o initial_window_width=80c -o initial_window_height=25c
+  }
 fi
 
 # Force Load XResources
