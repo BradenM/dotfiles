@@ -47,7 +47,6 @@ dotfiles:
     link: link_children
     src: config/autofs
     actions:
-      - install_pkgs
       - install_pip
       - make_pkg "autofs"
       - exec_pipenv "sudo python ./dotfiles/config/autofs/install.py"
@@ -121,6 +120,6 @@ profiles:
       - braden-desktop
     variables:
       dpi: 260
-      kitty_font_size: 11
+      kitty_font_size: 10
       system_font: "SF Pro Text"
       system_font_mono: "SF Mono"
