@@ -16,6 +16,3 @@ numix-circle-icon-theme-git
 
 # Apps
 kitty
-
-# System Utils
-autofs
