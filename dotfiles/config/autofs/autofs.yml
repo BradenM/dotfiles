@@ -1,5 +1,5 @@
 ---
-- name: freenas
+- name: freenas.bradenmars.me
   root: '/mnt/Storage'
   timeout: 5
   ghost: true
@@ -15,7 +15,7 @@
 
 ---
 - name: shares
-  host: freenas
+  host: freenas.bradenmars.me
   root: bradenmars
   mount: /storage
   options:
@@ -28,7 +28,7 @@
     - school
 
 - name: backups
-  host: freenas
+  host: freenas.bradenmars.me
   root: backups
   mount: /backups
   options:
