@@ -113,7 +113,7 @@ profiles:
     variables:
       dpi: 90
       kitty_font_size: 14
-      system_font: "SF Pro Text"
+      system_font: "SFProText Nerd Font"
       system_font_mono: "SF Mono"
   braden-pc:
     include:
