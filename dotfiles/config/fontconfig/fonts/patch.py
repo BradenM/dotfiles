@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import asyncio
+import itertools
 import time
 from pathlib import Path
 
@@ -8,6 +9,15 @@ ROOT = Path("/tmp/install_fonts/fonts")
 OUT = ROOT.parent / 'patched'
 TTFS = [i for i in ROOT.rglob("*.ttf") if "Windows" not in i.name]
 OTFS = [i for i in ROOT.rglob("*.otf") if "Windows" not in i.name]
+
+
+def grouper(n, iterable):
+    it = iter(iterable)
+    while True:
+        chunk = tuple(itertools.islice(it, n))
+        if not chunk:
+            return
+        yield chunk
 
 
 async def run(cmd):
@@ -35,7 +45,11 @@ async def bulk_patch(files):
     tasks = []
     for file in files:
         tasks.append(patch_font(file, OUT))
-    await asyncio.gather(*tasks)
+    groups = grouper(4, tasks)
+    for g in groups:
+        print("Executing patch group...")
+        await asyncio.wait(g)
+        print("Group finished!")
 
 print("Starting...")
 print("OUT:", OUT)
