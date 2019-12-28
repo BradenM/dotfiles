@@ -111,8 +111,8 @@ profiles:
       - f_xresources
       - d_autofs
     variables:
-      dpi: 90
-      kitty_font_size: 14
+      dpi: 109
+      kitty_font_size: 13
       system_font: "SFProText Nerd Font"
       system_font_mono: "SF Mono"
   braden-pc:
