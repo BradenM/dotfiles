@@ -17,12 +17,8 @@ actions:
       mkdir $ZSH/plugins/poetry
       poetry completions zsh > $ZSH/plugins/poetry/_poetry
   post:
-    loginstall:
-      echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst
-      @@}} >> {0}
-    make_pkg:
-      pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck
-      && popd
+    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
+    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck && popd
 config:
   backup: true
   banner: true
@@ -43,7 +39,6 @@ dotfiles:
     link: link_children
     src: config/fontconfig
     actions:
-      - install_fonts
       - fontcache
   d_kitty:
     dst: ~/.config/kitty
