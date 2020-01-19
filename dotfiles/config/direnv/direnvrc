@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Use NVM
+use_nvm() {
+  local node_version=$1
+
+  nvm_sh=~/.nvm/nvm.sh
+  if [[ -e $nvm_sh ]]; then
+    source $nvm_sh
+    nvm use $node_version
+  fi
+}
+
+
+# Use Pyenv
+use_pyenv() {
+  local py_version=$1
+
+  py_sh=/home/bradenmars/.pyenv/bin/pyenv
+  if [[ -e $py_sh ]]; then
+    pyenv shell $py_version
+  fi
+}
