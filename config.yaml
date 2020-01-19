@@ -1,8 +1,11 @@
 actions:
-  vimplug: vim +PlugInstall +qall
   czdeps: yarn global add commitizen @metahub/cz-conventional-commit
   fontcache: fc-cache -rv
   install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
+  install_vimplug: |
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    nvim +PlugInstall +qall
   exec_yay: yay -S --needed --noconfirm --useask {0}
   exec_pipenv: pipenv install --dev && pipenv run {0}
   pre:
@@ -14,8 +17,12 @@ actions:
       mkdir $ZSH/plugins/poetry
       poetry completions zsh > $ZSH/plugins/poetry/_poetry
   post:
-    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
-    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck && popd
+    loginstall:
+      echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst
+      @@}} >> {0}
+    make_pkg:
+      pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck
+      && popd
 config:
   backup: true
   banner: true
@@ -73,8 +80,6 @@ dotfiles:
     dst: ~/.vimrc
     link: link
     src: vimrc
-    actions:
-      - vimplug
   f_zshenv:
     dst: ~/.zshenv
     link: link
@@ -91,10 +96,16 @@ dotfiles:
     src: hotkeys
     dst: ~/.hotkeys
     link: link_children
-  f_xresources:
-    dst: ~/.Xresources
+  d_nvim:
+    src: config/nvim
+    dst: ~/.config/nvim
+    link: link_children
+    actions:
+      - install_vimplug
+  f_direnvrc:
+    src: config/direnv/direnvrc
+    dst: ~/.config/direnv/direnvrc
     link: link
-    src: Xresources
 profiles:
   braden-desktop:
     dotfiles:
@@ -108,18 +119,21 @@ profiles:
       - f_zshenv
       - d_scripts
       - d_hotkeys
-      - f_xresources
       - d_autofs
+      - d_nvim
+      - f_direnvrc
     variables:
-      dpi: 109
+      dpi: 109.0
       kitty_font_size: 13
-      system_font: "SFProText Nerd Font"
-      system_font_mono: "SF Mono"
+      system_font: SFProText Nerd Font
+      system_font_mono: SF Mono
+      wayland: true
   braden-pc:
     include:
       - braden-desktop
     variables:
-      dpi: 260
+      dpi: 260.0
       kitty_font_size: 10
-      system_font: "SF Pro Text"
-      system_font_mono: "SF Mono"
+      system_font: SF Pro Text
+      system_font_mono: SF Mono
+      wayland: false

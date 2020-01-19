@@ -29,6 +29,8 @@ plugins=(
   zsh-syntax-highlighting
   docker
   yarn
+  pyenv
+  autojump
   poetry # Python env management
 )
 
@@ -116,6 +118,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # Config Aliases
+alias vim="nvim"
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias src="source ~/.zshrc"
@@ -139,27 +142,11 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # cls Alias (Prints ls with permission numerical values)
 alias cls="ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}'"
 
-# Lazy Load Rbenv
-rbenv() {
-  unset -f rbenv
-  unalias ls
-  alias ls="colorls --gs"
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  [ -z "$1" ] && rbenv "$@" && return
-  "$1" "${@:2}"
-}
-alias ls="rbenv colorls --gs"
+# Load Rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/bin:$PATH"
 
-# Android Env
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:~/.android/avd
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
 
 # Set CLI Color
 export CLICOLOR=1
@@ -176,16 +163,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
-# Jabba (Java Version Manager) Lazy Load
-jabba() {
-  unset -f jabba
-  unalias java
-  [ -s "/home/bradenmars/.jabba/jabba.sh" ] && source "/home/bradenmars/.jabba/jabba.sh"
-  [ -z "$1" ] && jabba "$@" && return
-  "$1" "${@:2}"
-}
-alias java="jabba java"
+# Jabba (Java Version Manager)
+[ -s "/home/bradenmars/.jabba/jabba.sh" ] && source "/home/bradenmars/.jabba/jabba.sh"
 
+# Zsh rec mode
 if [ -n "$ZSH_REC_MODE" ]; then
   pip >/dev/null
   clear
@@ -212,7 +193,7 @@ REVERSE=$(tput smso)
 UNDERLINE=$(tput smul)
 
 # Qt5 HiDPI Scaling
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
+#export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
 # ESP Xtensa
 export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH"
@@ -256,9 +237,10 @@ if [[ "$TERM" == "xterm-kitty" ]]; then
   }
 fi
 
-# Force Load XResources
-xrdb ~/.Xresources
+# Pipx Completions
+autoload -U bashcompinit
+bashcompinit
+eval "$(register-python-argcomplete pipx)"
 
-# Force DPI
-xrandr --output XWAYLAND0 --dpi {{@@ dpi @@}} &>/dev/null
-xrandr --output XWAYLAND1 --dpi {{@@ dpi @@}} &>/dev/null
+# Direnv
+eval "$(direnv hook zsh)"
