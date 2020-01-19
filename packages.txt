@@ -16,3 +16,8 @@ numix-circle-icon-theme-git
 
 # Apps
 kitty
+
+# Tools
+direnv
+nvim
+autojump

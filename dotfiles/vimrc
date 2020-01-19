@@ -19,8 +19,11 @@ Plug 'junegunn/vim-easy-align'
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
-" Multiple Plug commands can be written in a single line using | separators
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Sudo Helper
+Plug 'lambdalisue/suda.vim'
+
+" Autocomplete + Snippets
+"Plug 'roxma/nvim-completion-manager' | Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -32,8 +35,17 @@ Plug 'editorconfig/editorconfig-vim'
 " Nerd Commenter
 Plug 'scrooloose/nerdcommenter'
 
+" Vim Shebang
+Plug 'sbdchd/vim-shebang'
+
 " Initialize plugin system
 call plug#end()
+
+" Enable Smart Sudo
+let g:suda_smart_edit = 1
+
+" Set Python Exec
+let g:python3_host_prog = '/home/bradenmars/.pyenv/versions/3.7.3/bin/python'
 
 " Enable Mouse
 set mouse=a
@@ -47,6 +59,9 @@ set number
 " Encoding
 set encoding=utf-8
 
+" Always use System Clipboard
+set clipboard+=unnamedplus
+
 " Highlight matching search patterns
 set hlsearch
 " Enable incremental search
@@ -57,8 +72,8 @@ set ignorecase
 set smartcase
 
 " Automatically save and load folds
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview"
+"autocmd BufWinLeave *.* mkview
+"autocmd BufWinEnter *.* silent loadview"
 
 " Set Leader
 let mapleader = ","

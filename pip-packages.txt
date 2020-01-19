@@ -8,3 +8,4 @@ gcp
 
 # Misc Requirements
 progressbar # required by gcp
+pynvim # required by nvim
