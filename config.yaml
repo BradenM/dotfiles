@@ -119,9 +119,10 @@ profiles:
       - f_direnvrc
     variables:
       dpi: 109.0
-      kitty_font_size: 13
-      system_font: SFProText Nerd Font
-      system_font_mono: SF Mono
+      kitty_font_size: 12
+      kitty_font_family: FiraCode Nerd Font Mono
+      system_font: Noto Sans Display
+      system_font_mono: Noto Mono
       wayland: true
   braden-pc:
     include:
