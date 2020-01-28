@@ -118,6 +118,9 @@ dotfiles:
     src: config/environment.d
     dst: ~/.config/environment.d
     link: link_children
+  d_alacritty:
+    src: config/alacritty
+    dst: ~/.config/alacritty
 profiles:
   braden-desktop:
     dotfiles:
@@ -138,6 +141,7 @@ profiles:
     - f_xresources
     - f_xdefaults
     - d_environment.d
+    - d_alacritty
     variables:
       dpi: 109
       kitty_font_size: 12
