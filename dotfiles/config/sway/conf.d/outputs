@@ -1,0 +1,15 @@
+# SwayWM outputs configuration. For detailed information type "man sway"
+# For a list of devices run: swaymsg -t get_outputs
+
+# Output Config
+#output DP-1 mode 2560x1440@165Hz
+#output DP-1 subpixel rgb
+
+#output DP-2 mode 1920x1080@240Hz
+#output DP-2 subpixel rgb
+
+# Load X DPI
+#exec xrdb ~/.Xdefaults
+
+# Focus Primary Monitor
+#exec swaymsg focus output DP-1

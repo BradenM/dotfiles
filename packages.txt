@@ -9,6 +9,8 @@ cairo-infinality-remix
 fontforge
 otf-san-francisco
 otf-san-francisco-mono
+otf-font-awesome
+noto-fonts-emoji
 
 # GTK Theme
 arc-gtk-theme
@@ -21,3 +23,7 @@ kitty
 direnv
 nvim
 autojump
+
+# Music
+spotify-tui
+spotifyd-full

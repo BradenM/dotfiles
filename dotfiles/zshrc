@@ -32,6 +32,7 @@ plugins=(
   pyenv
   autojump
   poetry # Python env management
+  ssh-agent
 )
 
 # Zsh Syntax Highlight
@@ -46,7 +47,7 @@ if [ -n "$ZSH_REC_MODE" ]; then
   done
   echo $plugins
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-  ZSH_HIGHLIGHT_STYLES[unknown-token]=none
+  ZSH_HIGHLIGHT_STYLES[unknown - token]=none
   alias lstree="tree -a -L 2"
 fi
 
@@ -75,9 +76,9 @@ ZSH_HIGHLIGHT_STYLES[path]=cyan
 SPACESHIP_PROMPT_ORDER=(
   # time        # Time stamps section (Disabled)
   user # Username section
-  dir # Current directory section
+  dir  # Current directory section
   host # Hostname section
-  git # Git section (git_branch + git_status)
+  git  # Git section (git_branch + git_status)
   # hg          # Mercurial section (hg_branch  + hg_status)
   # package     # Package version (Disabled)
   node # Node.js section
@@ -91,7 +92,7 @@ SPACESHIP_PROMPT_ORDER=(
   # haskell     # Haskell Stack section
   # julia       # Julia section (Disabled)
   docker
-  aws # Amazon Web Services section
+  aws  # Amazon Web Services section
   venv # virtualenv section
   # conda       # conda virtualenv section
   pyenv # Pyenv section
@@ -100,12 +101,12 @@ SPACESHIP_PROMPT_ORDER=(
   kubecontext # Kubectl context section
   # terraform   # Terraform workspace section
   exec_time # Execution time
-  line_sep # Line break
+  line_sep  # Line break
   # battery     # Battery level and status
   # vi_mode     # Vi-mode indicator (Disabled)
-  jobs # Background jobs indicator
+  jobs      # Background jobs indicator
   exit_code # Exit code section
-  char # Prompt character
+  char      # Prompt character
 )
 
 # ZSH-NVM Config
@@ -146,7 +147,6 @@ alias cls="ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/bin:$PATH"
-
 
 # Set CLI Color
 export CLICOLOR=1
@@ -219,10 +219,12 @@ export PROJECT_HOME=$HOME/projects
 source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
 # XDG Config
-export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CONFIG_HOME=/home/bradenmars/.config
 
 # Kitty
 #: Env
+export KITTY_THEME="Monokai Soda"
+export KITTY_CONFIG_DIRECTORY="/home/bradenmars/.config/kitty"
 export KITTY_THEME="Monokai Soda"
 #: Load
 autoload -Uz compinit

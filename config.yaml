@@ -17,15 +17,17 @@ actions:
       mkdir $ZSH/plugins/poetry
       poetry completions zsh > $ZSH/plugins/poetry/_poetry
   post:
-    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst @@}} >> {0}
-    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck && popd
+    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst
+      @@}} >> {0}
+    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck
+      && popd
 config:
   backup: true
   banner: true
   create: true
   dotpath: dotfiles
   default_actions:
-    - loginstall "/tmp/dotdrop-installation.log"
+  - loginstall "/tmp/dotdrop-installation.log"
   ignoreempty: false
   keepdot: false
   link_dotfile_default: link_children
@@ -39,7 +41,7 @@ dotfiles:
     link: link_children
     src: config/fontconfig
     actions:
-      - fontcache
+    - fontcache
   d_kitty:
     dst: ~/.config/kitty
     link: link_children
@@ -49,9 +51,9 @@ dotfiles:
     link: link_children
     src: config/autofs
     actions:
-      - install_pip
-      - make_pkg "autofs"
-      - exec_pipenv "sudo python ./dotfiles/config/autofs/install.py"
+    - install_pip
+    - make_pkg "autofs"
+    - exec_pipenv "sudo python ./dotfiles/config/autofs/install.py"
   d_scripts:
     dst: ~/.scripts
     link: link_children
@@ -61,8 +63,8 @@ dotfiles:
     link: link_children
     src: config/yay
     actions:
-      - install_pkgs
-      - fontcache
+    - install_pkgs
+    - fontcache
   f_czrc:
     dst: ~/.czrc
     link: link
@@ -84,9 +86,9 @@ dotfiles:
     link: link
     src: zshrc
     actions:
-      - install_pyenv
-      - install_pip
-      - install_poetry
+    - install_pyenv
+    - install_pip
+    - install_poetry
   d_hotkeys:
     src: hotkeys
     dst: ~/.hotkeys
@@ -96,29 +98,48 @@ dotfiles:
     dst: ~/.config/nvim
     link: link_children
     actions:
-      - install_vimplug
+    - install_vimplug
   f_direnvrc:
     src: config/direnv/direnvrc
     dst: ~/.config/direnv/direnvrc
     link: link
+  d_sway:
+    src: config/sway
+    dst: ~/.config/sway
+  f_xresources:
+    src: Xresources
+    dst: ~/.Xresources
+    link: link
+  f_xdefaults:
+    src: Xdefaults
+    dst: ~/.Xdefaults
+    link: link
+  d_environment.d:
+    src: config/environment.d
+    dst: ~/.config/environment.d
+    link: link_children
 profiles:
   braden-desktop:
     dotfiles:
-      - f_vimrc
-      - d_fontconfig
-      - d_kitty
-      - f_gitconfig
-      - d_yay
-      - f_czrc
-      - f_zshrc
-      - f_zshenv
-      - d_scripts
-      - d_hotkeys
-      - d_autofs
-      - d_nvim
-      - f_direnvrc
+    - f_vimrc
+    - d_fontconfig
+    - d_kitty
+    - f_gitconfig
+    - d_yay
+    - f_czrc
+    - f_zshrc
+    - f_zshenv
+    - d_scripts
+    - d_hotkeys
+    - d_autofs
+    - d_nvim
+    - f_direnvrc
+    - d_sway
+    - f_xresources
+    - f_xdefaults
+    - d_environment.d
     variables:
-      dpi: 109.0
+      dpi: 109
       kitty_font_size: 12
       kitty_font_family: FiraCode Nerd Font Mono
       system_font: Noto Sans Display
@@ -126,9 +147,9 @@ profiles:
       wayland: true
   braden-pc:
     include:
-      - braden-desktop
+    - braden-desktop
     variables:
-      dpi: 260.0
+      dpi: 260
       kitty_font_size: 10
       system_font: SF Pro Text
       system_font_mono: SF Mono
