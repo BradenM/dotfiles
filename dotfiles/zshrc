@@ -32,7 +32,6 @@ plugins=(
   pyenv
   autojump
   poetry # Python env management
-  ssh-agent
 )
 
 # Zsh Syntax Highlight

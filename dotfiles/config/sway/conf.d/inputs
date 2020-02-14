@@ -1,0 +1,11 @@
+# SwayWM inputs configuration. For detailed information type "man sway"
+# For a list of devices run: swaymsg -t get_inputs
+
+# Variables
+set $mouse "5426:67:Razer_Razer_DeathAdder_Chroma"
+
+# Mouse Config
+input type:pointer {
+    accel_profile flat
+    dwt enabled
+}

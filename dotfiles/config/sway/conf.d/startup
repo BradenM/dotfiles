@@ -1,0 +1,11 @@
+# SwayWM startup applications
+
+# Gnome Keyring
+exec /usr/bin/gnome-keyring-daemon --start --components=secrets
+exec /usr/bin/gnome-keyring-daemon --start --components=ssh
+
+# Nextcloud
+exec QT_QPA_PLATFORM=xcb nextcloud
+
+# Smart Autotiling
+exec autotiling

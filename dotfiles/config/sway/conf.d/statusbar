@@ -1,10 +1,11 @@
 # SwayWM status bar configuration. For detailed information type "man sway-bar"
-# Author: Oscar Carballal Prego <oscar.carballal@protonmail.com>
+# Adapted from: Oscar Carballal Prego <oscar.carballal@protonmail.com>
 
 bar {
-    output DP-1
     position bottom
-    font pango:Noto Sans Display 11
+    font pango:Terminus 11
+    tray_padding 0
+    mode hide
     status_command while ~/.config/sway/scripts/sway_bar.sh; do sleep 1; done
     colors {
         statusline #ffffff

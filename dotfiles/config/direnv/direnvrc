@@ -18,6 +18,7 @@ use_pyenv() {
 
   py_sh=/home/bradenmars/.pyenv/bin/pyenv
   if [[ -e $py_sh ]]; then
+    eval "$($py_sh init -)"
     pyenv shell $py_version
   fi
 }

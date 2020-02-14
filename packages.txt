@@ -23,6 +23,9 @@ kitty
 direnv
 nvim
 autojump
+grim
+slurp
+wf-recorder
 
 # Music
 spotify-tui
