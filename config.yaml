@@ -128,6 +128,10 @@ dotfiles:
     src: config/waybar
     dst: ~/.config/waybar
     link: link_children
+  d_wofi:
+    src: config/wofi
+    dst: ~/.config/wofi
+    link: link_children
 profiles:
   braden-desktop:
     dotfiles:
@@ -149,6 +153,7 @@ profiles:
     - d_environment.d
     - d_alacritty
     - d_waybar
+    - d_wofi
     variables:
       dpi: 109
       system_font: Noto Sans Display

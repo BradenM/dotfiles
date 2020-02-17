@@ -1,0 +1,48 @@
+* {
+	font-family: "Noto Sans Display";
+	border: none;
+	outline: none;
+}
+
+window {
+	margin: 5px;
+	background-color: transparent;
+}
+
+#entry {
+	background-color: red;
+	border: none;
+	margin: 5px;
+}
+
+#input {
+	margin: 5px;
+	margin-left: 50px;
+	margin-right: 50px;
+	border-radius: 2px;
+	padding: 10px;
+	border: 2px solid gray;
+}
+
+#scroll {
+	margin: 5px;
+	background-color: rgba(35, 31, 32, 0.85);
+	border-radius: 2px;
+	padding: 10px;
+	border: 2px solid rgba(0, 157, 229, 1);
+}
+
+#outer-box {
+	margin: 5px;
+}
+
+#inner-box {
+	margin: 5px;
+}
+
+#text {
+	margin: 5px;
+	padding: 10px;
+	color: rgba(217, 216, 216, 1);
+	border: none;
+}

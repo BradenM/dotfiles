@@ -1,0 +1,9 @@
+width=800
+height=600
+mode=drun
+colors=colors
+filter_rate=100
+term=alacritty
+allow_markup=true
+allow_images=true
+prompt=Search
