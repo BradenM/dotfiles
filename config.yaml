@@ -3,9 +3,10 @@ actions:
   fontcache: fc-cache -rv
   install_fonts: sudo ./dotfiles/config/fontconfig/fonts/install.sh
   install_vimplug: |
+    test -e ~/.vim/autoload/plug.vim || (
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    nvim +PlugInstall +qall
+    nvim +PlugInstall +qall )
   exec_yay: yay -S --needed --noconfirm --useask {0}
   exec_pipenv: pipenv install --dev && pipenv run {0}
   pre:
@@ -13,21 +14,25 @@ actions:
     install_pip: pip install --user -r pip-packages.txt
     install_pyenv: command -v pyenv || curl https://pyenv.run | bash
     install_poetry: |
+      test -e ~/.poetry/bin/poetry || (
       curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
       mkdir $ZSH/plugins/poetry
       poetry completions zsh > $ZSH/plugins/poetry/_poetry
+      )
   post:
-    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst
-      @@}} >> {0}
-    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck
-      && popd
+    loginstall:
+      "echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst
+      @@}} >> {0}"
+    make_pkg:
+      "pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck
+      && popd"
 config:
   backup: true
   banner: true
   create: true
   dotpath: dotfiles
   default_actions:
-  - loginstall "/tmp/dotdrop-installation.log"
+    - loginstall "/tmp/dotdrop-installation.log"
   ignoreempty: false
   keepdot: false
   link_dotfile_default: link_children
@@ -41,7 +46,7 @@ dotfiles:
     link: link_children
     src: config/fontconfig
     actions:
-    - fontcache
+      - fontcache
   d_kitty:
     dst: ~/.config/kitty
     link: link_children
@@ -51,9 +56,9 @@ dotfiles:
     link: link_children
     src: config/autofs
     actions:
-    - install_pip
-    - make_pkg "autofs"
-    - exec_pipenv "sudo python ./dotfiles/config/autofs/install.py"
+      - install_pip
+      - make_pkg "autofs"
+      - exec_pipenv "sudo python ./dotfiles/config/autofs/install.py"
   d_scripts:
     dst: ~/.scripts
     link: link_children
@@ -63,8 +68,8 @@ dotfiles:
     link: link_children
     src: config/yay
     actions:
-    - install_pkgs
-    - fontcache
+      - install_pkgs
+      - fontcache
   f_czrc:
     dst: ~/.czrc
     link: link
@@ -86,9 +91,9 @@ dotfiles:
     link: link
     src: zshrc
     actions:
-    - install_pyenv
-    - install_pip
-    - install_poetry
+      - install_pyenv
+      - install_pip
+      - install_poetry
   d_hotkeys:
     src: hotkeys
     dst: ~/.hotkeys
@@ -98,7 +103,7 @@ dotfiles:
     dst: ~/.config/nvim
     link: link_children
     actions:
-    - install_vimplug
+      - install_vimplug
   f_direnvrc:
     src: config/direnv/direnvrc
     dst: ~/.config/direnv/direnvrc
@@ -124,37 +129,31 @@ dotfiles:
 profiles:
   braden-desktop:
     dotfiles:
-    - f_vimrc
-    - d_fontconfig
-    - d_kitty
-    - f_gitconfig
-    - d_yay
-    - f_czrc
-    - f_zshrc
-    - f_zshenv
-    - d_scripts
-    - d_hotkeys
-    - d_autofs
-    - d_nvim
-    - f_direnvrc
-    - d_sway
-    - f_xresources
-    - f_xdefaults
-    - d_environment.d
-    - d_alacritty
+      - f_vimrc
+      - d_fontconfig
+      - f_gitconfig
+      - d_yay
+      - f_czrc
+      - f_zshrc
+      - f_zshenv
+      - d_scripts
+      - d_hotkeys
+      - d_autofs
+      - d_nvim
+      - f_direnvrc
+      - d_sway
+      - f_xresources
+      - f_xdefaults
+      - d_environment.d
+      - d_alacritty
     variables:
       dpi: 109
-      kitty_font_size: 12
-      kitty_font_family: FiraCode Nerd Font Mono
       system_font: Noto Sans Display
       system_font_mono: Noto Mono
-      wayland: true
   braden-pc:
     include:
-    - braden-desktop
+      - braden-desktop
     variables:
       dpi: 260
-      kitty_font_size: 10
-      system_font: SF Pro Text
-      system_font_mono: SF Mono
-      wayland: false
+      system_font: Noto Sans Display
+      system_font_mono: Noto Mono

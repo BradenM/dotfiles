@@ -19,7 +19,6 @@ export EDITOR='nvim'
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
 
-{%@@ if wayland @@%}
 # Qt5 Wayland
 export QT_QPA_PLATFORM=wayland-egl
 
@@ -28,14 +27,6 @@ export QT_QPA_PLATFORM=wayland-egl
 
 # SDL2
 #export SDL_VIDEODRIVER=wayland
-{%@@ endif @@%}
-
-# Kitty
-{%@@ if wayland @@%}
-export KITTY_DISABLE_WAYLAND=1
-{%@@ endif @@%}
-export KITTY_CONFIG_DIRECTORY="/home/bradenmars/.config/kitty"
-export KITTY_THEME="Monokai Soda"
 
 # Locale(s)
 export LC_ALL=en_US.UTF-8
@@ -43,6 +34,12 @@ export LANG=en_US.UTF-8
 
 # CFlags
 export CFLAGS='-O2'
+
+# Gnome Keyring
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
