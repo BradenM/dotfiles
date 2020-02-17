@@ -16,6 +16,9 @@ call plug#begin('~/.vim/plugged')
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 
+" Vim Easymotion
+Plug 'easymotion/vim-easymotion'
+
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
@@ -37,6 +40,22 @@ Plug 'scrooloose/nerdcommenter'
 
 " Vim Shebang
 Plug 'sbdchd/vim-shebang'
+
+" Vim Prettier
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+" Auto Save
+Plug '907th/vim-auto-save'
+
+" Airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Syntax Checking
+Plug 'vim-syntastic/syntastic'
+
+" Git Gutter
+Plug 'airblade/vim-gitgutter'
 
 " Initialize plugin system
 call plug#end()
@@ -71,9 +90,35 @@ set ignorecase
 " Include only uppercase words with uppercase search term
 set smartcase
 
+" vim auto save config
+let g:auto_save = 1 "enable autosave
+
 " Automatically save and load folds
 "autocmd BufWinLeave *.* mkview
 "autocmd BufWinEnter *.* silent loadview"
 
+" Syntastic Config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'minimalist'
+
+" Prettier
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#autoformat_config_present = 1
+
+" Git Gutter Config
+set updatetime=100
+
 " Set Leader
-let mapleader = ","
+"
+let mapleader = "\\"
