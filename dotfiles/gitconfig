@@ -2,6 +2,6 @@
 	email = bradenmars@bradenmars.me
 	name = Braden Mars
 [core]
-	editor = vim
+	editor = nvim
 [credential]
-	helper = store
+	helper = /usr/lib/git-core/git-credential-libsecret

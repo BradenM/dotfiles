@@ -1,11 +1,28 @@
 # SwayWM startup applications
 
+# Window Rules
+for_window [title="crisiscleanup-3-web - Google Chrome"] move to workspace $ws7
+for_window [instance="code"] move to workspace $ws1
+
 # Gnome Keyring
-exec /usr/bin/gnome-keyring-daemon --start --components=secrets
-exec /usr/bin/gnome-keyring-daemon --start --components=ssh
+exec_always /usr/bin/gnome-keyring-daemon --start --components=secrets
+exec_always /usr/bin/gnome-keyring-daemon --start --components=ssh
 
 # Nextcloud
 exec QT_QPA_PLATFORM=xcb nextcloud
 
+# Waybar
+exec_always ~/.config/waybar/waybar.sh
+
+## Communication
+#: startup
+exec discord 
+exec slack
+exec mailspring
+#: layout
+for_window [instance="mailspring"] move to workspace $ws10
+for_window [instance="discord"] move to workspace $ws10
+for_window [instance="slack"] move to workspace $ws10, split v, move right
+
 # Smart Autotiling
-exec autotiling
+exec_always autotiling

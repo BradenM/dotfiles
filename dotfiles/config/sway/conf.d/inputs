@@ -9,3 +9,6 @@ input type:pointer {
     accel_profile flat
     dwt enabled
 }
+
+# Seats
+seat seat0 hide_cursor 250

@@ -7,8 +7,12 @@ ISO_DATE=$(date +"%Y-%m-%dT%H-%M-%S")
 # Take Screenshot
 sshot () {
   local file_name=${1="/tmp/screenshot_$ISO_DATE.png"}
-  grim -g "$(slurp)" "$file_name"
-  echo "Screenshot saved to: $file_name"
+  if [ "$1" = "-e" ]; then
+	grim -g "$(slurp)" - | swappy -f -
+        echo "Screenshot saved to: $file_name"
+  else
+  	grim -g "$(slurp)" "$file_name"
+  fi
 }
 
 # Take video
