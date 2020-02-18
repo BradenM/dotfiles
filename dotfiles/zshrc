@@ -3,12 +3,19 @@
 #
 # See @ http://zsh.sourceforge.net/Intro/intro_3.html
 
+# Enable ZSH Profiling
+#zmodload zsh/zprof
+
+# Set Theme
 ZSH_THEME="spaceship"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Disable Update Prompt (Load time)
+DISABLE_UPDATE_PROMPT=true
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -23,23 +30,33 @@ ZSH_THEME="spaceship"
 
 # Oh-My-Zsh Plugins
 plugins=(
-  systemd
-  ssh-agent
-  git
-  rsync
-  sudo
+  #systemd
+  #alias-finder
+  #autoupdate # Auto Updater for Plugins
+  #ssh-agent
+  #fd 	      # fd (find replacement)
+  #httpie
+  #rsync
+  #sudo
+  #docker
+  #yarn
+  #rbenv
+  #pyenv
+  #poetry # Python env management
   zsh-nvm
   zsh-autosuggestions
-  zsh-syntax-highlighting
-  docker
-  yarn
-  pyenv
   autojump
-  poetry # Python env management
+  gitfast
+  git-extras
+  evalcache
+  zsh-syntax-highlighting
 )
 
-# Zsh Syntax Highlight
+# ZSH Autosuggest
+ZSH_AUTOSUGGEST_STRATEGY=(history)
+ZSH_AUTOSUGGEST_USE_ASYNC=1
 
+# Zsh Syntax Highlight
 typeset -A ZSH_HIGHLIGHT_STYLES
 
 if [ -n "$ZSH_REC_MODE" ]; then
@@ -101,7 +118,6 @@ SPACESHIP_PROMPT_ORDER=(
   pyenv # Pyenv section
   # dotnet      # .NET section
   # ember       # Ember.js section (Disabled)
-  kubecontext # Kubectl context section
   # terraform   # Terraform workspace section
   exec_time # Execution time
   line_sep  # Line break
@@ -115,6 +131,7 @@ SPACESHIP_PROMPT_ORDER=(
 # ZSH-NVM Config
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true # Get rid of a 3s startup time
+export NVM_NO_USE=true
 
 # Load Oh-My-Zsh
 source $ZSH/oh-my-zsh.sh
@@ -140,34 +157,15 @@ SPACESHIP_CHAR_SYMBOL="❯ "
 alias myip="ip addr | grep -m 1 -o '192.*.*.*' | cut -d '/' -f 1"
 alias wanip="curl -s -X GET https://checkip.amazonaws.com"
 
-# Add Yarn Global Bin Path
-export PATH="$HOME/.yarn/bin:$PATH"
-
 # cls Alias (Prints ls with permission numerical values)
 alias cls="ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}'"
-
-# Load Rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/bin:$PATH"
-
-# Set CLI Color
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # Aliases
 alias ll="ls -l"
 alias la="ls -a"
 
-# Local Binaries
-export PATH="$HOME/.local/bin:$PATH"
-
-# Go Env
-export GOPATH="$HOME/go"
-export PATH="$GOPATH/bin:$PATH"
-
 # Jabba (Java Version Manager)
-[ -s "/home/bradenmars/.jabba/jabba.sh" ] && source "/home/bradenmars/.jabba/jabba.sh"
+# [ -s "/home/bradenmars/.jabba/jabba.sh" ] && source "/home/bradenmars/.jabba/jabba.sh"
 
 # Zsh rec mode
 if [ -n "$ZSH_REC_MODE" ]; then
@@ -195,12 +193,6 @@ BLINK=$(tput blink)
 REVERSE=$(tput smso)
 UNDERLINE=$(tput smul)
 
-# Qt5 HiDPI Scaling
-#export QT_AUTO_SCREEN_SCALE_FACTOR=1
-
-# ESP Xtensa
-export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH"
-
 # Disk Analyzer
 alias disk-analyze="sudo baobab"
 
@@ -208,51 +200,17 @@ alias disk-analyze="sudo baobab"
 alias rm='trash'
 
 # Gcp CoPier (https://code.lm7.fr/mcy/gcp)
-unalias gcp # zsh git plugin
 alias cp='gcp'
 
 # Load Dotfiles
 source "$DOTF_SCRIPTS/load"
 
-# .vimrc
-export MYVIMRC="~/.vimrc"
-
-# virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/projects
-source $HOME/.local/bin/virtualenvwrapper_lazy.sh
-
-# XDG Config
-export XDG_CONFIG_HOME=/home/bradenmars/.config
-
-# Kitty
-#: Env
-export KITTY_THEME="Monokai Soda"
-export KITTY_CONFIG_DIRECTORY="/home/bradenmars/.config/kitty"
-export KITTY_THEME="Monokai Soda"
-#: Load
-autoload -Uz compinit
-compinit
-#: Completion
-kitty + complete setup zsh | source /dev/stdin
-
-if [[ "$TERM" == "xterm-kitty" ]]; then
-  alias ssh="kitty +kitten ssh"
-  kittyrec() {
-    kitty --title="Micropy Cli" -o initial_window_width=80c -o initial_window_height=25c
-  }
-fi
-
-# Pipx Completions
-autoload -U bashcompinit
-bashcompinit
-eval "$(register-python-argcomplete pipx)"
-
-# Direnv
-eval "$(direnv hook zsh)"
 
 # Startup
 if [ $(tty) = "/dev/tty1" ]; then
 	sway
 	exit 0
 fi
+
+# Report ZSH Profiling
+#zprof

@@ -11,4 +11,4 @@ input type:pointer {
 }
 
 # Seats
-seat seat0 hide_cursor 250
+seat seat0 hide_cursor 1000

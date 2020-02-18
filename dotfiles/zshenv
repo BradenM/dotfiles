@@ -21,12 +21,23 @@ export ARCHFLAGS="-arch x86_64"
 
 # Qt5 Wayland
 export QT_QPA_PLATFORM=wayland-egl
+export QT_WAYLAND_FORCE_DPI=physical
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
 # Clutter
-#export CLUTTER_BACKEND=wayland
+export CLUTTER_BACKEND=wayland
 
 # SDL2
-#export SDL_VIDEODRIVER=wayland
+export SDL_VIDEODRIVER=wayland
+
+# ECORE
+export ECORE_EVAS_EVAS_ENGINE=wayland_egl
+
+# ELM
+export ELM_ENGINE=wayland_egl
+
+# Java
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Locale(s)
 export LC_ALL=en_US.UTF-8
@@ -35,11 +46,25 @@ export LANG=en_US.UTF-8
 # CFlags
 export CFLAGS='-O2'
 
+# Local Binaries
+export PATH="$HOME/.local/bin:$PATH"
+
+# Go Env
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+
+# Set CLI Color
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
 # Gnome Keyring
-if [ -n "$DESKTOP_SESSION" ];then
-    eval $(gnome-keyring-daemon --start)
-    export SSH_AUTH_SOCK
-fi
+#if [ -n "$DESKTOP_SESSION" ];then
+#    eval $(gnome-keyring-daemon --start)
+#    export SSH_AUTH_SOCK
+#fi
+
+# Add Yarn Global Bin Path
+export PATH="$HOME/.yarn/bin:$PATH"
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -50,6 +75,17 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 # ElasticBeanstalk CLI
 export PATH="/home/bradenmars/.ebcli-virtual-env/executables:$PATH"
+
+# .vimrc
+export MYVIMRC="~/.vimrc"
+
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/projects
+source $HOME/.local/bin/virtualenvwrapper_lazy.sh
+
+# XDG Config
+export XDG_CONFIG_HOME=/home/bradenmars/.config
 
 # Android Env
 export ANDROID_HOME=$HOME/Android/Sdk
