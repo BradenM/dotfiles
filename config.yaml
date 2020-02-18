@@ -132,6 +132,15 @@ dotfiles:
     src: config/wofi
     dst: ~/.config/wofi
     link: link_children
+  d_mako:
+    src: config/mako
+    dst: ~/.config/mako
+  f_aliases.zsh:
+    src: oh-my-zsh/custom/aliases.zsh
+    dst: ~/.oh-my-zsh/custom/aliases.zsh
+  f_loadenv.zsh:
+    src: oh-my-zsh/custom/loadenv.zsh
+    dst: ~/.oh-my-zsh/custom/loadenv.zsh
 profiles:
   braden-desktop:
     dotfiles:
@@ -154,6 +163,9 @@ profiles:
     - d_alacritty
     - d_waybar
     - d_wofi
+    - d_mako
+    - f_aliases.zsh
+    - f_loadenv.zsh
     variables:
       dpi: 109
       system_font: Noto Sans Display
