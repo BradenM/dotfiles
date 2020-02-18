@@ -9,9 +9,9 @@ sshot () {
   local file_name=${1="/tmp/screenshot_$ISO_DATE.png"}
   if [ "$1" = "-e" ]; then
 	grim -g "$(slurp)" - | swappy -f -
-        echo "Screenshot saved to: $file_name"
   else
   	grim -g "$(slurp)" "$file_name"
+	echo "Screenshot saved to: $file_name"
   fi
 }
 
