@@ -146,16 +146,6 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# Set Default Workspaces
-workspace $ws1 output DP-1
-workspace $ws2 output DP-1
-workspace $ws3 output DP-1
-
-
-workspace $ws7 output DP-2
-workspace $ws8 output DP-2
-workspace $ws9 output DP-2
-workspace $ws10 output DP-2
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -190,15 +180,8 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# SwayWM outputs configuration. For detailed information type "man sway"
-# For a list of devices run: swaymsg -t get_outputs
-
-# Output Config
-output DP-1 mode 2560x1440@165Hz pos 0 0 
-output DP-1 subpixel rgb
-
-output DP-2 mode 1920x1080@200Hz pos 2560 100
-output DP-2 subpixel rgb
+# Load Per-System Config
+include ~/.config/sway/vars_$(hostname)
 
 # Load X DPI
 exec xrdb -load ~/.Xdefaults
@@ -207,7 +190,7 @@ exec xrdb -load ~/.Xdefaults
 include ~/.config/sway/conf.d/*
 
 # Focus Primary Monitor
-exec swaymsg focus output DP-1
+exec swaymsg focus output $D1
 
 # Include System Config
 include @sysconfdir@/sway/config.d/*

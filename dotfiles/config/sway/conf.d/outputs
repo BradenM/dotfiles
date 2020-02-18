@@ -2,14 +2,18 @@
 # For a list of devices run: swaymsg -t get_outputs
 
 # Output Config
-#output DP-1 mode 2560x1440@165Hz
-#output DP-1 subpixel rgb
+output $D1 mode $D1mode pos $D1posX $D1posY 
+output $D1 subpixel rgb
 
-#output DP-2 mode 1920x1080@240Hz
-#output DP-2 subpixel rgb
+output $D2 mode $D2mode pos $D2posX $D2posY 
+output $D2 subpixel rgb
 
-# Load X DPI
-#exec xrdb ~/.Xdefaults
+# Default Workspaces
+workspace $ws1 output $D1
+workspace $ws2 output $D1
+workspace $ws3 output $D1
 
-# Focus Primary Monitor
-#exec swaymsg focus output DP-1
+workspace $ws7 output $D2
+workspace $ws8 output $D2
+workspace $ws9 output $D2
+workspace $ws10 output $D2

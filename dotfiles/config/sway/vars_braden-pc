@@ -1,0 +1,14 @@
+# SwayWM Vars
+# Profile: braden-pc (Laptop)
+
+# Display Config
+#: Primary
+set $D1 eDP-1
+set $D1mode 3000x2000@60Hz 
+set $D1posX 0
+set $D1posY 0
+#: Secondary
+set $D2 DP-1
+set $D2mode 2560x1440@60Hz 
+set $D2posX 0
+set $D2posY 2000
