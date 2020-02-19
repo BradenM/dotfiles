@@ -124,6 +124,7 @@ dotfiles:
   d_alacritty:
     src: config/alacritty
     dst: ~/.config/alacritty
+    link: link_children
   d_waybar:
     src: config/waybar
     dst: ~/.config/waybar
@@ -135,18 +136,22 @@ dotfiles:
   d_mako:
     src: config/mako
     dst: ~/.config/mako
+    link: link_children
   f_aliases.zsh:
     src: oh-my-zsh/custom/aliases.zsh
     dst: ~/.oh-my-zsh/custom/aliases.zsh
+    link: link
   f_loadenv.zsh:
     src: oh-my-zsh/custom/loadenv.zsh
     dst: ~/.oh-my-zsh/custom/loadenv.zsh
   f_color.zsh:
     src: oh-my-zsh/custom/color.zsh
     dst: ~/.oh-my-zsh/custom/color.zsh
+    link: link
   f_p10k.zsh:
     src: p10k.zsh
     dst: ~/.p10k.zsh
+    link: link
 profiles:
   braden-desktop:
     dotfiles:
