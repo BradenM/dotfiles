@@ -52,9 +52,7 @@ no_focus [window_role="pop-up"]
 exec swayidle -w timeout 300 ~/.config/scripts/lock.sh
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec j4-dmenu-desktop --dmenu='bemenu -i'  --term='alacritty'
-bindsym $mod+d exec wofi
-
+bindsym $mod+d exec wofi --term alacritty 
 # Open Browser
 bindsym $mod+g exec GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox
 

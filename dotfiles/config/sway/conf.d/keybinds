@@ -1,0 +1,13 @@
+####
+## Sway WM Generic Keybinds
+####
+
+
+# Clear Notifications
+bindsym $mod+Shift+P exec makoctl dismiss -a
+
+# Take a screenshot (to clipboard)
+bindsym $mod+Print exec grim -g "$(slurp)" - | wl-copy
+
+# Take a video (~/.scripts/sway.sh)
+bindsym $mod+Shift+Print exec ~/.config/sway/scripts/screenrec.sh

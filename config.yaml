@@ -170,10 +170,12 @@ profiles:
       dpi: 109
       system_font: Noto Sans Display
       system_font_mono: Noto Mono
+      gpu_vdpau: radeonsi
   braden-pc:
     include:
     - braden-desktop
     variables:
-      dpi: 260
+      dpi: 192
       system_font: Noto Sans Display
       system_font_mono: Noto Mono
+      gpu_vdpau: nouveau

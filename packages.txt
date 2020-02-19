@@ -1,14 +1,14 @@
 ## List of required packages
 
 # Font Config
-freetype2-infinality-remix
-fontconfig-infinality-remix 
-cairo-infinality-remix
+#freetype2-infinality-remix
+#fontconfig-infinality-remix 
+#cairo-infinality-remix
 
 # Fonts
 fontforge
-otf-san-francisco
-otf-san-francisco-mono
+#otf-san-francisco
+#otf-san-francisco-mono
 otf-font-awesome
 noto-fonts-emoji
 
@@ -18,7 +18,7 @@ numix-circle-icon-theme-git
 
 # Tools
 direnv
-nvim
+neovim
 autojump
 grim
 slurp

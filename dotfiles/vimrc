@@ -78,6 +78,9 @@ set number
 " Encoding
 set encoding=utf-8
 
+" Enable filetype plugin
+filetype plugin on
+
 " Always use System Clipboard
 set clipboard+=unnamedplus
 

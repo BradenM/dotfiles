@@ -3,11 +3,21 @@
 #
 # See @ http://zsh.sourceforge.net/Intro/intro_3.html
 
+# Keychain
+keychain id_rsa id_git --agents ssh --quiet
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Enable ZSH Profiling
 #zmodload zsh/zprof
 
 # Set Theme
-ZSH_THEME="spaceship"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -17,48 +27,32 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Disable Update Prompt (Load time)
 DISABLE_UPDATE_PROMPT=true
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
 # Oh-My-Zsh Plugins
 plugins=(
-  #systemd
-  #alias-finder
-  #autoupdate # Auto Updater for Plugins
-  #ssh-agent
-  #fd 	      # fd (find replacement)
-  #httpie
-  #rsync
-  #sudo
-  #docker
-  #yarn
-  #rbenv
-  #pyenv
-  #poetry # Python env management
-  zsh-nvm
-  zsh-autosuggestions
-  autojump
-  gitfast
-  git-extras
-  evalcache
-  zsh-syntax-highlighting
+  httpie		     # httpie completions
+  yarn			     # yarn completions
+  rbenv			     # rbenv completions
+  fd 			     # find replacement
+  rsync			     # rsync aliases
+  rbenv			     # rbenv completions
+  zsh-nvm		     # nvm lazy load and completions
+  zsh-autosuggestions	     # auto suggestions
+  autojump		     # 'j' command - smart cd
+  gitfast		     # git... but fast
+  git-extras		     # awesome git scripts
+  evalcache		     # cache 'eval' commands
+  alias-tips		     # informs you of an alias if one exists
+  zsh-syntax-highlighting    # !! must be last - syntx hl
 )
 
 # ZSH Autosuggest
 ZSH_AUTOSUGGEST_STRATEGY=(history)
-ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_USE_ASYNC=0 # was kind of buggy...
 
 # Zsh Syntax Highlight
 typeset -A ZSH_HIGHLIGHT_STYLES
 
+# Zsh Record Mode (used for svgterm apps)
 if [ -n "$ZSH_REC_MODE" ]; then
   echo "ZSH LOADED IN REC MODE"
   noload=(zsh-autosuggestions)
@@ -71,62 +65,8 @@ if [ -n "$ZSH_REC_MODE" ]; then
   alias lstree="tree -a -L 2"
 fi
 
-#ZSH_HIGHLIGHT_STYLES[default]=none
-#ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=green
-#ZSH_HIGHLIGHT_STYLES[alias]=none
-#ZSH_HIGHLIGHT_STYLES[builtin]=none
-#ZSH_HIGHLIGHT_STYLES[function]=none
-#ZSH_HIGHLIGHT_STYLES[command]=green
-#ZSH_HIGHLIGHT_STYLES[precommand]=none
-#ZSH_HIGHLIGHT_STYLES[commandseparator]=none
-#ZSH_HIGHLIGHT_STYLES[hashed-command]=none
+# ZSH Syntax Highlight
 ZSH_HIGHLIGHT_STYLES[path]=cyan
-#ZSH_HIGHLIGHT_STYLES[globbing]=none
-#ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue
-#ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=none
-#ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=none
-#ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
-#ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
-#ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
-#ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
-#ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
-#ZSH_HIGHLIGHT_STYLES[assign]=none
-
-# Spaceship Prompt
-SPACESHIP_PROMPT_ORDER=(
-  # time        # Time stamps section (Disabled)
-  user # Username section
-  dir  # Current directory section
-  host # Hostname section
-  git  # Git section (git_branch + git_status)
-  # hg          # Mercurial section (hg_branch  + hg_status)
-  # package     # Package version (Disabled)
-  node # Node.js section
-  ruby # Ruby section
-  # elixir        # Elixir section
-  # xcode       # Xcode section (Disabled)
-  # swift       # Swift section
-  # golang      # Go section
-  # php         # PHP section
-  # rust        # Rust section
-  # haskell     # Haskell Stack section
-  # julia       # Julia section (Disabled)
-  docker
-  aws  # Amazon Web Services section
-  venv # virtualenv section
-  # conda       # conda virtualenv section
-  pyenv # Pyenv section
-  # dotnet      # .NET section
-  # ember       # Ember.js section (Disabled)
-  # terraform   # Terraform workspace section
-  exec_time # Execution time
-  line_sep  # Line break
-  # battery     # Battery level and status
-  # vi_mode     # Vi-mode indicator (Disabled)
-  jobs      # Background jobs indicator
-  exit_code # Exit code section
-  char      # Prompt character
-)
 
 # ZSH-NVM Config
 export NVM_DIR="$HOME/.nvm"
@@ -136,81 +76,20 @@ export NVM_NO_USE=true
 # Load Oh-My-Zsh
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+## User configuration
 
-# Config Aliases
-alias vim="nvim"
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias src="source ~/.zshrc"
-
-# Dotdrop
-export DOTFILES="$HOME/dotfiles"
-alias dotdrop="$DOTFILES/dotdrop.sh --cfg=$DOTFILES/config.yaml"
-# Dotfile Paths
-export DOTF_SCRIPTS="$HOME/.scripts"
-
-# Spaceship Theme Options
-SPACESHIP_CHAR_SYMBOL="❯ "
-
-# IP Aliases
-alias myip="ip addr | grep -m 1 -o '192.*.*.*' | cut -d '/' -f 1"
-alias wanip="curl -s -X GET https://checkip.amazonaws.com"
-
-# cls Alias (Prints ls with permission numerical values)
-alias cls="ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}'"
-
-# Aliases
-alias ll="ls -l"
-alias la="ls -a"
-
-# Jabba (Java Version Manager)
-# [ -s "/home/bradenmars/.jabba/jabba.sh" ] && source "/home/bradenmars/.jabba/jabba.sh"
-
-# Zsh rec mode
-if [ -n "$ZSH_REC_MODE" ]; then
-  pip >/dev/null
-  clear
-fi
-
-# Spotify (Arch w/ Snap)
-alias spotify="nohup snap run spotify --force-device-scale-factor=2 > /dev/null 2> /dev/null < /dev/null &"
-
-# Text Color
-BLACK=$(tput setaf 0)
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-LIME_YELLOW=$(tput setaf 190)
-POWDER_BLUE=$(tput setaf 153)
-BLUE=$(tput setaf 4)
-MAGENTA=$(tput setaf 5)
-CYAN=$(tput setaf 6)
-WHITE=$(tput setaf 7)
-BRIGHT=$(tput bold)
-NORMAL=$(tput sgr0)
-BLINK=$(tput blink)
-REVERSE=$(tput smso)
-UNDERLINE=$(tput smul)
-
-# Disk Analyzer
-alias disk-analyze="sudo baobab"
-
-# Safe RM
-alias rm='trash'
-
-# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
-alias cp='gcp'
-
-# Load Dotfiles
+# Load Scripts
 source "$DOTF_SCRIPTS/load"
 
-
-# Startup
-if [ $(tty) = "/dev/tty1" ]; then
+# Startup Sway
+if [ "$(tty)" = "/dev/tty1" ]; then
 	sway
 	exit 0
 fi
 
 # Report ZSH Profiling
 #zprof
+
+## Powershell10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

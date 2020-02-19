@@ -1,5 +1,5 @@
 {
-    "layer": "bottom",
+    "layer": "top",
     "position": "bottom",
     "height": 28,
     "output": "DP-1",
@@ -114,6 +114,7 @@
         "interval": 5
     },
     "tray": {
-        "icon-size": 18
+        "icon-size": 18,
+	"spacing": 10
     }
 }

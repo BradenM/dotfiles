@@ -5,6 +5,7 @@
 for_window [title="crisiscleanup-3-web - Google Chrome"] move to workspace $ws7
 for_window [instance="code"] move to workspace $ws1
 for_window [instance="nextcloud"] layout floating
+for_window [instance="mpv"] layout floating
 #: Comms Workspace
 for_window [instance="mailspring"] move to workspace $ws10
 for_window [instance="discord"] move to workspace $ws10
@@ -19,6 +20,9 @@ exec QT_QPA_PLATFORM=xcb nextcloud
 
 # Waybar
 exec_always ~/.config/waybar/waybar.sh
+
+# Network Manager
+exec nm-applet --indicator
 
 ## Communication
 #: startup
