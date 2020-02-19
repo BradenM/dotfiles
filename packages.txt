@@ -27,7 +27,5 @@ fd
 jq
 git-extras
 time
+keychain
 
-# Music
-spotify-tui
-spotifyd-full

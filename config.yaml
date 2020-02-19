@@ -141,6 +141,9 @@ dotfiles:
   f_loadenv.zsh:
     src: oh-my-zsh/custom/loadenv.zsh
     dst: ~/.oh-my-zsh/custom/loadenv.zsh
+  f_color.zsh:
+    src: oh-my-zsh/custom/color.zsh
+    dst: ~/.oh-my-zsh/custom/color.zsh
 profiles:
   braden-desktop:
     dotfiles:
@@ -166,6 +169,7 @@ profiles:
     - d_mako
     - f_aliases.zsh
     - f_loadenv.zsh
+    - f_color.zsh
     variables:
       dpi: 109
       system_font: Noto Sans Display

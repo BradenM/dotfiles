@@ -11,3 +11,4 @@ bindsym $mod+Print exec grim -g "$(slurp)" - | wl-copy
 
 # Take a video (~/.scripts/sway.sh)
 bindsym $mod+Shift+Print exec ~/.config/sway/scripts/screenrec.sh
+
