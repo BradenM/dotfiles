@@ -144,6 +144,9 @@ dotfiles:
   f_color.zsh:
     src: oh-my-zsh/custom/color.zsh
     dst: ~/.oh-my-zsh/custom/color.zsh
+  f_p10k.zsh:
+    src: p10k.zsh
+    dst: ~/.p10k.zsh
 profiles:
   braden-desktop:
     dotfiles:
@@ -170,6 +173,7 @@ profiles:
     - f_aliases.zsh
     - f_loadenv.zsh
     - f_color.zsh
+    - f_p10k.zsh
     variables:
       dpi: 109
       system_font: Noto Sans Display
