@@ -2,6 +2,7 @@
 
 # Pyenv
 _evalcache pyenv init -
+_evalcache pyenv virtualenv-init -
 
 # Pipx Completions
 _evalcache register-python-argcomplete pipx

@@ -42,6 +42,8 @@ plugins=(
   git-extras		     # awesome git scripts
   evalcache		     # cache 'eval' commands
   alias-tips		     # informs you of an alias if one exists
+  copyzshell		     # copy zsh config over ssh
+  systemd		     # systemd aliases
   zsh-syntax-highlighting    # !! must be last - syntx hl
 )
 
@@ -88,3 +90,7 @@ source "$DOTF_SCRIPTS/load"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# start sway
+if [ "$(tty)" = "/dev/tty1" ]; then
+	exec sway >> /var/log/sway/sway.log 2>&1
+fi

@@ -6,8 +6,8 @@ use_nvm() {
 
   nvm_sh=~/.nvm/nvm.sh
   if [[ -e $nvm_sh ]]; then
-    source $nvm_sh
-    nvm use $node_version
+    source "$nvm_sh"
+    nvm use "$node_version"
   fi
 }
 
@@ -19,6 +19,7 @@ use_pyenv() {
   py_sh=/home/bradenmars/.pyenv/bin/pyenv
   if [[ -e $py_sh ]]; then
     eval "$($py_sh init -)"
+    eval "$($py_sh virtualenv-init -)"
     pyenv shell $py_version
   fi
 }

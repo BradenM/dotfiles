@@ -39,3 +39,9 @@ alias disk-analyze="su -c baobab"
 
 # Nextcloud - Find Conflicted Files
 alias nc-conflict="fd -HIg '*conflicted*'"
+
+# LastPass - Fuzzy Search
+search_lastpass() {
+	lpass show --all $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+}
+alias lpfind="search_lastpass"

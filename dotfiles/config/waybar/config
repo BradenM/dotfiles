@@ -2,7 +2,6 @@
     "layer": "top",
     "position": "bottom",
     "height": 28,
-    "output": "DP-1",
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
     "modules-right": ["tray", "custom/spotify", "custom/weather", "custom/storage", "backlight", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],

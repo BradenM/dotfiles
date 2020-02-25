@@ -38,7 +38,7 @@ bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# Remove window borders
+# Set Borders
 default_border pixel 1
 default_floating_border normal
 hide_edge_borders smart
@@ -52,7 +52,7 @@ no_focus [window_role="pop-up"]
 exec swayidle -w timeout 300 ~/.config/scripts/lock.sh
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec wofi --term alacritty 
+bindsym $mod+d exec wofi 
 # Open Browser
 bindsym $mod+g exec GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox
 
@@ -187,8 +187,12 @@ exec xrdb -load ~/.Xdefaults
 # Include configs
 include ~/.config/sway/conf.d/*
 
+# Re-enable popup focus
+no_focus [window_role="pop-up"]
+
 # Focus Primary Monitor
 exec swaymsg focus output $D1
+
 
 # Include System Config
 include @sysconfdir@/sway/config.d/*
