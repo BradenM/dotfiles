@@ -1,11 +1,10 @@
-width=800
-height=800
-mode=drun
-filter_rate=100
+mode=dmenu
 term=alacritty
 allow_markup=true
 allow_images=true
 prompt=Search
+width=1200
+height=500
 hide_scroll=true
-insensitive=true
-no_actions=true
+cache_file=/dev/null
+filter_rate=100

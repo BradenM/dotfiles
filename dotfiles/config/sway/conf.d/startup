@@ -13,10 +13,10 @@ for_window [instance="discord"] move to workspace $ws10
 for_window [instance="slack"] move to workspace $ws10
 
 # Set Default Browser
-exec "xdg-settings set default-web-browser firefox-developer-edition.desktop >/dev/null"
+#exec "xdg-settings set default-web-browser firefox-developer-edition.desktop >/dev/null"
 
 # Nextcloud
-exec QT_QPA_PLATFORM=xcb nextcloud
+exec nextcloud
 
 # Waybar
 exec_always ~/.config/waybar/waybar.sh

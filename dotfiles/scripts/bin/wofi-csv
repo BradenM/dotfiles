@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#
+# wofi_csv
+# 
+# Desc: Uses a csv file to create a menu for wofi
+# scripts are in $XDG_CONFIG_DIR/wofi and are
+# called with the filename with out the extension
+# (i.e. Menus.csv called wofi_csv Menus)
+#
+# Requirements:
+# wofi-hg
+
+
+WORKINGDIR="$HOME/.config/wofi"
+
+[ ! -f "$WORKINGDIR/$@.csv" ] && exit 0
+
+
+MAP=($WORKINGDIR/*.csv)
+LINES="$(wc -l < $MAP)"
+
+NUM_LINES=$(( $LINES+6 ))
+
+cat "$MAP" \
+    | cut -d ',' -f 1 \
+    | wofi -k /dev/null -d -p "$@ " --width 600 -L $LINES \
+    | head -n 1 \
+    | xargs -i --no-run-if-empty grep "{}" "$MAP" \
+    | cut -d ',' -f 2 \
+    | head -n 1 \
+    | xargs -i --no-run-if-empty /bin/bash -c "{}"
+
+exit 0

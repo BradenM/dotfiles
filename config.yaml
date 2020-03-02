@@ -152,6 +152,9 @@ dotfiles:
     src: p10k.zsh
     dst: ~/.p10k.zsh
     link: link
+  d_qutebrowser:
+    src: config/qutebrowser
+    dst: ~/.config/qutebrowser
 profiles:
   braden-desktop:
     dotfiles:
@@ -179,6 +182,7 @@ profiles:
     - f_loadenv.zsh
     - f_color.zsh
     - f_p10k.zsh
+    - d_qutebrowser
     variables:
       dpi: 109
       system_font: Noto Sans Display

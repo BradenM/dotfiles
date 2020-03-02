@@ -19,7 +19,7 @@ export EDITOR='nvim'
 export ARCHFLAGS="-arch x86_64"
 
 # Qt5 Wayland
-export QT_QPA_PLATFORM=wayland-egl
+export QT_QPA_PLATFORM=wayland
 export QT_WAYLAND_FORCE_DPI=physical
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
@@ -44,6 +44,9 @@ export LANG=en_US.UTF-8
 
 # CFlags
 export CFLAGS='-O2'
+
+# GNUPG
+export GPG_TTY=$(tty)
 
 # Dotfiles
 export DOTFILES="$HOME/dotfiles"
@@ -80,6 +83,9 @@ source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 # XDG Config
 export XDG_CONFIG_HOME=/home/bradenmars/.config
 
+# Scripts
+export PATH="$PATH:/home/bradenmars/.scripts/bin"
+
 # Android Env
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:~/.android/avd
@@ -88,3 +94,14 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
+
+# LastPass
+export LPASS_AGENT_TIMEOUT=0
+
+# Qutebrowser
+export QUTE_DOWNLOAD_DIR="$HOME/Downloads"
+
+# Rofi -> Wofi
+export ROFI_CMD="wofi"
+export ROFI_ARGS="--conf $XDG_CONFIG_HOME/wofi/quteconfig -d"
+

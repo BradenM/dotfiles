@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Trim video with ffmpeg
+
+# Helpers
+. "$HOME/.scripts/colors"
+
+# File Input
+INPUT="$1"
+
+# Output
+OUT_DEFAULT="$(basename -s .mp4 $INPUT)-trimmed.mp4"
+OUTPUT="${2:-$OUT_DEFAULT}"
+
+# Prompt Question
+prompt_q() { 
+ printf "%s? %s%s %s(HH:MM:SS)%s: " "$BOLD" "$1" "$NORMAL" "$DIM" "$NORMAL"
+}
+
+# Trim area
+prompt_q "Start Time"
+read -r TRIM_START
+
+prompt_q "End Time"
+read -r TRIM_END
+
+printf "\n%sTrimming %s -> [%s - %s] ==> %s\n" "$BOLD" "$INPUT" "$TRIM_START" "$TRIM_END" "$OUTPUT"
+
+# Clear
+tput clear
+
+# Report
+read -d '' report <<- EOF
+
+
+| ${BRIGHT}${BOLD}~~ FFMPEG TRIM ~~${NORMAL}
+|
+| ${BOLD}==> ${CYAN}Trimming: ${NORMAL}${INPUT}
+| ${BOLD}==> ${CYAN}Range: ${NORMAL}${TRIM_START} - ${TRIM_END}
+|
+|
+| ${BOLD}==> ${CYAN}Output: ${NORMAL}${OUTPUT}
+|
+EOF
+
+# Trim
+ffmpeg -ss "$TRIM_START" -i "$INPUT" -to "$TRIM_END" -c copy "$OUTPUT" 
+
+echo "$report"

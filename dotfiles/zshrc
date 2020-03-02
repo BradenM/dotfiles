@@ -3,8 +3,11 @@
 #
 # See @ http://zsh.sourceforge.net/Intro/intro_3.html
 
+# GNUPG Agent
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
 # Keychain
-keychain id_rsa id_git --agents ssh --quiet
+keychain id_git --agents ssh --quiet
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -89,8 +92,3 @@ source "$DOTF_SCRIPTS/load"
 ## Powershell10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# start sway
-if [ "$(tty)" = "/dev/tty1" ]; then
-	exec sway >> /var/log/sway/sway.log 2>&1
-fi

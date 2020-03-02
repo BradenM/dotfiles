@@ -1,4 +1,4 @@
-# Zsh Shell Color Vars
+#!/usr/bin/env bash
 
 # Text Color
 BLACK=$(tput setaf 0)

@@ -1,17 +1,18 @@
 * {
-	font-family: "Noto Sans Display";
+	font-family: "FiraCode Nerd Font";
+	font-weight: 450;
 	border: none;
 	outline: none;
 }
 
-window {
+#window {
 	margin: 5px;
 	background-color: transparent;
 }
 
 #entry {
-	background-color: red;
 	border: none;
+	overflow:hidden;
 	margin: 5px;
 }
 
@@ -26,23 +27,39 @@ window {
 
 #scroll {
 	margin: 5px;
-	background-color: rgba(35, 31, 32, 0.85);
+	background-color: rgba(26, 26, 26, 0.85);
 	border-radius: 2px;
+	font-size: 1.25em;
 	padding: 10px;
-	border: 2px solid rgba(0, 157, 229, 1);
+	#border: 2px solid rgba(0, 157, 229, 1);
+	overflow:hidden;
+	#border: 1px solid rgba(246, 246, 239, 0.85);
+	box-shadow: 0 8px 6px -6px rgba(246, 246, 239, 0.55);
 }
 
 #outer-box {
 	margin: 5px;
+	border: none !important;
 }
 
 #inner-box {
 	margin: 5px;
+	border: none !important;
 }
 
 #text {
 	margin: 5px;
 	padding: 10px;
-	color: rgba(217, 216, 216, 1);
+	#color: #1a1a1a; 
 	border: none;
+}
+
+#entry:unselected {
+	color: rgba(217, 216, 216, 1);
+}
+
+#entry:selected {
+	background-color: transparent;
+	color: #fa8419;
+	font-weight: 600;
 }

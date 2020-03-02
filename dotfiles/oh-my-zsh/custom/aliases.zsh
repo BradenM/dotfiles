@@ -4,6 +4,7 @@
 alias vim="nvim"	# neovim
 alias rm='trash'	# deletes to trash
 alias cp='gcp'		# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
+alias ls='colorls --gs' # Colorls
 
 # Config Aliases
 alias zshconfig="vim ~/.zshrc"
@@ -45,3 +46,6 @@ search_lastpass() {
 	lpass show --all $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
 }
 alias lpfind="search_lastpass"
+
+# System Info
+alias sysinfo='inxi -Fxxxz'

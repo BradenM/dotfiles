@@ -23,11 +23,11 @@ font pango:DejaVu Sans Mono 8
 # exec xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+#set $refresh_i3status killall -SIGUSR1 i3status
+#bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+#bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+#bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+#bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -39,22 +39,18 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # Set Borders
-default_border pixel 1
+default_border pixel 2
 default_floating_border normal
 hide_edge_borders smart
 smart_gaps on
-gaps inner 10
+gaps inner 6
+gaps outer 2
 
 # Disable popup focus
-no_focus [window_role="pop-up"]
+#no_focus [window_role="pop-up"]
 
 # Sway Idle
 exec swayidle -w timeout 300 ~/.config/scripts/lock.sh
-
-# start dmenu (a program launcher)
-bindsym $mod+d exec wofi 
-# Open Browser
-bindsym $mod+g exec GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox
 
 # change focus
 bindsym $mod+j focus left
@@ -149,7 +145,8 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+c reload
 
 # exit Sway
-bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit Sway? This will end your Wayland session.' -B 'Yes, exit Sway' 'swaymsg exit'"
+#bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit Sway? This will end your Wayland session.' -B 'Yes, exit Sway' 'swaymsg exit'"
+bindsym $mod+Shift+e exec 'wofi-csv power'
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -188,11 +185,13 @@ exec xrdb -load ~/.Xdefaults
 include ~/.config/sway/conf.d/*
 
 # Re-enable popup focus
-no_focus [window_role="pop-up"]
+#no_focus [window_role="pop-up"]
 
 # Focus Primary Monitor
 exec swaymsg focus output $D1
 
-
 # Include System Config
 include @sysconfdir@/sway/config.d/*
+
+# Start
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"

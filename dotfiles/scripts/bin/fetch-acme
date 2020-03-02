@@ -1,0 +1,25 @@
+#!/usr/bin/env bash 
+# Fetch ACME Certs from PFSense Router
+
+# Helpers
+. "$HOME/.scripts/colors"
+
+# Config
+REMOTE_HOST=pfsense.bradenmars.me
+
+# Directories
+ACME="/tmp/acme"
+DOMAIN='*.bradenmars.me'
+ROOT="root@$REMOTE_HOST:$ACME/bradenmars.me/$DOMAIN"
+
+# Params
+DEST="$1"
+
+printf "%sFetching ACME Certs from %s%s\n" "$BOLD" "$CYAN" "$REMOTE_HOST"
+printf "%s%s" "$NORMAL" "$YELLOW"
+
+mkdir -p "$DEST"
+rsync -avz --progress -h "$ROOT" "$DEST" 
+
+printf "%s" "$BOLD"
+printf "%sSaved to: %s%s%s\n" "$GREEN" "$WHITE" "$UNDERLINE" "$DEST"

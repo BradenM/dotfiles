@@ -1,0 +1,6 @@
+logout,"swaymsg exit"
+reboot,"sudo systemctl reboot"
+power off,"sudo systemctl poweroff"
+suspend,"sudo systemctl suspend"
+Lock Screen Off,"lock off"
+lock,"/home/bradenmars/.config/sway/scripts/lock.sh"

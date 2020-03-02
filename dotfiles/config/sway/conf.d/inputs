@@ -4,6 +4,11 @@
 # Variables
 set $mouse "5426:67:Razer_Razer_DeathAdder_Chroma"
 
+# Keyboard
+input type:keyboard {
+    xkb_layout us
+}
+
 # Mouse Config
 input type:pointer {
     accel_profile flat
