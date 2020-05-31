@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Colors
+. "$HOME/.scripts/colors"
+
+# Rip Grep Replace
+
+FIND="$1"
+REPLACE="$2"
+
+echo "Finding and replacing all instances of < ${BOLD}${MAGENTA}${FIND}${NORMAL} > with < ${BOLD}${CYAN}${REPLACE}${NORMAL} >"
+echo 
+
+rg -F "$FIND"
+
+sleep 1
+
+rg -uu -F "$FIND" --files-with-matches | xargs sed -i "s#$FIND#$REPLACE#g"
+
+printf "\n\nResults:\n\n"
+
+rg -F "$REPLACE"
+
