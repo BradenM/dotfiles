@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+pkill xdg-desktop-por
+sleep 2
+OUTPUT="$1"
+
+PORT_LOG="$HOME/.local/share/xdg-desktop-portal.log"
+WLR_LOG="$HOME/.local/share/xdg-desktop-portal-wlr.log"
+
+/usr/lib/xdg-desktop-portal --verbose --replace &> $PORT_LOG &
+xdg-desktop-portal-wlr --loglevel=TRACE --output="$OUTPUT" --pixelformat=BGRx &> $WLR_LOG &
+
+echo "starting screenshare on output: $OUTPUT"
+xdp-screen-cast.py
