@@ -11,6 +11,7 @@ export PATH=/usr/local/bin:$HOME/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 export MANPATH="/usr/local/man:$MANPATH"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib:/usr/lib32"
 
 # Preferred editor for local and remote sessions
 export EDITOR='nvim'
@@ -19,7 +20,7 @@ export EDITOR='nvim'
 export ARCHFLAGS="-arch x86_64"
 
 # Qt5 Wayland
-export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORM=wayland-egl
 export QT_WAYLAND_FORCE_DPI=physical
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
@@ -78,10 +79,11 @@ export MYVIMRC="~/.vimrc"
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
-source $HOME/.local/bin/virtualenvwrapper_lazy.sh
+#source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
 # XDG Config
 export XDG_CONFIG_HOME=/home/bradenmars/.config
+export XDG_CURRENT_DESKTOP=sway
 
 # Scripts
 export PATH="$PATH:/home/bradenmars/.scripts/bin"
@@ -105,3 +107,6 @@ export QUTE_DOWNLOAD_DIR="$HOME/Downloads"
 export ROFI_CMD="wofi"
 export ROFI_ARGS="--conf $XDG_CONFIG_HOME/wofi/quteconfig -d"
 
+
+# ASDF Version Management
+export PATH="$HOME/.asdf/bin:$PATH"

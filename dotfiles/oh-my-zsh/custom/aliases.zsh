@@ -7,10 +7,14 @@ alias cp='gcp'		# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
 alias ls='colorls --gs' # Colorls
 
 # Config Aliases
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias vimrc="vim ~/.vimrc"
-alias swaycfg="vim ~/.config/sway"
+alias zshcfg="$EDITOR ~ZSH_CUSTOM"
+alias zshconfig="$EDITOR ~/.zshrc"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+alias vimrc="$EDITOR ~/.vimrc"
+alias swaycfg="$EDITOR ~/.config/sway"
+
+# Colored HowDoI
+alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
 
 # Common Helpers 
 alias ll="ls -l"
@@ -49,3 +53,19 @@ alias lpfind="search_lastpass"
 
 # System Info
 alias sysinfo='inxi -Fxxxz'
+
+# Task Warrior
+alias in='task add +in'
+
+#: GTD Tickle
+tickle () {
+    deadline=$1
+    shift
+    in +tickle wait:$deadline $@
+}
+alias tick=tickle
+
+alias think='tickle +1d'
+
+# Direnv Allow
+alias dallow='asdf exec direnv allow'

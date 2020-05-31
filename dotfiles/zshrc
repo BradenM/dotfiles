@@ -9,6 +9,7 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 # Keychain
 keychain id_git --agents ssh --quiet
 
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -34,11 +35,11 @@ DISABLE_UPDATE_PROMPT=true
 plugins=(
   httpie		     # httpie completions
   yarn			     # yarn completions
-  rbenv			     # rbenv completions
+  asdf                       # extendable version manager
+  #rbenv			     # rbenv completions
   fd 			     # find replacement
   rsync			     # rsync aliases
-  rbenv			     # rbenv completions
-  zsh-nvm		     # nvm lazy load and completions
+  #zsh-nvm		     # nvm lazy load and completions
   zsh-autosuggestions	     # auto suggestions
   autojump		     # 'j' command - smart cd
   gitfast		     # git... but fast
@@ -46,7 +47,9 @@ plugins=(
   evalcache		     # cache 'eval' commands
   alias-tips		     # informs you of an alias if one exists
   copyzshell		     # copy zsh config over ssh
+  timewarrior                # timewarrior aliases / completion   
   systemd		     # systemd aliases
+  autoupdate                 # auto update zsh plugins
   zsh-syntax-highlighting    # !! must be last - syntx hl
 )
 
@@ -92,3 +95,7 @@ source "$DOTF_SCRIPTS/load"
 ## Powershell10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+
