@@ -1,0 +1,5 @@
+# SwayWM statusbar configuration.  
+
+bar {
+  swaybar_command waybar
+}

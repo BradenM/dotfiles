@@ -4,7 +4,8 @@
 
 ## Variables
 #set $menu exec alacritty -d 55 30 -t launcher -e env TERMINAL_COMMAND="alacritty -e" "sway-launcher-desktop"
-set $browser exec /home/bradenmars/.scripts/bin/qutebrowser
+set $browser /home/bradenmars/.scripts/bin/qutebrowser
+set $browserAlt 'env GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox'
 set $menu wofi
 
 # Launcher
@@ -12,7 +13,8 @@ set $menu wofi
 bindsym $mod+d exec $menu
 
 # Open Browser
-bindsym $mod+g $browser 
+bindsym $mod+g exec $browser 
+bindsym $mod+Shift+G exec $browserAlt
 
 # Clear Notifications
 bindsym $mod+Shift+P exec makoctl dismiss -a
@@ -29,3 +31,18 @@ bindsym $mod+Shift+Print exec ~/.config/sway/scripts/screenrec.sh
 # Clipman Wofi
 bindsym $mod+p exec 'clipman pick --tool=wofi'
 
+# Voice PTT Mode
+mode "voice" {
+        # back to normal: Enter or Escape or $mod+r
+   	bindsym Escape [con_mark="swapee"] focus; unmark "swapee"; mode "default"; 
+        bindsym $mod+Scroll_Lock [con_mark="swapee"]; mode "default";
+	
+}
+
+# Discord PTT
+bindsym $mod+Scroll_Lock mark --add swapee; exec 'swaymsg [instance="discord]" focus'; mode "voice";
+
+# Media Controls
+bindsym $mod+n exec mpc toggle
+bindsym $mod+Shift+N exec mpc next
+bindsym $mod+Ctrl+n exec mpc prev

@@ -7,13 +7,15 @@ set $mouse "5426:67:Razer_Razer_DeathAdder_Chroma"
 # Keyboard
 input type:keyboard {
     xkb_layout us
+    xkb_options caps:swapescape
+
 }
 
 # Mouse Config
 input type:pointer {
     accel_profile flat
-    dwt enabled
+    #dwt enabled
 }
 
 # Seats
-seat seat0 hide_cursor 1000
+seat seat0 hide_cursor 5000
