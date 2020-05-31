@@ -57,6 +57,18 @@ Plug 'vim-syntastic/syntastic'
 " Git Gutter
 Plug 'airblade/vim-gitgutter'
 
+" Indent Guides
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Vim Multi Cursor
+" Plug 'terryma/vim-multiple-cursors'
+
+" Vim Denite
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" Vim Taskwarrior
+Plug 'blindFS/vim-taskwarrior'
+
 " Initialize plugin system
 call plug#end()
 
@@ -74,6 +86,9 @@ set laststatus=2
 
 " Line Numbers
 set number
+
+" Relative Line Numbers
+set relativenumber
 
 " Encoding
 set encoding=utf-8
@@ -107,7 +122,7 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " Airline
@@ -124,4 +139,32 @@ set updatetime=100
 
 " Set Leader
 "
-let mapleader = "\\"
+let mapleader = " "
+
+" See Leader
+set showcmd
+
+" Quick Delete Line
+nmap <leader>d dd
+
+" JK Remap
+inoremap jk <esc>
+inoremap <esc> <nop>
+
+" No Highlight Map
+map <C-n> :nohl<CR>
+
+" Remap Ctrl+W to Caps Lock (Sway caps lock -> esc)
+nmap <esc> <C-w>
+
+" Color Scheme
+colorscheme default
+set background=dark
+
+" Indent Guides
+let g:indent_guides_enable_on_vim_startup = 1
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
+
+" Set indent/tab = 4 spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
