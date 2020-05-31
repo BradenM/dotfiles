@@ -2,7 +2,7 @@
 	border: none;
 	border-radius: 0;
 	font-family: Noto Display, sans-serif;
-	font-size: 15px;
+	font-size: 14px;
 	box-shadow: none;
 	text-shadow: none;
 	transition-duration: 0s;
@@ -28,6 +28,8 @@ window#waybar.solo {
 }
 
 #workspaces button.visible {
+	border-top: 3px solid rgba(217, 216, 216, 0);
+	border-bottom: 3px solid rgba(217, 216, 216, 0);
 	color: rgba(217, 216, 216, 1);
 }
 
@@ -51,7 +53,8 @@ window#waybar.solo {
 #custom-storage,
 #custom-spotify,
 #custom-weather,
-#custom-mail {
+#custom-mail,
+#custom-timew {
 	margin: 0px 6px 0px 10px;
 }
 
