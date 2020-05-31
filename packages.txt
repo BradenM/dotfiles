@@ -28,4 +28,9 @@ jq
 git-extras
 time
 keychain
+taskwarrior
+timew
+ripgrep
+asdf
+
 
