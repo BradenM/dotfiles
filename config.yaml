@@ -164,11 +164,14 @@ dotfiles:
     src: timewarrior
     dst: ~/.timewarrior
     upignore:
-      - ".idearc"
-      - "teamwork*"
+    - .idearc
+    - teamwork*
   f_taskrc:
     src: taskrc
     dst: ~/.taskrc
+  f_tmux.conf:
+    src: tmux.conf
+    dst: ~/.tmux.conf
 profiles:
   braden-desktop:
     dotfiles:
@@ -200,6 +203,7 @@ profiles:
     - d_mpv
     - d_timewarrior
     - f_taskrc
+    - f_tmux.conf
     variables:
       dpi: 109
       system_font: Noto Sans Display
