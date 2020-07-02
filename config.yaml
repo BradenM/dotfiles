@@ -109,7 +109,7 @@ dotfiles:
     dst: ~/.config/direnv
     link: link_children
     upignore:
-      - "allow"
+      - allow
   d_sway:
     src: config/sway
     dst: ~/.config/sway
@@ -159,6 +159,9 @@ dotfiles:
   d_qutebrowser:
     src: config/qutebrowser
     dst: ~/.config/qutebrowser
+  d_mpv:
+    src: config/mpv
+    dst: ~/.config/mpv
 profiles:
   braden-desktop:
     dotfiles:
@@ -187,6 +190,7 @@ profiles:
       - f_color.zsh
       - f_p10k.zsh
       - d_qutebrowser
+      - d_mpv
     variables:
       dpi: 109
       system_font: Noto Sans Display
