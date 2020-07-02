@@ -1,0 +1,4 @@
+[global]
+disable_stdin = true
+
+
