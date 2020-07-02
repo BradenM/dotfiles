@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+
+import sys
 import dateutil.parser
 import dateutil.tz
 from dateutil.relativedelta import relativedelta
@@ -10,7 +12,11 @@ import json
 
 icon=""
 
-data = json.loads(sp.run(['timew', 'get', 'dom.active.json'], stdout=sp.PIPE).stdout)
+try:
+    data = json.loads(sp.run(['timew', 'get', 'dom.active.json'], stdout=sp.PIPE, stderr=sp.PIPE).stdout)
+except:
+    print(json.dumps(dict(text="")))
+    sys.exit(0)
 
 start_dt = dateutil.parser.isoparse(data['start'])
 now_dt = datetime.now(tz=dateutil.tz.UTC)
@@ -25,9 +31,15 @@ duration = f"{delta.hours}:{minutes}"
 
 annotation = data.get('annotation', None)
 if annotation:
-    annotation = f'# {annotation}'
+    annotation = f' # {annotation}'
+    if len(annotation) >= 20:
+        annotation = f"{annotation[:20]}..."
 
-result = f"{icon}  {data['tags'][0]} {annotation} - {duration}"
+desc = data['tags'][1]
+desc = f" # {desc}"
+proj = ' '.join([t.capitalize() for t in data['tags'][2].split('.')])
+
+result = f"{icon}  {proj}{annotation or desc} - {duration}"
 
 output = dict(text=result)
 print(json.dumps(output))

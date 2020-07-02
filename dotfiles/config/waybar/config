@@ -1,10 +1,10 @@
 {
     "layer": "top",
     "position": "bottom",
-    "output": ["DP-1"],
+    "output": ["DP-1", "DP-2"],
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/timew", "tray", "custom/spotify", "custom/weather", "custom/storage", "pulseaudio", "network", "idle_inhibitor", "clock"],
+    "modules-right": ["custom/timew", "custom/taskw", "tray", "custom/spotify", "custom/weather", "custom/storage", "pulseaudio", "network", "idle_inhibitor", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -13,8 +13,10 @@
         "disable-scroll": true
     },
     "sway/window": {
-        "max-length": 80,
-        "tooltip": false
+        "max-length": 100,
+        "format": "{}",
+        "tooltip": false,
+        "escape": true
     },
     "clock": {
         "format": "{:%a %d %b %I:%M (%H:%M)}",
@@ -58,7 +60,7 @@
         "tooltip": false
     },
     "custom/spotify": {
-        "interval": 1,
+        "interval": 5,
         "return-type": "json",
         "exec": "~/.config/waybar/modules/spotify.sh",
         "exec-if": "mpc current",
@@ -118,8 +120,15 @@
         "return-type": "json",
         "tooltip": false,
         "escape": true,
-        "exec": "~/.config/waybar/modules/timew.py",
-        "exec-if": "test ! $(timew get dom.active)  && echo '1' || echo ''"
+        "exec": "python3.8 ~/.config/waybar/modules/timew.py"
+    },
+    "custom/taskw": {
+        "format": "{} ",
+        "interval": 20,
+        "return-type": "json",
+        "tooltip": false,
+        "escape": true,
+        "exec": "~/.config/waybar/modules/taskw.py"
     },
     "tray": {
         "icon-size": 18,
