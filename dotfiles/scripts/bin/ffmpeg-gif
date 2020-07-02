@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 INPUT="$1"
+OUTPUT="$(pwd)/gif_out.gif"
 
-ffmpeg -i "$INPUT" -vf "fps=20,scale=1080:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 /tmp/gif_out.gif
+ffmpeg -i "$INPUT" -vf "fps=20,scale=1920:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 "$OUTPUT"
 
+echo "\nWrote gif to: $OUTPUT"

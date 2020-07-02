@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+. "$HOME/.scripts/colors"
+
+STAGES=('base' 'local' 'env' 'staging' 'dev')
+
+PATHS=()
+getPaths() {
+    PATHS=()
+    while IFS= read -r line
+        do PATHS+=("$line")
+    done < "$1"
+}
+
+for stage in "${STAGES[@]}"; do
+    getPaths "$1" "$stage"
+    for path in "${PATHS[@]}"; do
+        printf -v stagePath "$path" "$stage"
+        printf "\n### %sValidating:%s %s %s###%s\n" "$BOLD$WHITE" "$NORMAL$WHITE" "$stagePath" "$BOLD$WHITE" "$NORMAL"
+        vault token capabilities "$stagePath"
+    done
+done

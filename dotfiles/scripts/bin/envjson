@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+# vim: filetype=python
+
+import sys
+import json
+import re
+from pathlib import Path
+import select
+
+if select.select([sys.stdin,], [], [], 0.0)[0]:
+    content = sys.stdin.read()
+else:
+    input_file = Path(sys.argv[1]).resolve()
+    content = input_file.read_text()
+
+try:
+    data = json.loads(content)
+except Exception:
+    pass
+else:
+    output = ""
+    for key, val in data.items():
+        output += f"{key}={val}\n"
+    print(output)
+    sys.exit(0)
+
+
+data = {}
+
+for line in content.splitlines():
+    if line.startswith("#") or not len(line):
+        continue
+    try:
+        line = re.sub("\\bexport\\b", "", line, flags=re.IGNORECASE)
+        item = line.split("=")
+        if "-d" in sys.argv:
+            print("Item:", item)
+        key = item[0].strip()
+        val = item[1].strip('"')
+    except:
+        if "-d" in sys.argv:
+            print("Failed to parse:", line)
+    else:
+        data[key] = val
+
+print(json.dumps(data, indent=4))

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+FILE="$1"
+
+KEY="$()"
+
+AWS_PROFILE=default aws s3 cp --acl public-read 
+
