@@ -78,7 +78,7 @@ dotfiles:
     src: gitconfig
   f_vimrc:
     dst: ~/.vimrc
-    link: nolink
+    link: link
     src: vimrc
   f_zshenv:
     dst: ~/.zshenv
@@ -146,6 +146,7 @@ dotfiles:
   f_loadenv.zsh:
     src: oh-my-zsh/custom/loadenv.zsh
     dst: ~/.oh-my-zsh/custom/loadenv.zsh
+    link: link
   f_color.zsh:
     src: oh-my-zsh/custom/color.zsh
     dst: ~/.oh-my-zsh/custom/color.zsh
@@ -163,15 +164,18 @@ dotfiles:
   d_timewarrior:
     src: timewarrior
     dst: ~/.timewarrior
+    link: link_children
     upignore:
     - .idearc
     - teamwork*
   f_taskrc:
     src: taskrc
     dst: ~/.taskrc
+    link: link
   f_tmux.conf:
     src: tmux.conf
     dst: ~/.tmux.conf
+    link: link
 profiles:
   braden-desktop:
     dotfiles:
