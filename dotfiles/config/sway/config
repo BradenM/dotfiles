@@ -3,7 +3,7 @@
 
 # Clipman
 #exec wl-paste -t text --watch clipman --notify store
-exec wl-paste -t text --watch clipman store 1>> ~/.local/share/clipman.log 2>&1 &
+exec wl-paste -n --watch clipman store --max-items=15 1>> ~/.local/share/clipman.log 2>&1 &
 
 # Sway Config
 set $mod Mod4

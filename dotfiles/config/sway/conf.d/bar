@@ -1,5 +1,5 @@
 # SwayWM statusbar configuration.  
 
-bar {
-  swaybar_command waybar
-}
+#bar {
+#  swaybar_command ~/.config/waybar/waybar.sh
+#}

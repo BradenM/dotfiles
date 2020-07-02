@@ -8,7 +8,7 @@ set $D1mode 2560x1440@165Hz
 set $D1posX 0
 set $D1posY 0
 #: Secondary
-set $D2 HDMI-A-1
-set $D2mode 1920x1080@60Hz 
+set $D2 DP-2
+set $D2mode 2560x1440@165Hz
 set $D2posX 2560
 set $D2posY 100

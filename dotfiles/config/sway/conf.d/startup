@@ -4,7 +4,7 @@
 set $gnome-schema org.gnome.desktop.interface
 set $xsettings-schema org.gnome.settings-daemon.plugins.xsettings
 
-exec_always {
+exec {
     gsettings set $gnome-schema gtk-theme 'Arc'
     gsettings set $gnome-schema icon-theme 'Numix-Circle'
         # gsettings set $gnome-schema cursor-theme 'Xcursor-breeze'
@@ -33,7 +33,7 @@ for_window [app_id="firefoxdeveloperedition"] border none
 #exec nextcloud
 
 # Waybar
-#exec ~/.config/waybar/waybar.sh
+exec ~/.config/waybar/waybar.sh
 
 # Network Manager
 exec nm-applet --indicator
@@ -45,4 +45,5 @@ exec nm-applet --indicator
 #exec mailspring
 
 # Smart Autotiling
-exec autotiling
+exec_always killall -q autotiling && autotiling
+

@@ -20,16 +20,16 @@ bindsym $mod+Shift+G exec $browserAlt
 bindsym $mod+Shift+P exec makoctl dismiss -a
 
 # Take a screenshot (to clipboard)
-bindsym $mod+Print exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+Print exec grim -g "$(slurp -x)" - | wl-copy
 
 # Take a screenshot (to editor)
-bindsym $mod+Ctrl+Print exec 'swappy -g "$(slurp)"'
+bindsym $mod+Ctrl+Print exec 'grim -g "$(slurp -x)" - | swappy -f -'
 
 # Take a video (~/.scripts/sway.sh)
 bindsym $mod+Shift+Print exec ~/.config/sway/scripts/screenrec.sh
 
 # Clipman Wofi
-bindsym $mod+p exec 'clipman pick --tool=wofi'
+bindsym $mod+p exec 'clipman pick --tool=wofi --tool-args="--dmenu"'
 
 # Voice PTT Mode
 mode "voice" {
