@@ -36,10 +36,15 @@ plugins=(
   httpie		     # httpie completions
   yarn			     # yarn completions
   asdf                       # extendable version manager
-  #rbenv			     # rbenv completions
   fd 			     # find replacement
+  aws 			     # aws completions
   rsync			     # rsync aliases
-  #zsh-nvm		     # nvm lazy load and completions
+  flutter                    # flutter autocompletion
+  colored-man-pages	     # colorize man pages
+  common-aliases             # colorize man pages
+  copybuffer                 # binds ctrl-o to copy currently typed cmd
+  docker-compose             # docker-compose aliases
+  django                     # django aliases
   zsh-autosuggestions	     # auto suggestions
   autojump		     # 'j' command - smart cd
   gitfast		     # git... but fast
@@ -47,9 +52,17 @@ plugins=(
   evalcache		     # cache 'eval' commands
   alias-tips		     # informs you of an alias if one exists
   copyzshell		     # copy zsh config over ssh
+  taskwarrior                # taskwarrior 
   timewarrior                # timewarrior aliases / completion   
   systemd		     # systemd aliases
+  urltools		     # provides cmds urlencode/urldecode
+  web-search		     # provides web_search/google cmd
+  fancy-ctrl-z		     # ctrl-z opens/closes vim
+  encode64                   # encode/decode64 cmds
   autoupdate                 # auto update zsh plugins
+  zsh_reload                 # reload function
+  zsh-interactive-cd         # interactive tab completion for cd
+  zsh-navigation-tools       # history (and more) nav tools
   zsh-syntax-highlighting    # !! must be last - syntx hl
 )
 
@@ -89,6 +102,9 @@ source $ZSH/oh-my-zsh.sh
 # Load Scripts
 source "$DOTF_SCRIPTS/load"
 
+# Ntfy Ignores
+export AUTO_NTFY_DONE_IGNORE="nvim aws vim tmux git lazygit make"
+
 # Report ZSH Profiling
 #zprof
 
@@ -97,5 +113,4 @@ source "$DOTF_SCRIPTS/load"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 

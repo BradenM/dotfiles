@@ -15,6 +15,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib:/usr/lib32"
 
 # Preferred editor for local and remote sessions
 export EDITOR='nvim'
+export BROWSER='firefox-developer-edition'
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
@@ -42,6 +43,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Locale(s)
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.utf8
 
 # CFlags
 export CFLAGS='-O2'
@@ -106,7 +108,6 @@ export QUTE_DOWNLOAD_DIR="$HOME/Downloads"
 # Rofi -> Wofi
 export ROFI_CMD="wofi"
 export ROFI_ARGS="--conf $XDG_CONFIG_HOME/wofi/quteconfig -d"
-
 
 # ASDF Version Management
 export PATH="$HOME/.asdf/bin:$PATH"
