@@ -67,7 +67,20 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Vim Taskwarrior
-Plug 'blindFS/vim-taskwarrior'
+Plug 'blindfs/vim-taskwarrior'
+
+" Vim Tmux Nav
+Plug 'christoomey/vim-tmux-navigator'
+
+" HCL Syntax and Formatting
+Plug 'fatih/vim-hclfmt'
+Plug 'b4b4r07/vim-hcl'
+
+" Vim TOML
+Plug 'cespare/vim-toml'
+
+" Vim Markdown Composer
+Plug 'euclio/vim-markdown-composer'
 
 " Initialize plugin system
 call plug#end()
@@ -92,12 +105,16 @@ set relativenumber
 
 " Encoding
 set encoding=utf-8
+set fileencoding=utf-8
 
 " Enable filetype plugin
 filetype plugin on
 
 " Always use System Clipboard
 set clipboard+=unnamedplus
+
+" Override paste to strip new lines
+nmap p :r!/usr/bin/wl-paste -n<CR>
 
 " Highlight matching search patterns
 set hlsearch
@@ -115,7 +132,7 @@ let g:auto_save = 1 "enable autosave
 "autocmd BufWinLeave *.* mkview
 "autocmd BufWinEnter *.* silent loadview"
 
-" Syntastic Config
+" Syntastic ConfigE
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -134,11 +151,14 @@ let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 let g:prettier#autoformat_config_present = 1
 
+" Taskwarrior.vim
+let g:task_report_name = 'in'
+let g:taskrc_override = 'rc.defaultwidth=0'
+
 " Git Gutter Config
 set updatetime=100
 
 " Set Leader
-"
 let mapleader = " "
 
 " See Leader
@@ -168,3 +188,21 @@ hi IndentGuidesEven ctermbg=darkgrey
 
 " Set indent/tab = 4 spaces
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+
+" Denite Mappings
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction

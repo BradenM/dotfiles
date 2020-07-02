@@ -78,7 +78,7 @@ dotfiles:
     src: gitconfig
   f_vimrc:
     dst: ~/.vimrc
-    link: link
+    link: nolink
     src: vimrc
   f_zshenv:
     dst: ~/.zshenv
