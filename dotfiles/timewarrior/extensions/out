@@ -1,0 +1,98 @@
+color: off
+confirmation: on
+debug: off
+reports.day.axis: internal
+reports.day.cell: 15
+reports.day.day: yes
+reports.day.holidays: no
+reports.day.hours: all
+reports.day.lines: 2
+reports.day.month: no
+reports.day.spacing: 1
+reports.day.summary: yes
+reports.day.totals: no
+reports.day.week: no
+reports.day.weekday: yes
+reports.gaps.range: :day
+reports.month.cell: 15
+reports.month.day: yes
+reports.month.holidays: yes
+reports.month.hours: all
+reports.month.lines: 1
+reports.month.month: yes
+reports.month.spacing: 1
+reports.month.summary: yes
+reports.month.totals: yes
+reports.month.week: yes
+reports.month.weekday: yes
+reports.summary.holidays: yes
+reports.week.cell: 15
+reports.week.day: yes
+reports.week.holidays: yes
+reports.week.hours: all
+reports.week.lines: 1
+reports.week.month: no
+reports.week.spacing: 1
+reports.week.summary: yes
+reports.week.totals: yes
+reports.week.week: yes
+reports.week.weekday: yes
+temp.db: /home/bradenmars/.timewarrior
+temp.report.end:
+temp.report.start: 20200515T200000Z
+temp.report.tags:
+temp.version: 1.3.0
+theme.colors.exclusion: gray8 on gray4
+theme.colors.holiday: gray4
+theme.colors.label: gray4
+theme.colors.today: white
+theme.description: Built-in default
+verbose: on
+
+[
+{"id":44,"start":"20200515T200000Z","end":"20200515T210000Z","tags":["PatientConnect","arroyodev","logged"]},
+{"id":43,"start":"20200515T210000Z","end":"20200516T013437Z","tags":["CrisisCleanup","logged"]},
+{"id":42,"start":"20200516T041837Z","end":"20200516T072312Z","tags":["CrisisCleanup","logged"]},
+{"id":41,"start":"20200517T015120Z","end":"20200517T022202Z","tags":["CrisisCleanup","logged"],"annotation":"Update Events System"},
+{"id":40,"start":"20200517T022336Z","end":"20200517T045351Z","tags":["CrisisCleanup","logged"],"annotation":"Update Events System"},
+{"id":39,"start":"20200517T063856Z","end":"20200517T134812Z","tags":["CrisisCleanup","logged"],"annotation":"Update Events System"},
+{"id":38,"start":"20200518T013342Z","end":"20200518T041005Z","tags":["CrisisCleanup","logged"],"annotation":"Fix Pause/PDAS/History/Other"},
+{"id":37,"start":"20200518T222055Z","end":"20200518T231930Z","tags":["CrisisCleanup","logged"],"annotation":"Meeting"},
+{"id":36,"start":"20200519T091538Z","end":"20200519T112217Z","tags":["CrisisCleanup","logged"],"annotation":"Final Phone Fixes"},
+{"id":35,"start":"20200520T031251Z","end":"20200520T052702Z","tags":["PatientConnect","logged"],"annotation":"Learn & Model Api"},
+{"id":34,"start":"20200520T054018Z","end":"20200520T062204Z","tags":["arroyodev","logged"],"annotation":"Setup Vault"},
+{"id":33,"start":"20200521T012737Z","end":"20200521T090532Z","tags":["PatientConnect","logged"],"annotation":"GMed Overview"},
+{"id":32,"start":"20200521T203740Z","end":"20200522T003345Z","tags":["PatientConnect","logged"],"annotation":"Api Modeling"},
+{"id":31,"start":"20200522T010453Z","end":"20200522T024325Z","tags":["PatientConnect","logged"],"annotation":"Api Modeling"},
+{"id":30,"start":"20200522T035628Z","end":"20200522T070103Z","tags":["PatientConnect","logged"],"annotation":"Api Modeling"},
+{"id":29,"start":"20200522T231055Z","end":"20200522T232653Z","tags":["PatientConnect","logged"],"annotation":"GMed+Api POC"},
+{"id":28,"start":"20200523T010955Z","end":"20200523T024619Z","tags":["PatientConnect","logged"],"annotation":"GMed+Api POC"},
+{"id":27,"start":"20200523T040730Z","end":"20200523T104013Z","tags":["PatientConnect","logged"],"annotation":"GMed+Api POC"},
+{"id":26,"start":"20200524T003526Z","end":"20200524T015342Z","tags":["CrisisCleanup","logged"],"annotation":"Browser Check+Other Bugs"},
+{"id":25,"start":"20200524T025921Z","end":"20200524T092012Z","tags":["CrisisCleanup","logged"],"annotation":"Browser Check+Other Bugs"},
+{"id":24,"start":"20200526T200426Z","end":"20200526T221604Z","tags":["CrisisCleanup","logged"],"annotation":"Priority Bugs"},
+{"id":23,"start":"20200526T221612Z","end":"20200526T235340Z","tags":["CrisisCleanup","logged","meeting"],"annotation":"Weekly Meeting"},
+{"id":22,"start":"20200526T235345Z","end":"20200527T003638Z","tags":["CrisisCleanup","logged"],"annotation":"Cont. Priority Bugs"},
+{"id":21,"start":"20200527T014227Z","end":"20200527T021721Z","tags":["CrisisCleanup","logged"],"annotation":"Cont. Priority Bugs"},
+{"id":20,"start":"20200527T023305Z","end":"20200527T042042Z","tags":["CrisisCleanup","logged"],"annotation":"Cont. Priority Bugs"},
+{"id":19,"start":"20200527T053001Z","end":"20200527T091609Z","tags":["CrisisCleanup","logged"],"annotation":"Cont. Priority Bugs"},
+{"id":18,"start":"20200528T011700Z","end":"20200528T033529Z","tags":["CrisisCleanup","logged"],"annotation":"Storybook"},
+{"id":17,"start":"20200528T052850Z","end":"20200528T061509Z","tags":["CrisisCleanup","logged"],"annotation":"Storybook"},
+{"id":16,"start":"20200528T072908Z","end":"20200528T083805Z","tags":["CrisisCleanup","logged"],"annotation":"Storybook"},
+{"id":15,"start":"20200528T085504Z","end":"20200528T111736Z","tags":["CrisisCleanup","logged"],"annotation":"Bugs+Phone Fixes"},
+{"id":14,"start":"20200528T213257Z","end":"20200528T222224Z","tags":["CrisisCleanup","logged"],"annotation":"IE Support"},
+{"id":13,"start":"20200528T235149Z","end":"20200529T010026Z","tags":["CrisisCleanup","logged"],"annotation":"IE Support"},
+{"id":12,"start":"20200529T080921Z","end":"20200529T103051Z","tags":["CrisisCleanup","logged"],"annotation":"Touchup Invites"},
+{"id":11,"start":"20200529T204319Z","end":"20200529T210920Z","tags":["FlutterStock","logged"],"annotation":"Setup Env"},
+{"id":10,"start":"20200529T210925Z","end":"20200529T211011Z","tags":["PatientConnect","logged"],"annotation":"GQL Setup"},
+{"id":9,"start":"20200529T234440Z","end":"20200529T235240Z","tags":["PatientConnect","logged"],"annotation":"GQL Setup"},
+{"id":8,"start":"20200601T221741Z","end":"20200601T232919Z","tags":["CrisisCleanup","logged"],"annotation":"Weekly Meeting"},
+{"id":7,"start":"20200602T023809Z","end":"20200602T054712Z","tags":["PatientConnect","logged"],"annotation":"Continue setting up basic layout of graphql apollo server, met with Ross and fixed issue where the app wasn't building due to a bad dependency."},
+{"id":6,"start":"20200602T061348Z","end":"20200602T111330Z","tags":["PatientConnect","logged"],"annotation":"Landed on an api stack to use, setup patientconnect-api repo which will be powered by django, graphene (gql), postgres, dynamodb, and AWS. Pushed setup/configured api to repo, ready to start adding models to it."},
+{"id":5,"start":"20200602T203826Z","end":"20200602T205739Z","tags":["PatientConnect","logged"],"annotation":"Wrote up hitlist of todo topics to discuss with Ross"},
+{"id":4,"start":"20200602T214718Z","end":"20200603T025734Z","tags":["PatientConnect","logged"],"annotation":"Met with Ross to discuss list of todo items for patient connect, recovered AWS root account, setup AWS orgs and added patient connect subaccount, did a lot of DNS organizing and prepared dev/stage/prod domains for patient connect, further planned Patient connect api schema, discussed budgeting/stack requirements."},
+{"id":3,"start":"20200603T040819Z","end":"20200603T102234Z","tags":["PatientConnect","logged"],"annotation":"Setup vault instance, setup DNS for vault, setup PatientConnect SSM keystore, configured zappa prod/dev environments for deploying, wrote deploy app with AWS cdk to generate cloud formation stacks for api RDS database/VPCs/other networking related items. Created 3 seperate environments (dev/staging/prod) for deploying stacks too. Deployed dev resources successfully, zappa stack needs a bit more work."},
+{"id":2,"start":"20200603T224900Z","end":"20200604T010521Z","tags":["CrisisCleanup"],"annotation":"Phone system architecture meeting"},
+{"id":1,"start":"20200604T014724Z","end":"20200604T025259Z","tags":["FlutterStock"],"annotation":"Met with Ross and Steve to sync up and get access to git repo"}
+]
+

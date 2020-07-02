@@ -1,0 +1,72 @@
+# [Created by task 2.5.1 2/18/2020 00:29:05]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.task
+
+# Color theme (uncomment one to use)
+#include /usr/share/doc/task/rc/light-16.theme
+#include /usr/share/doc/task/rc/light-256.theme
+#include /usr/share/doc/task/rc/dark-16.theme
+#include /usr/share/doc/task/rc/dark-256.theme
+#include /usr/share/doc/task/rc/dark-red-256.theme
+#include /usr/share/doc/task/rc/dark-green-256.theme
+#include /usr/share/doc/task/rc/dark-blue-256.theme
+#include /usr/share/doc/task/rc/dark-violets-256.theme
+#include /usr/share/doc/task/rc/dark-yellow-green.theme
+#include /usr/share/doc/task/rc/dark-gray-256.theme
+#include /usr/share/doc/task/rc/dark-gray-blue-256.theme
+include /usr/share/doc/task/rc/solarized-dark-256.theme
+#include /usr/share/doc/task/rc/solarized-light-256.theme
+#include /usr/share/doc/task/rc/no-color.theme
+
+uda.reviewed.type=date
+uda.reviewed.label=Reviewed
+report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
+report._reviewed.columns=uuid
+report._reviewed.sort=reviewed+,modified+
+report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+_forcecolor=on
+rc.defaultwidth=120
+rc.detection=off
+taskd.certificate=/home/bradenmars/.task/private.cert
+taskd.key=/home/bradenmars/.task/private.key
+taskd.ca=/home/bradenmars/.task/ca.cert.pem
+taskd.server=taskwarrior.inthe.am:53589
+taskd.credentials=inthe_am/bradenmars02/28a2082a-d725-42cc-b86b-6b7d08c92ca4
+taskd.trust=ignore hostname
+
+
+report.in.columns           = id,description
+report.in.description       = Inbox
+report.in.filter            = status:pending limit:page (+in)
+report.in.labels            = ID,Description
+context.work=+@work
+context.home=+@home
+
+# Color Theme
+color.header=bold 
+color.label=bold underline
+#color.active=black on green
+#color.alternate=on gray23
+#color.pri.H=blue
+#color.pri.M=black
+#color.pri.L=color28
+#color.summary.background=white 
+color.vit.header=color16 on color231
+color.vit.selection=color231 on color68
+
+# Task Shell
+tasksh.autoclear=0
+
+# Defaults
+default.command=in
