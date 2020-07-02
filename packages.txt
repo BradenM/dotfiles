@@ -11,6 +11,7 @@ fontforge
 #otf-san-francisco-mono
 otf-font-awesome
 noto-fonts-emoji
+ttf-jetbrains-mono
 
 # GTK Theme
 arc-gtk-theme
@@ -32,5 +33,14 @@ taskwarrior
 timew
 ripgrep
 asdf
+yq
+vault
 
-
+# Editors
+pycharm-professional
+jetbrains-jre
+jdk-jetbrains
+webstorm
+webstorm-jre
+intellij-idea-ultimate-edition
+intellij-idea-ultimate-edition-jre
