@@ -3,12 +3,12 @@
 # Replacements
 alias vim="nvim"	# neovim
 alias rm='trash'	# deletes to trash
-alias cp='gcp'		# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
+alias cp='gcp -v'	# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
 alias ls='colorls --gs' # Colorls
 
 # Config Aliases
 alias zshcfg="$EDITOR ~ZSH_CUSTOM"
-alias zshconfig="$EDITOR ~/.zshrc"
+alias zshrc="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias vimrc="$EDITOR ~/.vimrc"
 alias swaycfg="$EDITOR ~/.config/sway"
@@ -27,11 +27,24 @@ alias dotdrop="$DOTFILES/dotdrop.sh --cfg=$DOTFILES/config.yaml"
 alias myip="ip addr | grep -m 1 -o '192.*.*.*' | cut -d '/' -f 1"
 alias wanip="curl -s -X GET https://checkip.amazonaws.com"
 
-# Copy PWD
+# Copy/Paste PWD
 alias cpwd='pwd | wl-copy'
+alias ppwd='cd $(wl-paste)'
 
 # ZSH Time
 alias zshtime='for i in $(seq 1 10); do /usr/bin/time -f "| Real: %es | User: %Us | Sys: %Ss |" zsh -i -c exit; done'
+
+# Date Helpers
+conv_times () {
+    intime=("$(date +'%I:%M')" "${@}" )
+    convs=()
+    for t in "${intime[@]}"; do
+        val=$(date -d"$t" +"%H:%M" )
+        convs+="$t $val\n"
+    done
+    cols=('12hr' '24hr')
+    printf "12hr 24hr\n${convs[*]}" | column -t -s' '
+}
 
 # Start SSH Agent
 alias ssha='eval $(ssh-agent)'

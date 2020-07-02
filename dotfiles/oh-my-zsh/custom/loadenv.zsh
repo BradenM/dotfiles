@@ -22,4 +22,5 @@ complete -o nospace -C /usr/bin/vault vault
 # Github Cli
 _evalcache gh completion -s zsh
 
-
+# Ntfy (notify) Completions
+_evalcache ntfy shell-integration
