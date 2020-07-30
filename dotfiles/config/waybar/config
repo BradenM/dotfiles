@@ -4,7 +4,7 @@
     "output": ["DP-1", "DP-2"],
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/timew", "custom/taskw", "tray", "custom/spotify", "custom/weather", "custom/storage", "pulseaudio", "network", "idle_inhibitor", "clock"],
+    "modules-right": ["custom/timew", "custom/taskw","cpu", "tray", "custom/spotify", "custom/weather", "custom/storage", "pulseaudio", "network", "idle_inhibitor", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -133,5 +133,10 @@
     "tray": {
         "icon-size": 18,
 	"spacing": 10
+    },
+    "cpu": {
+        "interval": 10,
+        "format": "\uf0e7 {}%",
+        "max-length": 10
     }
 }
