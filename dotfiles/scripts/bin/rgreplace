@@ -15,7 +15,7 @@ rg -F "$FIND"
 
 sleep 1
 
-rg -uu -F "$FIND" --files-with-matches | xargs sed -i "s#$FIND#$REPLACE#g"
+rg -F "$FIND" --files-with-matches | xargs sed -i "s#$FIND#$REPLACE#g"
 
 printf "\n\nResults:\n\n"
 
