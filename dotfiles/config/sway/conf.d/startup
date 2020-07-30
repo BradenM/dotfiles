@@ -16,7 +16,7 @@ exec {
 
 # Window Rules
 #: Generic
-for_window [title="crisiscleanup-3-web - Google Chrome"] move to workspace $ws7
+#for_window [title="crisiscleanup-3-web - Google Chrome"] move to workspace $ws7
 for_window [instance="code"] move to workspace $ws1
 #for_window [instance="nextcloud"] layout floating
 for_window [instance="mpv"] layout floating
