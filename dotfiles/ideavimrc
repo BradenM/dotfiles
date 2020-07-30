@@ -1,0 +1,24 @@
+source ~/.vimrc
+
+" Addon Emulations
+set easymotion
+set surround
+
+" Clipboard
+"set clipboard=cb
+"set clipboard-=ideaput
+
+" IdeaVim Settings
+set ideajoin
+
+
+" IdeaVim Maps
+map <leader>h :action ExternalJavaDoc<CR>
+map <leader>p :action ReformatWithPrettierAction<CR>
+map <leader>c :action ShowPopupMenu<CR>
+
+" Flutter
+map <leader>r :action Flutter.Toolbar.ReloadAction<CR>
+map <leader><S-r> :action Flutter.Toolbar.RestartAction<CR>
+
+map p :action $Paste<CR>

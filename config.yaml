@@ -176,6 +176,9 @@ dotfiles:
     src: tmux.conf
     dst: ~/.tmux.conf
     link: link
+  f_ideavimrc:
+    src: ideavimrc
+    dst: ~/.ideavimrc
 profiles:
   braden-desktop:
     dotfiles:
@@ -208,6 +211,7 @@ profiles:
     - d_timewarrior
     - f_taskrc
     - f_tmux.conf
+    - f_ideavimrc
     variables:
       dpi: 109
       system_font: Noto Sans Display
