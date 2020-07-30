@@ -23,4 +23,5 @@ complete -o nospace -C /usr/bin/vault vault
 _evalcache gh completion -s zsh
 
 # Ntfy (notify) Completions
-_evalcache ntfy shell-integration
+#_evalcache ntfy shell-integration
+

@@ -34,12 +34,16 @@ DISABLE_UPDATE_PROMPT=true
 # Oh-My-Zsh Plugins
 plugins=(
   httpie		     # httpie completions
+  adb   		     # adb completions
   yarn			     # yarn completions
   asdf                       # extendable version manager
   fd 			     # find replacement
   aws 			     # aws completions
   rsync			     # rsync aliases
   flutter                    # flutter autocompletion
+  python                     # python helpers
+  poetry                     # poetry completions
+  catimg                     # cat img to terminal
   colored-man-pages	     # colorize man pages
   common-aliases             # colorize man pages
   copybuffer                 # binds ctrl-o to copy currently typed cmd
