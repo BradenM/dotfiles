@@ -11,8 +11,9 @@ _evalcache register-python-argcomplete pipx
 #_evalcache direnv hook zsh
 _evalcache asdf exec direnv hook zsh
 
+
 # Ruby Env
-_evalcache rbenv init -
+#_evalcache rbenv init -
 
 
 # Vault
@@ -24,4 +25,10 @@ _evalcache gh completion -s zsh
 
 # Ntfy (notify) Completions
 #_evalcache ntfy shell-integration
+
+# Keep Cli
+#_evalcache $(curl -SL https://raw.githubusercontent.com/OrkoHunter/keep/master/completions/keep.zsh)
+
+# eksctl
+#_evalcache eksctl completion zsh
 

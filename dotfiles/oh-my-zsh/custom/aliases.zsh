@@ -3,6 +3,7 @@
 # Replacements
 alias vim="nvim"	# neovim
 alias rm='trash'	# deletes to trash
+unalias gcp
 alias cp='gcp -v'	# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
 alias ls='colorls --gs' # Colorls
 
@@ -14,6 +15,7 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias swaycfg="$EDITOR ~/.config/sway"
 
 # Colored HowDoI
+alias howdoi='howdoi -c -e duckduckgo'
 alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
 
 # Common Helpers 
@@ -33,6 +35,11 @@ alias ppwd='cd $(wl-paste)'
 
 # ZSH Time
 alias zshtime='for i in $(seq 1 10); do /usr/bin/time -f "| Real: %es | User: %Us | Sys: %Ss |" zsh -i -c exit; done'
+
+# Time a command
+timeit() {
+    /usr/bin/time -f "| Real: %es | User: %Us | Sys: %Ss |" $@
+}
 
 # Date Helpers
 conv_times () {
@@ -81,4 +88,43 @@ alias tick=tickle
 alias think='tickle +1d'
 
 # Direnv Allow
+direnv() { asdf exec direnv "$@"; } # asdf shortcut
 alias dallow='asdf exec direnv allow'
+
+# System Errors
+alias errors="journalctl -b -p err|less"
+
+# Git
+alias g="git"
+
+# Minikube
+alias mk='minikube'
+
+# Kubectx
+alias kctx='kubectx'
+
+# Android (ADB)
+adb_all () {
+  # execute adb command on all connected devices.
+  adb devices | tail -n +2 | cut -sf -1 | xargs -I X adb -s X $@
+}
+alias adba=adb_all
+alias adba-clear="adb_all shell pm clear ${ANDROID_PKG:-$1}"
+alias adba-start="adba shell am start ${ANDROID_PKG:-$1}/.MainActivity"
+alias adba-rm="adba shell uninstall ${ANDROID_PKG:-$1}"
+alias adba-ls="adb_all shell list packages -3"
+
+# ADB Event Replay
+adb-rec() {
+  record_path="${@: -1}"
+  adb_args="${@: 1:-1}"
+  echo "Recording events to: $record_path"
+  echo $adb_args
+  adb $adb_args shell getevent | grep --line-buffered ^/ | tee "$record_path"
+}
+
+adb-replay() {
+  record_path="${@: -1}"
+  adb_args="${@: 1:-1}"
+  awk '{printf "%s %d %d %d\n", substr($1, 1, length($1) -1), strtonum("0x"$2), strtonum("0x"$3), strtonum("0x"$4)}' $record_path | xargs -l adb $adb_args shell sendevent
+}
