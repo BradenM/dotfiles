@@ -1,6 +1,5 @@
 * {
     font-family: "FiraCode Nerd Font";
-    font-weight: 450;
     border: none;
     outline: none;
 }
@@ -39,12 +38,12 @@
 
 #outer-box {
     margin: 5px;
-    border: none !important;
+    border: none;
 }
 
 #inner-box {
     margin: 5px;
-    border: none !important;
+    border: none;
 }
 
 #text {

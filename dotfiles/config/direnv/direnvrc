@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ASDF Integration
-source $(asdf which direnv_use_asdf)
+source $(asdf direnv hook asdf)
 
 # Use NVM
 use_nvm() {

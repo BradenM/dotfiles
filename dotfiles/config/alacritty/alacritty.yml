@@ -56,8 +56,8 @@ key_bindings:
         - { key: Z, mods: Control|Shift, action: ToggleFullscreen }
 
         - { key: Equals, mods: Control, action: ResetFontSize }
-        - { key: Add, mods: Control|Shift, action: IncreaseFontSize }
-        - { key: Subtract, mods: Control, action: DecreaseFontSize }
+        - { key: NumpadAdd, mods: Control|Shift, action: IncreaseFontSize }
+        - { key: NumpadSubtract, mods: Control, action: DecreaseFontSize }
 
         - { key: V, mods: Control|Shift, action: Paste }
         - { key: C, mods: Control|Shift, action: Copy }
