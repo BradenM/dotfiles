@@ -7,7 +7,7 @@ set $xsettings-schema org.gnome.settings-daemon.plugins.xsettings
 exec {
     gsettings set $gnome-schema gtk-theme 'Arc'
     gsettings set $gnome-schema icon-theme 'Numix-Circle'
-        # gsettings set $gnome-schema cursor-theme 'Xcursor-breeze'
+    # gsettings set $gnome-schema cursor-theme 'Xcursor-breeze'
        # gsettings set $gnome-schema application-prefer-dark-theme '0'
        # gsettings set $xsettings-schema hinting 'full'
        # gsettings set $xsettings-schema antialiasing 'rgba'
@@ -33,7 +33,7 @@ for_window [app_id="firefoxdeveloperedition"] border none
 #exec nextcloud
 
 # Waybar
-exec ~/.config/waybar/waybar.sh
+exec_always ~/.config/waybar/waybar.sh
 
 # Network Manager
 exec nm-applet --indicator
@@ -45,5 +45,10 @@ exec nm-applet --indicator
 #exec mailspring
 
 # Smart Autotiling
-exec_always killall -q autotiling && autotiling
+exec_always ~/.config/sway/scripts/autotiling.sh
 
+# Mako Notification Manager
+exec mako
+
+# Tamefox
+exec [ -x $HOME/.config/sway/scripts/tamefox ] && $HOME/.config/scripts/tamefox

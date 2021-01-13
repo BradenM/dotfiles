@@ -8,6 +8,8 @@ set $mouse "5426:67:Razer_Razer_DeathAdder_Chroma"
 input type:keyboard {
     xkb_layout us
     xkb_options caps:swapescape
+    repeat_delay 250
+    repeat_rate 45
 
 }
 

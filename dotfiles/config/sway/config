@@ -180,19 +180,22 @@ bindsym $mod+r mode "resize"
 include ~/.config/sway/vars_$(hostname)
 
 # Load X DPI
-exec xrdb -load ~/.Xdefaults
-
-# Include configs
-include ~/.config/sway/conf.d/*
+#exec xrdb -load ~/.Xdefaults
 
 # Re-enable popup focus
 #no_focus [window_role="pop-up"]
 
 # Focus Primary Monitor
-exec swaymsg focus output $D1
+#exec swaymsg focus output $D1
 
 # Include System Config
 include @sysconfdir@/sway/config.d/*
 
+# Include configs
+include ~/.config/sway/conf.d/*
+
 # Start
-exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+#exec "systemctl --user import-environment; systemctl --user start sway-session.target"
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
