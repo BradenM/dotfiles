@@ -10,8 +10,12 @@ import select
 if select.select([sys.stdin,], [], [], 0.0)[0]:
     content = sys.stdin.read()
 else:
-    input_file = Path(sys.argv[1]).resolve()
-    content = input_file.read_text()
+    try:
+        input_file = Path(sys.argv[1]).resolve()
+    except IndexError:
+        content = sys.stdin.read()
+    else:
+        content = input_file.read_text()
 
 try:
     data = json.loads(content)

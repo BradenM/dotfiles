@@ -2,7 +2,8 @@
 
 . "$HOME/.scripts/colors"
 
-STAGES=('base' 'local' 'env' 'staging' 'dev')
+#STAGES=('base' 'local' 'env' 'staging' 'dev')
+STAGES=('local' 'dev')
 
 PATHS=()
 getPaths() {

@@ -1,10 +1,17 @@
 #!/usr/bin/env zsh
 
-PKGS=(wayland-git wlroots-git wayland-protocols-git xorg-server-xwayland-git sway-git swayidle-git swaylock-git swaybg-git qt5-wayland-git)
+#PKGS=(wayland-git wlroots-git wayland-protocols-git sway-git swayidle-git swaylock-git swaybg-git qt5-wayland-git libglvnd-git libdrm-git amdvlk-git)
 #PKGS=(wayland wlroots wayland-protocols xorg-server-xwayland sway swayidle swaylock swaybg)
+#
+PKGS=(wayland-git wlroots-git wayland-protocols-git sway-git swayidle-git swaylock-git swaybg-git qt5-wayland-git)
 
 
 echo "Fetching packages..."
+
+yay -Gf xorg-server-xwayland-git
+pushd xorg-server-git
+makepkg -sciL --skippgpcheck --needed
+popd
 
 for p in "${PKGS[@]}"; do
 	echo "Installing $p"

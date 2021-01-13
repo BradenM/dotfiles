@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-pkill xdg-desktop-por
+sudo pkill -9 xdg-desktop-por
+
 sleep 2
 OUTPUT="$1"
 
