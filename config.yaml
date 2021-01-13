@@ -168,6 +168,8 @@ dotfiles:
     upignore:
     - .idearc
     - teamwork*
+    - extensions
+    - '*.data'
   f_taskrc:
     src: taskrc
     dst: ~/.taskrc
