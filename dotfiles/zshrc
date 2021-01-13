@@ -37,13 +37,16 @@ plugins=(
   adb   		     # adb completions
   yarn			     # yarn completions
   asdf                       # extendable version manager
+  eksctl                     # eksctl completions
+  helm                       # helm completions
+  minikube                   # minikube completions
   fd 			     # find replacement
   aws 			     # aws completions
   rsync			     # rsync aliases
   flutter                    # flutter autocompletion
   python                     # python helpers
   poetry                     # poetry completions
-  catimg                     # cat img to terminal
+  #catimg                     # cat img to terminal
   colored-man-pages	     # colorize man pages
   common-aliases             # colorize man pages
   copybuffer                 # binds ctrl-o to copy currently typed cmd
@@ -51,8 +54,10 @@ plugins=(
   django                     # django aliases
   zsh-autosuggestions	     # auto suggestions
   autojump		     # 'j' command - smart cd
+  git                        # git alias/completions   
   gitfast		     # git... but fast
   git-extras		     # awesome git scripts
+  gpg-agent                  # enables gpg agent if not running
   evalcache		     # cache 'eval' commands
   alias-tips		     # informs you of an alias if one exists
   copyzshell		     # copy zsh config over ssh
@@ -63,7 +68,10 @@ plugins=(
   web-search		     # provides web_search/google cmd
   fancy-ctrl-z		     # ctrl-z opens/closes vim
   encode64                   # encode/decode64 cmds
+  kubectl                    # kubctl autocompletion
+  helm                       # helm autocompletion
   autoupdate                 # auto update zsh plugins
+  keep                       # keep cli completions
   zsh_reload                 # reload function
   zsh-interactive-cd         # interactive tab completion for cd
   zsh-navigation-tools       # history (and more) nav tools
@@ -72,7 +80,7 @@ plugins=(
 
 # ZSH Autosuggest
 ZSH_AUTOSUGGEST_STRATEGY=(history)
-ZSH_AUTOSUGGEST_USE_ASYNC=0 # was kind of buggy...
+ZSH_AUTOSUGGEST_USE_ASYNC=1 # was kind of buggy...
 
 # Zsh Syntax Highlight
 typeset -A ZSH_HIGHLIGHT_STYLES

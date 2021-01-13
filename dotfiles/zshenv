@@ -21,7 +21,8 @@ export BROWSER='firefox-developer-edition'
 export ARCHFLAGS="-arch x86_64"
 
 # Qt5 Wayland
-export QT_QPA_PLATFORM=wayland-egl
+export QT_QPA_PLATFORM=wayland
+#export QT_QPA_PLATFORM=xcb
 export QT_WAYLAND_FORCE_DPI=physical
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
@@ -32,10 +33,10 @@ export CLUTTER_BACKEND=wayland
 export SDL_VIDEODRIVER=wayland
 
 # ECORE
-export ECORE_EVAS_EVAS_ENGINE=wayland_egl
+export ECORE_EVAS_EVAS_ENGINE=wayland
 
 # ELM
-export ELM_ENGINE=wayland_egl
+export ELM_ENGINE=wayland
 
 # Java
 export _JAVA_AWT_WM_NONREPARENTING=1

@@ -69,4 +69,5 @@ color.vit.selection=color231 on color68
 tasksh.autoclear=0
 
 # Defaults
-default.command=in
+#default.command=in
+context=work

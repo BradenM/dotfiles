@@ -4,21 +4,73 @@ source ~/.vimrc
 set easymotion
 set surround
 
+" Editor Settings
+set ignorecase smartcase scrolloff=3 " 3 lines above/below cursor when scrolling
+
+
 " Clipboard
 "set clipboard=cb
 "set clipboard-=ideaput
+set clipboard+=unnamed
 
 " IdeaVim Settings
-set ideajoin
+set ideajoin " Join Lines intelligently
+set multiple-cursors " Enabled multi cursor support
+set ideamarks " Sync marks and idea bookmarks
 
+" Use Q for formatting the current paragraph (or visual selection)
+vmap Q gq
+nmap Q gqap
+
+" These create newlines like o and O but stay in normal mode
+nmap zj o<Esc>k
+nmap zk O<Esc>j
+
+" Refactorings
+vmap T :action Refactorings.QuickListPopupAction<CR>
+nmap <leader>rr :action RenameElement<CR>
+nmap <leader>rg :action Generate<CR>
+nmap <leader>rI :action OptimizeImports<CR>
+" Inspection
+nmap <leader>rc :action InspectCode<CR>
+" View Recent Files
+nmap <leader>a :action RecentChangedFiles<CR>
+
+" unimpaired mappings - from https://github.com/saaguero/ideavimrc/blob/master/.ideavimrc
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [q :action PreviousOccurence<CR>
+nnoremap ]q :action NextOccurence<CR>
+nnoremap [m :action MethodUp<CR>
+nnoremap ]m :action MethodDown<CR>
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+" Tabs
+nnoremap [b :action PreviousTab<CR>
+nnoremap ]b :action NextTab<CR>
+
+" Search
+nmap <leader>/ :action Find<CR>
+nmap <leader>\ :action FindInPath<CR>
+
+" Moving lines
+nmap [e :action MoveLineUp<CR>
+nmap ]e :action MoveLineDown<CR>
+" Moving statements
+nmap [s :action MoveStatementUp<CR>
+nmap ]s :action MoveStatementDown<CR>
 
 " IdeaVim Maps
 map <leader>h :action ExternalJavaDoc<CR>
-map <leader>p :action ReformatWithPrettierAction<CR>
+"map <leader>p :action ReformatWithPrettierAction<CR>
+map <leader>p :action ReformatCode<CR>
 map <leader>c :action ShowPopupMenu<CR>
+"map <leader>c :action :call TogglePopup()<CR>
 
 " Flutter
 map <leader>r :action Flutter.Toolbar.ReloadAction<CR>
 map <leader><S-r> :action Flutter.Toolbar.RestartAction<CR>
 
 map p :action $Paste<CR>
+
+

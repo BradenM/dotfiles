@@ -186,8 +186,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
 
-" Set indent/tab = 4 spaces
+" Set indent/tab = 4 spaces + Sane Editing
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 
 " Denite Mappings
