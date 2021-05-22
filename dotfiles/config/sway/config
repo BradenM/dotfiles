@@ -3,7 +3,7 @@
 
 # Clipman
 #exec wl-paste -t text --watch clipman --notify store
-exec wl-paste -n --watch clipman store --max-items=15 1>> ~/.local/share/clipman.log 2>&1 &
+exec wl-paste -t text -n --watch clipman store --max-items=200 1>> ~/.local/share/clipman.log 2>&1 &
 
 # Sway Config
 set $mod Mod4
@@ -101,7 +101,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+Shift+a focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -180,7 +180,7 @@ bindsym $mod+r mode "resize"
 include ~/.config/sway/vars_$(hostname)
 
 # Load X DPI
-#exec xrdb -load ~/.Xdefaults
+exec xrdb -load ~/.Xdefaults
 
 # Re-enable popup focus
 #no_focus [window_role="pop-up"]
@@ -189,13 +189,16 @@ include ~/.config/sway/vars_$(hostname)
 #exec swaymsg focus output $D1
 
 # Include System Config
-include @sysconfdir@/sway/config.d/*
+#include @sysconfdir@/sway/config.d/*
 
 # Include configs
 include ~/.config/sway/conf.d/*
 
 # Start
+#exec /usr/lib/xdg-desktop-portal -r & /usr/lib/xdg-desktop-portal-wlr
+#exec ~/.config/scripts/xdpw.sh
 #exec "systemctl --user import-environment; systemctl --user start sway-session.target"
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+#exec systemctl --user import-environment
+exec hash dbus-update-activation-environment 2>/dev/null
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK

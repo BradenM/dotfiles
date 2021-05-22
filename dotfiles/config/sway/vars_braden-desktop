@@ -3,20 +3,25 @@
 
 # Display Config
 #: Primary
-set $D1 DP-2
+set $D1 DP-1
 set $D1mode 2560x1440@165Hz
 set $D1posX 1440
 set $D1posY 640
 ##: Secondary
-set $D2 DP-3
+set $D2 DP-2
 set $D2mode 2560x1440@165Hz
 set $D2posX 0
 set $D2posY 0
 #: Tertiary
-set $D3 HDMI-A-1
-set $D3mode 1920x1080@60Hz
-set $D3posX 4000
-set $D3posY 640
+set $D3 DP-3
+set $D3mode 1920x1080@120Hz
+
+
+#: Tertiary
+#set $D3 HDMI-A-1
+#set $D3mode 1920x1080@60Hz
+#set $D3posX 4000
+#set $D3posY 640
 
 
 #set $D1 HDMI-A-1

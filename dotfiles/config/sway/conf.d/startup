@@ -7,11 +7,11 @@ set $xsettings-schema org.gnome.settings-daemon.plugins.xsettings
 exec {
     gsettings set $gnome-schema gtk-theme 'Arc'
     gsettings set $gnome-schema icon-theme 'Numix-Circle'
-    # gsettings set $gnome-schema cursor-theme 'Xcursor-breeze'
+    gsettings set $gnome-schema cursor-theme 'Xcursor-breeze'
        # gsettings set $gnome-schema application-prefer-dark-theme '0'
        # gsettings set $xsettings-schema hinting 'full'
        # gsettings set $xsettings-schema antialiasing 'rgba'
-    #gsettings set $xsettings-schema rgba 'rgb'
+    gsettings set $xsettings-schema rgba 'rgb'
 }
 
 # Window Rules
@@ -51,4 +51,7 @@ exec_always ~/.config/sway/scripts/autotiling.sh
 exec mako
 
 # Tamefox
-exec [ -x $HOME/.config/sway/scripts/tamefox ] && $HOME/.config/scripts/tamefox
+#exec [ -x $HOME/.config/sway/scripts/tamefox ] && $HOME/.config/sway/scripts/tamefox
+
+# WayVNC
+#exec [ -x $HOME/.config/sway/scripts/startvnc.sh ] && $HOME/.config/sway/scripts/startvnc.sh

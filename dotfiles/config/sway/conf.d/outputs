@@ -17,7 +17,7 @@ workspace $ws1 output $D1
 workspace $ws2 output $D1
 workspace $ws3 output $D1
 
-workspace $ws7 output $D2
+workspace $ws7 output $D3
 workspace $ws8 output $D2
 workspace $ws9 output $D2
 workspace $ws10 output $D2
