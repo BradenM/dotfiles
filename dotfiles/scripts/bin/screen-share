@@ -26,7 +26,7 @@ else
 	fi
 	if ! pgrep ffplay; then
 		unset SDL_VIDEODRIVER
-		ffplay /dev/video0 &
+		ffplay -framerate 60 -fast /dev/video0 &
 		sleep 0.5
 		# a hack so FPS is not dropping
 		swaymsg [class=ffplay] move position 1915 1050
