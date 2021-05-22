@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+shopt -s gnu_errfmt
+shopt -s nullglob
+shopt -s extglob
+
 # ASDF Integration
 source $(asdf direnv hook asdf)
 
@@ -25,6 +29,71 @@ use_pyenv() {
     eval "$($py_sh virtualenv-init -)"
     pyenv shell $py_version
   fi
+}
+
+
+# Use Minikube Profile
+use_minikube() {
+  unset MINIKUBE_PROFILE
+  local minikube_profile=$1
+
+  if [ -n "$(which minikube)" ]; then
+      MINIKUBE_PROFILE="$minikube_profile"
+      export MINIKUBE_PROFILE
+      minikube profile "$minikube_profile"
+  fi
+}
+
+
+# Use Minikube Profile
+use_minikube() {
+  unset MINIKUBE_PROFILE
+  local minikube_profile=$1
+
+  if [ -n "$(which minikube)" ]; then
+      MINIKUBE_PROFILE="$minikube_profile"
+      export MINIKUBE_PROFILE
+      minikube profile "$minikube_profile"
+  fi
+}
+
+# Use kube context + config
+use_kube() {
+    local kube_context="$1"
+    local kube_configfile="$2"
+
+    # Handle passing config name.
+    if [[ -n "${kube_configfile}" ]]; then
+        unset KUBECONFIG
+        local kube_configpath=$(find_up "$kube_configfile")
+        log_status "Resolved kubeconfig path: ${kube_configpath}"
+        if [[ -z "${kube_configpath}" ]]; then
+            log_error "Failed to find and set kubeconfig: ${kube_configfile}"
+        else
+            log_status "Setting kubeconfig: ${kube_configpath}"
+            KUBECONFIG="$kube_configpath"
+            export KUBECONFIG
+        fi
+    fi
+
+    # Handle passing context.
+    if has kubectx; then
+        unset KUBECONTEXT
+        if [[ -n "${KUBECONFIG}" ]]; then
+            KUBECONTEXT="$kube_context"
+            kubectx "$KUBECONTEXT"
+            export KUBECONTEXT
+        else
+            log_error "No active kube config file to set context for!"
+        fi
+    fi
+}
+
+
+use_sops() {
+    local path=${1:-$PWD/secrets.yaml}
+    eval "$(sops -d --output-type dotenv "$path" | direnv dotenv bash /dev/stdin)"
+    watch_file "$path"
 }
 
 export_function() {
