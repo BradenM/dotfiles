@@ -13,7 +13,8 @@ from rich.table import Table, Column
 from rich import box
 
 DATE_FORMAT = "%Y-%m-%d"
-TIME_FORMAT = "%H:%M"
+INTERVAL_FORMAT = "%H:%M"
+TIME_FORMAT = "%-I:%M%p"
 
 _, data = tw.parse_input(process=True)
 
@@ -26,13 +27,16 @@ def get_recent_entries():
             time = f"{entry['interval'].hours}h {entry['interval'].minutes}m"
             desc = entry.get("annotation", "")
             logged = "✓" if "logged" in entry["tags"] else "✘"
+            range_start = entry['start'].strftime(TIME_FORMAT)
+            range_end = entry['end'].strftime(TIME_FORMAT)
             if len(desc) >= 20:
                 desc = desc[:20] + "..."
             yield [
                 entry["id"],
                 entry["start"].strftime(DATE_FORMAT),
-                entry["tags"][0],
+                entry["tags"][2],
                 time,
+                f"{range_start}-{range_end}",
                 logged,
                 desc,
             ]
@@ -45,6 +49,7 @@ table = Table(
     "Date",
     "Project",
     "Time",
+    "Range",
     Column("Log", justify="center"),
     "Description",
     title="Recent Entries",
