@@ -18,6 +18,7 @@
 	nv = cz --no-verify
 	pr = gh pr
         patch = !git --no-pager diff --no-color
+	issue = gh issue
 [color]
 	ui = true
 [color "diff-highlight"]
@@ -36,3 +37,7 @@
 	gpgSign = true
 [diff "sopsdiffer"]
 	textconv = sops -d
+[status]
+	submoduleSummary = true
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
