@@ -7,11 +7,6 @@ _evalcache pyenv virtualenv-init -
 # Pipx Completions
 _evalcache register-python-argcomplete pipx
 
-# Direnv
-#_evalcache direnv hook zsh
-_evalcache asdf exec direnv hook zsh
-
-
 # Ruby Env
 #_evalcache rbenv init -
 
@@ -21,7 +16,8 @@ _evalcache asdf exec direnv hook zsh
 complete -o nospace -C /usr/bin/vault vault
 
 # Github Cli
-_evalcache gh completion -s zsh
+#: replaced with zsh plugin
+#_evalcache gh completion -s zsh
 
 # Ntfy (notify) Completions
 #_evalcache ntfy shell-integration
@@ -32,3 +28,5 @@ _evalcache gh completion -s zsh
 # eksctl
 #_evalcache eksctl completion zsh
 
+# Direnv
+eval "$(asdf exec direnv hook zsh)"

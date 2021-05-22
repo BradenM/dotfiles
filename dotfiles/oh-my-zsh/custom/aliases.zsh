@@ -4,8 +4,11 @@
 alias vim="nvim"	# neovim
 alias rm='trash'	# deletes to trash
 unalias gcp
+alias cat='bat'  # Bat
 alias cp='gcp -v'	# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
 alias ls='colorls --gs' # Colorls
+alias sudo='sudo -v; sudo ' # Refresh timestamp timeout each time
+alias p='pnpm'
 
 # Config Aliases
 alias zshcfg="$EDITOR ~ZSH_CUSTOM"
@@ -90,6 +93,8 @@ alias think='tickle +1d'
 # Direnv Allow
 direnv() { asdf exec direnv "$@"; } # asdf shortcut
 alias dallow='asdf exec direnv allow'
+#: Wrap tmux (see: https://github.com/direnv/direnv/wiki/Tmux)
+alias tmux='direnv exec / tmux'
 
 # System Errors
 alias errors="journalctl -b -p err|less"
@@ -102,6 +107,31 @@ alias mk='minikube'
 
 # Kubectx
 alias kctx='kubectx'
+
+# Kubernetes
+alias kevents="k get events --sort-by=.metadata.creationTimestamp"
+# Get EKS token
+ekstoken () {
+  cluster=$(kubectx -c | awk -F '/' '{print $2}')
+  echo "Retrieving token for: ${cluster}"
+  token=$(aws eks get-token --cluster "$cluster" | jq -r '.status.token')
+  echo "$token" | wl-copy
+  echo "Copied token to clipboard:"
+  echo "$token"
+}
+# Get Secret
+ksecret () {
+  k get secret -n "${3:-default}" "$1" --output="jsonpath={.data.${2}}" | base64 --decode
+}
+# Update Secret
+kupsecret() {
+  secretName="$1"
+  secretKey="$2"
+  secretValue="$3"
+  kubectl get secret -n "${4:-default}" "$secretName" -o json | jq --arg newVal "$(echo -n ${secretValue} | base64 -w 0)" $(printf '.data["%s"]=$newVal' "$secretKey") | kubectl apply -f -
+}
+# KubeSpy
+alias kspy='kubespy'
 
 # Android (ADB)
 adb_all () {
