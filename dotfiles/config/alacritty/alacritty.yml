@@ -46,8 +46,8 @@ cursor:
 # Mouse
 mouse:
         hide_when_typing: true
-        url:
-                modifiers: Control
+        #url:
+                #modifiers: Control
 
 # Key bindings
 key_bindings:
