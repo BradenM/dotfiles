@@ -29,8 +29,11 @@ Plug 'lambdalisue/suda.vim'
 "Plug 'roxma/nvim-completion-manager' | Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Nerd Tree
+Plug 'preservim/nerdtree'
 
 " Editorconfig
 Plug 'editorconfig/editorconfig-vim'
@@ -114,7 +117,7 @@ filetype plugin on
 set clipboard+=unnamedplus
 
 " Override paste to strip new lines
-nmap p :r!/usr/bin/wl-paste -n<CR>
+" nmap p :r!/usr/bin/wl-paste -n<CR>
 
 " Highlight matching search patterns
 set hlsearch
