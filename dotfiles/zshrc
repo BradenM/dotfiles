@@ -31,11 +31,15 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Disable Update Prompt (Load time)
 DISABLE_UPDATE_PROMPT=true
 
+# Auto Correct
+# ENABLE_CORRECTION="true"
+
 # Oh-My-Zsh Plugins
 plugins=(
   httpie		     # httpie completions
   adb   		     # adb completions
   yarn			     # yarn completions
+  pnpm			     # pnpm completions
   asdf                       # extendable version manager
   eksctl                     # eksctl completions
   helm                       # helm completions
@@ -45,22 +49,22 @@ plugins=(
   rsync			     # rsync aliases
   flutter                    # flutter autocompletion
   python                     # python helpers
-  poetry                     # poetry completions
+  #poetry                     # poetry completions
   #catimg                     # cat img to terminal
   colored-man-pages	     # colorize man pages
   common-aliases             # colorize man pages
   copybuffer                 # binds ctrl-o to copy currently typed cmd
   docker-compose             # docker-compose aliases
   django                     # django aliases
-  zsh-autosuggestions	     # auto suggestions
   autojump		     # 'j' command - smart cd
   git                        # git alias/completions   
   gitfast		     # git... but fast
   git-extras		     # awesome git scripts
+  gh		             # github cli
   gpg-agent                  # enables gpg agent if not running
   evalcache		     # cache 'eval' commands
-  alias-tips		     # informs you of an alias if one exists
-  copyzshell		     # copy zsh config over ssh
+  #alias-tips		     # informs you of an alias if one exists
+  #copyzshell		     # copy zsh config over ssh
   taskwarrior                # taskwarrior 
   timewarrior                # timewarrior aliases / completion   
   systemd		     # systemd aliases
@@ -71,16 +75,18 @@ plugins=(
   kubectl                    # kubctl autocompletion
   helm                       # helm autocompletion
   autoupdate                 # auto update zsh plugins
-  keep                       # keep cli completions
+  #keep                       # keep cli completions
   zsh_reload                 # reload function
   zsh-interactive-cd         # interactive tab completion for cd
   zsh-navigation-tools       # history (and more) nav tools
+  zsh-autosuggestions	     # auto suggestions
   zsh-syntax-highlighting    # !! must be last - syntx hl
+  #zsh-vim-mode               # must be loaded after syntax hl
 )
 
 # ZSH Autosuggest
-ZSH_AUTOSUGGEST_STRATEGY=(history)
-ZSH_AUTOSUGGEST_USE_ASYNC=1 # was kind of buggy...
+ZSH_AUTOSUGGEST_STRATEGY=(history match_prev_cmd completion)
+ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # Zsh Syntax Highlight
 typeset -A ZSH_HIGHLIGHT_STYLES
@@ -125,4 +131,6 @@ export AUTO_NTFY_DONE_IGNORE="nvim aws vim tmux git lazygit make"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
