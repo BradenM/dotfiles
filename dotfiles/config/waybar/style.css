@@ -1,8 +1,9 @@
 * {
 	border: none;
 	border-radius: 0;
-        font-family:Noto Display, sans-serif;
-        min-height: 0;
+  font-family: monospace;
+        /*font-family:Noto Display, sans-serif;*/
+  min-height: 0;
         /*font-family: MesloLGS NF;*/
         /*font-family: Ligconsolata;*/
 	font-size: 14px;
