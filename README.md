@@ -8,11 +8,11 @@ Does not contain everything by any means, but I add items as I can.
 Powered by [dotdrop](https://github.com/deadc0de6/dotdrop)
 
 ```
-██████████████████  ████████   bradenmars@braden-desktop
-██████████████████  ████████   -------------------------
-██████████████████  ████████   OS: Manjaro Linux x86_64
-██████████████████  ████████   Kernel: 5.13.0-1-MANJARO
-████████            ████████   Uptime: 12 hours, 14 mins
+█████████████████  ████████   bradenmars@braden-desktop
+█████████████████  ████████   -------------------------
+█████████████████  ████████   OS: Manjaro Linux x86_64
+█████████████████  ████████   Kernel: 5.13.0-1-MANJARO
+████████                        ████████   Uptime: 12 hours, 14 mins
 ████████  ████████  ████████   Packages: 2718 (pacman), 1 (flatpak)
 ████████  ████████  ████████   Shell: zsh 5.8
 ████████  ████████  ████████   Resolution: 2560x1440
