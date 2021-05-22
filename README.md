@@ -8,22 +8,19 @@ Does not contain everything by any means, but I add items as I can.
 Powered by [dotdrop](https://github.com/deadc0de6/dotdrop)
 
 ```
-██████████████████  ████████   bradenmars@braden-desktop 
-██████████████████  ████████   ------------------------- 
-██████████████████  ████████   OS: Manjaro Linux x86_64 
-██████████████████  ████████   Kernel: 5.4.0-2-MANJARO 
-████████            ████████   Uptime: 7 hours, 4 mins 
-████████  ████████  ████████   Packages: 1874 (pacman) 
-████████  ████████  ████████   Shell: zsh 5.7.1 
-████████  ████████  ████████   Resolution: 1920x1080, 1920x1080 
-████████  ████████  ████████   DE: GNOME 3.34.1 
-████████  ████████  ████████   Theme: Matcha-dark-azul [GTK2/3] 
-████████  ████████  ████████   Icons: Adwaita [GTK2/3] 
-████████  ████████  ████████   Terminal: kitty 
-████████  ████████  ████████   Terminal Font: Fira Code Retina Nerd Font Comple 
-████████  ████████  ████████   CPU: Intel i7-7700K (8) @ 4.500GHz 
-                               GPU: AMD ATI Radeon R9 290/390 
-                               GPU: Intel HD Graphics 630 
-                               Memory: 3284MiB / 31979MiB 
+██████████████████  ████████   bradenmars@braden-desktop
+██████████████████  ████████   -------------------------
+██████████████████  ████████   OS: Manjaro Linux x86_64
+██████████████████  ████████   Kernel: 5.13.0-1-MANJARO
+████████            ████████   Uptime: 12 hours, 14 mins
+████████  ████████  ████████   Packages: 2718 (pacman), 1 (flatpak)
+████████  ████████  ████████   Shell: zsh 5.8
+████████  ████████  ████████   Resolution: 2560x1440
+████████  ████████  ████████   WM: sway
+████████  ████████  ████████   Terminal: alacritty
+████████  ████████  ████████   Terminal Font: MesloLGS NF
+████████  ████████  ████████   CPU: Intel i9-10900K (20) @ 5.300GHz
+████████  ████████  ████████   GPU: AMD ATI Radeon RX 5600 OEM/5600 XT / 5700/5700 XT
+████████  ████████  ████████   Memory: 24169MiB / 64150MiB
 
 ```
