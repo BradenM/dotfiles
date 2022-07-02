@@ -4,7 +4,10 @@
 	signingKey = 034B589A81A5E04F9F60BF7D6337007435FB154C
 [core]
 	editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+        #pager = diff-so-fancy | less --tabs=4 -RFX
+        pager = delta
+	autocrlf = input
+	excludesfile = ~/.gitignore_global
 [credential]
 	helper = /usr/lib/git-core/git-credential-libsecret
 [secrets]
@@ -15,29 +18,59 @@
 	allowed = AKIAIOSFODNN7EXAMPLE
 	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 [alias]
+        #cz = !/home/bradenmars/.asdf/installs/nodejs/14.15.0/.npm/bin/cz
+        #cz = !npx -y git-cz
 	nv = cz --no-verify
 	pr = gh pr
         patch = !git --no-pager diff --no-color
 	issue = gh issue
+	search = log -p --all -S
+
 [color]
 	ui = true
+
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+        oldNormal = red bold
+        oldHighlight = red bold 52
+        newNormal = green bold
+        newHighlight = green bold 22
+
 [color "diff"]
-	meta = 11
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+        meta = 11
+        frag = magenta bold
+        commit = yellow bold
+        old = red bold
+        new = green bold
+        whitespace = red reverse
+        
 [commit]
 	gpgSign = true
+
 [diff "sopsdiffer"]
 	textconv = sops -d
+
 [status]
 	submoduleSummary = true
-[blame]
-	ignoreRevsFile = .git-blame-ignore-revs
+
+[init]
+	defaultBranch = main
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+        ;side-by-side = true
+	line-numbers = true
+	diff-so-fancy = true
+
+[merge]
+	conflictStyle = diff3
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default

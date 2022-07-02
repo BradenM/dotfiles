@@ -1,8 +1,8 @@
 source ~/.vimrc
 
 " Addon Emulations
-set easymotion
-set surround
+" set easymotion
+" set surround
 
 " Editor Settings
 set ignorecase smartcase scrolloff=3 " 3 lines above/below cursor when scrolling
@@ -19,58 +19,71 @@ set multiple-cursors " Enabled multi cursor support
 set ideamarks " Sync marks and idea bookmarks
 
 " Use Q for formatting the current paragraph (or visual selection)
-vmap Q gq
-nmap Q gqap
+#vmap Q gq
+#nmap Q gqap
+
+" Use <leader>f for formatting the current paragraph (or visual selection)
+vmap <leader>f gq
+
 
 " These create newlines like o and O but stay in normal mode
-nmap zj o<Esc>k
-nmap zk O<Esc>j
+#map zj o<Esc>k
+#nmap zk O<Esc>j
 
 " Refactorings
-vmap T :action Refactorings.QuickListPopupAction<CR>
-nmap <leader>rr :action RenameElement<CR>
-nmap <leader>rg :action Generate<CR>
-nmap <leader>rI :action OptimizeImports<CR>
+vmap T <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>rr <Action>(RenameElement)
+nmap <leader>rg <Action>(Generate)
+nmap <leader>rI <Action>(OptimizeImports)
 " Inspection
-nmap <leader>rc :action InspectCode<CR>
+nmap <leader>rc <Action>(InspectCode)
 " View Recent Files
-nmap <leader>a :action RecentChangedFiles<CR>
+nmap <leader>a <Action>(RecentChangedFiles)
 
 " unimpaired mappings - from https://github.com/saaguero/ideavimrc/blob/master/.ideavimrc
 nnoremap [<space> O<esc>j
 nnoremap ]<space> o<esc>k
-nnoremap [q :action PreviousOccurence<CR>
-nnoremap ]q :action NextOccurence<CR>
-nnoremap [m :action MethodUp<CR>
-nnoremap ]m :action MethodDown<CR>
-nnoremap [c :action VcsShowPrevChangeMarker<CR>
-nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap [q <Action>(PreviousOccurence)
+nnoremap ]q <Action>(NextOccurence)
+nnoremap [m <Action>(MethodUp)
+nnoremap ]m <Action>(MethodDown)
+nnoremap [c <Action>(VcsShowPrevChangeMarker)
+nnoremap ]c <Action>(VcsShowNextChangeMarker)
 " Tabs
-nnoremap [b :action PreviousTab<CR>
-nnoremap ]b :action NextTab<CR>
+nnoremap [b <Action>(PreviousTab)
+nnoremap ]b <Action>(NextTab)
 
 " Search
-nmap <leader>/ :action Find<CR>
-nmap <leader>\ :action FindInPath<CR>
+nmap <leader>/ <Action>(Find)
+nmap <leader>\ <Action>(FindInPath)
 
 " Moving lines
-nmap [e :action MoveLineUp<CR>
-nmap ]e :action MoveLineDown<CR>
+nmap [e <Action>(MoveLineUp)
+nmap ]e <Action>(MoveLineDown)
 " Moving statements
-nmap [s :action MoveStatementUp<CR>
-nmap ]s :action MoveStatementDown<CR>
+nmap [s <Action>(MoveStatementUp)
+nmap ]s <Action>(MoveStatementDown)
 
 " IdeaVim Maps
-map <leader>h :action ExternalJavaDoc<CR>
+"map <leader>h :action ExternalJavaDoc<CR>
+map <leader>h <Action>(QuickJavaDoc)
+map <leader>e <Action>(ShowErrorDescription)
 "map <leader>p :action ReformatWithPrettierAction<CR>
-map <leader>p :action ReformatCode<CR>
-map <leader>c :action ShowPopupMenu<CR>
+map <leader>p <Action>(ReformatCode)
+map <leader>c <Action>(ShowPopupMenu)
+map <leader>j <Action>(FileStructurePopup)
 "map <leader>c :action :call TogglePopup()<CR>
 
-" Flutter
-map <leader>r :action Flutter.Toolbar.ReloadAction<CR>
-map <leader><S-r> :action Flutter.Toolbar.RestartAction<CR>
+if &ide =~? 'webstorm'
+    map <leader>p <Action>(ReformatWithPrettierAction)<CR><Action>(ReformatCode)
+endif
 
-map p :action $Paste<CR>
+
+" Flutter
+"map <leader>r :action Flutter.Toolbar.ReloadAction<CR>
+"map <leader><S-r> :action Flutter.Toolbar.RestartAction<CR>
+
+"map p :action $Paste<CR>
+" map p <Action>($Paste)
 
 

@@ -1,11 +1,11 @@
 {
     "layer": "bottom",
     "position": "bottom",
-    "output": ["DP-1", "DP-2", "DP-3"],
+    "output": ["DP-1", "DP-2", "DP-3", "DP-4"],
     "height": 26,
     "modules-left": ["sway/workspaces", "sway/mode", "custom/timew"],
     "modules-center": ["sway/window"],
-    "modules-right": ["temperature", "memory", "cpu", "tray", "custom/spotify", "custom/weather", "custom/storage", "pulseaudio", "network", "idle_inhibitor", "clock"],
+    "modules-right": ["temperature", "memory", "cpu", "custom/separator", "tray", "custom/spotify", "custom/weather", "custom/storage", "pulseaudio", "network",  "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -111,13 +111,16 @@
         "param": "blah",
         "interval": 5
     },
+    "custom/separator": {
+        "format": " "
+    },
     "custom/timew": {
         "format": "{} ",
         "interval": 20,
         "return-type": "json",
         "tooltip": false,
         "escape": true,
-        "exec": "/home/bradenmars/.pyenv/versions/3.8.0/bin/python3.8 ~/.config/waybar/modules/timew.py"
+        "exec": "~/.config/waybar/modules/timew.py"
     },
     "custom/taskw": {
         "format": "{} ",
@@ -133,12 +136,12 @@
     },
     "cpu": {
         "interval": 10,
-        "format": "\uf0e7 {}%",
+        "format": "{usage}% ",
         "max-length": 10
     },
     "temperature": {
         "format": "{temperatureC}\u00b0C \uf2c9 ",
-        "critical-threshold": 75,
+        "critical-threshold": 75
     },
     "memory": {
         "interval": 30,

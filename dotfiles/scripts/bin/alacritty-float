@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+# shellcheck disable=SC2154
+trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+
+CONFIG_DIR="$XDG_CONFIG_HOME/alacritty"
+CONFIG_FILE="${CONFIG_DIR}/alacritty.float.yml"
+
+
+ac_float_do() {
+    swaymsg [app_id="AlacrittyOL"] "${@}"
+}
+
+ac_float_spawn() {
+    cmd=$(printf 'exec "alacritty --config-file=%s"' "$CONFIG_FILE")
+    swaymsg "$cmd"
+}
+
+ac_float_get() {
+    #swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | if (.focused) then select(.focused) else (.floating_nodes? // empty)[] end | select(.app_id=="AlacrittyOL")'
+    swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | if (.focused) then select(.focused) else (.floating_nodes? // empty)[] end | select(.app_id=="AlacrittyOL")'
+}
+
+ac_float_exists() {
+    test -z "$(ac_float_get | awk /./)" && echo 0 || echo 1
+}
+
+ac_float_visible() {
+    swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | if (.focused) then select(.focused) else (.floating_nodes? // empty)[] end | select(.app_id=="AlacrittyOL") | select(.visible)'
+}
+
+if [[ $(ac_float_exists) -eq 0 ]]; then
+    ac_float_spawn
+    sleep 1
+    ac_float_do focus
+    ac_float_do resize set width 950 height 1100
+else
+    #if [[ -z "$(ac_float_visible)" ]]; then
+        #ac_float_do scratchpad show
+        #ac_float_do move workspace current
+    #else
+        #ac_float_do move scratchpad
+    #fi
+    ac_float_spawn
+fi
+
+#ac_float_spawn

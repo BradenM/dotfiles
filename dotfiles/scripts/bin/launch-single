@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+PROC="$1"
+PID_FILE="${XDG_RUNTIME_DIR}/${PROC}-launch-single.pid"
+
+if [ -f "$PID_FILE" ]; then
+    pid=$(cat "$PID_FILE")
+    cat "$PID_FILE" | xargs kill --verbose --timeout 1000 TERM --timeout 1000 KILL --signal QUIT
+    #killall -q "$pid"
+    #while ps --no-heading -p "$PROC" >/dev/null; do sleep 1; done
+fi
+
+# Terminate already running autotiling instances
+killall -q "$PROC"
+
+# Wait until the processes have been shut down
+while pgrep -x "$PROC" >/dev/null; do sleep 1; done
+
+# Launch
+shift
+#echo "Proc: ${PROC}"
+#echo "Args: ${@}"
+
+$PROC "${@}" 2>&1 &
+pid=$!
+echo $pid > "$PID_FILE"

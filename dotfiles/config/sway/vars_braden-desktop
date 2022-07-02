@@ -3,18 +3,25 @@
 
 # Display Config
 #: Primary
-set $D1 DP-1
-set $D1mode 2560x1440@165Hz
+set $D1 DP-3
+set $D1mode 3840x2160@144Hz
 set $D1posX 1440
-set $D1posY 640
+set $D1posY 1440
 ##: Secondary
 set $D2 DP-2
 set $D2mode 2560x1440@165Hz
-set $D2posX 0
+set $D2posX 1440
 set $D2posY 0
 #: Tertiary
-set $D3 DP-3
-set $D3mode 1920x1080@120Hz
+set $D3 DP-1
+set $D3mode 2560x1440@165Hz
+set $D3posX 0
+set $D3posY 912
+
+
+#: Tertiary
+#set $D3 DP-4
+#set $D3mode 1920x1080@120Hz
 
 
 #: Tertiary
@@ -34,3 +41,7 @@ set $D3mode 1920x1080@120Hz
 #set $D2mode 2560x1440@165Hz
 #set $D2posX 2560
 #set $D2posY 220
+
+# VFIO
+#set $D1 DP-2
+#set $D2 DP-3

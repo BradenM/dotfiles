@@ -1,0 +1,18 @@
+import:
+  - /home/bradenmars/.config/alacritty/alacritty.yml
+
+# Window
+window:
+      padding:
+              x: 0
+              y: 0
+
+# Font Configuration
+font:
+        size: 10
+        normal:
+                family: MesloLGS NF
+
+# Cursor Config
+cursor:
+        style: Beam

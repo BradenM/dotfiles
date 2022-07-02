@@ -2,25 +2,28 @@
 
 # Set GTK Settings
 set $gnome-schema org.gnome.desktop.interface
-set $xsettings-schema org.gnome.settings-daemon.plugins.xsettings
+#set $xsettings-schema org.gnome.settings-daemon.plugins.xsettings
 
-exec {
+exec_always {
     gsettings set $gnome-schema gtk-theme 'Arc'
     gsettings set $gnome-schema icon-theme 'Numix-Circle'
     gsettings set $gnome-schema cursor-theme 'Xcursor-breeze'
-       # gsettings set $gnome-schema application-prefer-dark-theme '0'
-       # gsettings set $xsettings-schema hinting 'full'
-       # gsettings set $xsettings-schema antialiasing 'rgba'
-    gsettings set $xsettings-schema rgba 'rgb'
+    #gsettings set $gnome-schema application-prefer-dark-theme '1'
+    #gsettings set $xsettings-schema hinting 'full'
+    #gsettings set $xsettings-schema antialiasing 'rgba'
+    #gsettings set $xsettings-schema rgba 'rgb'
 }
 
 # Window Rules
 #: Generic
 #for_window [title="crisiscleanup-3-web - Google Chrome"] move to workspace $ws7
-for_window [instance="code"] move to workspace $ws1
+#for_window [instance="code"] move to workspace $ws1
 #for_window [instance="nextcloud"] layout floating
-for_window [instance="mpv"] layout floating
+for_window [instance="mpv"] floating true
 for_window [app_id="firefoxdeveloperedition"] border none
+for_window [title="PomoDoneApp"] border none
+for_window [title="PomoDoneApp"] layout floating
+for_window [app_id="AlacrittyOL"] floating true
 #: Comms Workspace
 #for_window [instance="mailspring"] move to workspace $ws10
 #for_window [instance="discord"] move to workspace $ws10
@@ -28,9 +31,16 @@ for_window [app_id="firefoxdeveloperedition"] border none
 
 # Set Default Browser
 #exec "xdg-settings set default-web-browser firefox-developer-edition.desktop >/dev/null"
+exec "xdg-settings set default-web-browser firefox.desktop >/dev/null"
 
 # Nextcloud
 #exec nextcloud
+
+# SSH/GPG Agents
+#exec_always "keychain --quiet id_git aur id_git aur --agents ssh,gpg"
+# exec "keychain --systemd  --agents gpg,ssh id_rsa id_git aur 35FB154C"
+# exec_always "gpg-connect-agent updatestartuptty /bye >/dev/null"
+
 
 # Waybar
 exec_always ~/.config/waybar/waybar.sh
@@ -54,4 +64,16 @@ exec mako
 #exec [ -x $HOME/.config/sway/scripts/tamefox ] && $HOME/.config/sway/scripts/tamefox
 
 # WayVNC
-#exec [ -x $HOME/.config/sway/scripts/startvnc.sh ] && $HOME/.config/sway/scripts/startvnc.sh
+exec [ -x $HOME/.config/sway/scripts/startvnc.sh ] && $HOME/.config/sway/scripts/startvnc.sh
+
+# swaywsr
+exec_always ~/.config/sway/scripts/swaywsr.sh
+
+#exec xsettingsd
+
+# keepassxc
+exec_always '~/.scripts/bin/launch-single env QT_QPA_PLATFORM=xcb keepassxc'
+
+# noisetorch
+#exec_always /usr/bin/noisetorch -i
+

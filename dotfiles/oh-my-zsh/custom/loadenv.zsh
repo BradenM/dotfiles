@@ -1,8 +1,9 @@
 # Load Commands
 
+
 # Pyenv
-_evalcache pyenv init -
-_evalcache pyenv virtualenv-init -
+#_evalcache pyenv init -
+#_evalcache pyenv virtualenv-init -
 
 # Pipx Completions
 _evalcache register-python-argcomplete pipx
@@ -28,5 +29,13 @@ complete -o nospace -C /usr/bin/vault vault
 # eksctl
 #_evalcache eksctl completion zsh
 
+# ntl
+_evalcache ntl completion:generate --shell=zsh
+
+# flux
+_evalcache flux completion zsh
+
 # Direnv
-eval "$(asdf exec direnv hook zsh)"
+#eval "$(asdf exec direnv hook zsh)"
+
+

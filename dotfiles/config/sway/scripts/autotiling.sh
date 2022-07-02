@@ -1,4 +1,3 @@
-
 #!/usr/bin/env sh
 
 # Terminate already running autotiling instances

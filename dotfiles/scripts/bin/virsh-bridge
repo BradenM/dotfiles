@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+
+NAME=""
+BRIF=""
+
+main() {
+    sudo brctl addbr "$NAME"
+    sudo brctl addif "$NAME" "$BRIF"
+    sudo dhclient "$NAME"
+    echo "Created new bridge [${NAME}] (IF: ${BRIF})."
+    sudo brctl show
+}
+
+if [[ $# -ge 2 ]]; then
+    NAME="${1}"
+    BRIF="${2}"
+    main
+else
+    echo 1>&2 "Provide [BRIDGE_NAME] and [HOST_INTERFACE] args."
+    exit 1
+fi

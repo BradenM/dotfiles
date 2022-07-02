@@ -5,7 +5,8 @@
 ## Variables
 #set $menu exec alacritty -d 55 30 -t launcher -e env TERMINAL_COMMAND="alacritty -e" "sway-launcher-desktop"
 #set $browser /home/bradenmars/.scripts/bin/qutebrowser
-set $browser 'env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox'
+#set $browser 'env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox'
+set $browser 'chromium --disable-gpu-driver-bug-workarounds --enable-accelerated-video-decode --enable-features=UseOzonePlatform,VaapiVideoDecoder --ignore-gpu-blocklist --ozone-platform=wayland --profile'
 set $browserAlt 'env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox/firefox'
 set $menu wofi
 

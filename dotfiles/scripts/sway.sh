@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Scripts for wayland/sway
 
 # Vars
@@ -15,10 +16,10 @@ sshot () {
   fi
 }
 
-# Take video
-srecord () {
-  local file_name=${1="/tmp/recording_$ISO_DATE.mp4"}
-  wf-recorder -f "${file_name}" -g "$(slurp)"
-  echo "Recording saved to: $file_name"
-  notify-send 'Success!' "Screen recording save to: $file_name"
+
+scolorpick() {
+    result=$(grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4)
+    echo "Color: $result"
+    wl-copy -n <<<"$result"
+    echo "Copied to clipboard!"
 }

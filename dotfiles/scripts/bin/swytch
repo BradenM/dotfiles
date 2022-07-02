@@ -42,7 +42,7 @@ swaymsg -t get_tree | jq -r '[
     |sort_by(.workspace, .name)[]
     |.workspace + if .focused then "* " else "  " end + .app_id + " - " +  .name + "  " + (.id|tostring)'
 )
-rm $HOME/.cache/wofi-dmenu
+rm $HOME/.cache/wofi-dmenu || true  # had to add pipe here?
 
 windows_separators=()
 colors=(blue green orange red magenta)
@@ -81,7 +81,7 @@ do
     workspace_previous=$workspace
 done
 
-HEIGHT=$(( $(printf '%s\n' "${windows_separators[@]}" | wc -l) * 30 ))
+HEIGHT=$(( $(printf '%s\n' "${windows_separators[@]}" | wc -l) * 60 ))
 
 echo $HEIGHT
 # Select window with rofi, obtaining ID of selected window

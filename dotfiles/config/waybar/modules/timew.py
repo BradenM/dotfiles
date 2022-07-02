@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env /home/bradenmars/.pyenv/versions/3.10.1/bin/python
 
 
 import sys

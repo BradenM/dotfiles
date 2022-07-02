@@ -4,12 +4,25 @@
 # Output Config
 output $D1 mode $D1mode pos $D1posX $D1posY 
 output $D1 subpixel rgb
+#output $D1 scale 1.0
+#output $D1 adaptive_sync on
+output $D1 max_render_time 1
+output $D1 render_bit_depth 10
 
-output $D2 mode $D2mode pos $D2posX $D2posY transform 90
+output $D2 mode $D2mode pos $D2posX $D2posY transform normal
 output $D2 subpixel rgb
+output $D2 max_render_time 1
+#output $D2 render_bit_depth 10
 
+output $D3 mode $D3mode pos $D3posX $D3posY
+output $D3 transform 90
+output $D3 subpixel rgb
+output $D3 max_render_time 1
+#output $D3 render_bit_depth 10
 
 #output $D3 mode $D3mode pos $D3posX $D3posY
+#output $D3 subpixel rgb
+#output $D3 mode $D3mode
 #output $D3 subpixel rgb
 
 # Default Workspaces
@@ -17,7 +30,12 @@ workspace $ws1 output $D1
 workspace $ws2 output $D1
 workspace $ws3 output $D1
 
-workspace $ws7 output $D3
+workspace $ws7 output $D2
 workspace $ws8 output $D2
-workspace $ws9 output $D2
-workspace $ws10 output $D2
+
+workspace $ws9 output $D3
+workspace $ws10 output $D3
+
+# Workspace back and forth
+workspace back_and_forth yes
+bindsym $mod+u workspace back_and_forth

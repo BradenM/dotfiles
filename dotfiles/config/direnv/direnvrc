@@ -5,7 +5,7 @@ shopt -s nullglob
 shopt -s extglob
 
 # ASDF Integration
-source $(asdf direnv hook asdf)
+#source "$(asdf direnv hook asdf)"
 
 # Use NVM
 use_nvm() {
@@ -33,16 +33,16 @@ use_pyenv() {
 
 
 # Use Minikube Profile
-use_minikube() {
-  unset MINIKUBE_PROFILE
-  local minikube_profile=$1
+#use_minikube() {
+  #unset MINIKUBE_PROFILE
+  #local minikube_profile=$1
 
-  if [ -n "$(which minikube)" ]; then
-      MINIKUBE_PROFILE="$minikube_profile"
-      export MINIKUBE_PROFILE
-      minikube profile "$minikube_profile"
-  fi
-}
+  #if [ -n "$(which minikube)" ]; then
+      #MINIKUBE_PROFILE="$minikube_profile"
+      #export MINIKUBE_PROFILE
+      #minikube profile "$minikube_profile"
+  #fi
+#}
 
 
 # Use Minikube Profile
@@ -60,12 +60,14 @@ use_minikube() {
 # Use kube context + config
 use_kube() {
     local kube_context="$1"
-    local kube_configfile="$2"
+    local kube_configfile="${2:-}"
+    local kube_configpath
+    KUBECONFIG="${KUBECONFIG:-}"
 
     # Handle passing config name.
     if [[ -n "${kube_configfile}" ]]; then
         unset KUBECONFIG
-        local kube_configpath=$(find_up "$kube_configfile")
+        kube_configpath=$(find_up "$kube_configfile")
         log_status "Resolved kubeconfig path: ${kube_configpath}"
         if [[ -z "${kube_configpath}" ]]; then
             log_error "Failed to find and set kubeconfig: ${kube_configfile}"
@@ -112,3 +114,63 @@ export_function() {
 }
 
 
+get_hash() {
+    md5sum "$1" -z | awk '{print $1}'
+}
+
+use_sync_tools() {
+    source_tools="$1"
+    target="$2";
+    if [[ ! "$(get_hash ${source_tools})" == "$(get_hash ${target})" ]]; then
+        printf "Updating project tools file...\n"
+        cp -f "$source_tools" "$target"
+    fi
+}
+
+
+layout_poetry() {
+  if [[ ! -f pyproject.toml ]]; then
+    log_error 'No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.'
+    exit 2
+  fi
+
+  # create venv if it doesn't exist
+  poetry run true
+
+  export VIRTUAL_ENV=$(poetry env info --path)
+  export POETRY_ACTIVE=1
+  PATH_add "$VIRTUAL_ENV/bin"
+}
+
+
+layout_ipython() {
+    if has ipython; then
+        base_profile="${1:-default}"
+        base_path="${HOME}/.ipython/profile_${base_profile}"
+        [ ! -e "${base_path}" ] && (log_error "No base profile found at: ${base_path}";exit 2)
+        _direnv_root=$(dirname "$(find_up .envrc)")
+        ipython_dir="${_direnv_root}/.direnv/ipython"
+        profile_dir="${ipython_dir}/profile_default"
+        [ ! -e "${profile_dir}" ] && (mkdir -p "${profile_dir}"; cp -r "${base_path}/." "${profile_dir}/")
+        export IPYTHONDIR="${ipython_dir}"
+    else
+        log_error "Could not find 'ipython' on path!"
+    fi
+}
+
+
+### Global common setup
+# executed for all .envrc files
+
+#
+# Direnv bin dir
+# ==============
+#
+_direnv_root=$(dirname "$(find_up .envrc)")
+DIRENV_TMP_DIR="${_direnv_root}/.direnv"
+DIRENV_BIN_DIR="${DIRENV_TMP_DIR}/bin"
+[ ! -e "${DIRENV_BIN_DIR}" ] && mkdir -p "${DIRENV_BIN_DIR}"
+export PATH="${DIRENV_BIN_DIR}:${PATH}"
+
+# make direnv silent by default
+#export DIRENV_LOG_FORMAT=""

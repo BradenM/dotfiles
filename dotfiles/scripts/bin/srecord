@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+
+# Vars
+ISO_DATE=$(date +"%Y-%m-%dT%H-%M-%S")
+
+# Take video
+srecord () {
+  local file_name=${1="/tmp/recording_$ISO_DATE.mp4"}
+  geom="$(select-area)"
+  echo "GEOM: $geom"
+  read -r dim _geom <<<"$geom"
+  read -r width height <<<"$(echo "${_geom}" | tr 'x' ' ')"
+  echo "Target: ${width}x${height}"
+  local do_confirm
+  test "$width" -le 50 && do_confirm=1
+  test "$height" -le 50 && do_confirm=1
+  if [ -n "$do_confirm" ]; then
+      read "resp?Unlikely small geom detected (${width}x${height}). Continue anyways? [y/n]: "
+      test "$resp" = "*y*" && echo "Continuing..." || exit 1
+  fi
+  #wf-recorder -f "${file_name}" -d /dev/dri/renderD128 --force-yuv --geometry="${geom}"
+  wf-recorder -f "${file_name}" -d /dev/dri/renderD128 --geometry="${geom}" || echo "done!"
+  echo "Recording saved to: $file_name"
+  notify-send 'Success!' "Screen recording save to: $file_name"
+  mpv "$file_name" &
+}
+
+srecord

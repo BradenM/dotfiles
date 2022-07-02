@@ -9,13 +9,17 @@
 # System
 export PATH=/usr/local/bin:$HOME/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
-export SSH_KEY_PATH="~/.ssh/rsa_id"
+#export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="~/.ssh/id_rsa"
 export MANPATH="/usr/local/man:$MANPATH"
 export LD_LIBRARY_PATH="/usr/lib:/usr/lib32"
 
+# make flags
+export MAKEFLAGS='-j18 ${MAKEFLAGS:-""}'
+
 # Preferred editor for local and remote sessions
 export EDITOR='nvim'
-export BROWSER='firefox'
+#export BROWSER='firefox'
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
@@ -40,6 +44,7 @@ export ELM_ENGINE=wayland
 
 # Java
 export _JAVA_AWT_WM_NONREPARENTING=1
+#export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true ${_JAVA_OPTIONS}"
 
 # Locale(s)
 export LC_ALL=en_US.UTF-8
@@ -76,16 +81,13 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # ElasticBeanstalk CLI
 export PATH="/home/bradenmars/.ebcli-virtual-env/executables:$PATH"
 
-# .vimrc
-export MYVIMRC="~/.vimrc"
-
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
 #source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
 # XDG Config
-export XDG_CONFIG_HOME=/home/bradenmars/.config
+export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CURRENT_DESKTOP=sway
 
 # Scripts
@@ -110,5 +112,24 @@ export QUTE_DOWNLOAD_DIR="$HOME/Downloads"
 export ROFI_CMD="wofi"
 export ROFI_ARGS="--conf $XDG_CONFIG_HOME/wofi/quteconfig -d"
 
+# Informs mesa-git PKGBUILD to use the llvm from mesa-git repo.
+#export MESA_WHICH_LLVM=3
+
 # ASDF Version Management
-export PATH="$HOME/.asdf/bin:$PATH"
+#export PATH="$HOME/.asdf/bin:$PATH"
+
+# Jetbrains use JBR
+#export IDEA_JDK=/usr/lib/jvm/jre-jetbrains
+#export PHPSTORM_JDK=/usr/lib/jvm/jre-jetbrains
+#export WEBIDE_JDK=/usr/lib/jvm/jre-jetbrains
+#export PYCHARM_JDK=/usr/lib/jvm/jre-jetbrains
+#export RUBYMINE_JDK=/usr/lib/jvm/jre-jetbrains
+#export CL_JDK=/usr/lib/jvm/jre-jetbrains
+#export DATAGRIP_JDK=/usr/lib/jvm/jre-jetbrains
+#export GOLAND_JDK=/usr/lib/jvm/jre-jetbrains
+#export STUDIO_JDK=/usr/lib/jvm/jre-jetbrains
+unset MYVIMRC
+
+# PNPM Global
+export PNPM_HOME="/home/bradenmars/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"

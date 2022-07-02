@@ -9,7 +9,7 @@
 INPUT="$1"
 
 # Output
-OUT_DEFAULT="$(basename -s .mp4 $INPUT)-trimmed.mp3"
+OUT_DEFAULT="$(basename -s .mp4 $INPUT)-trimmed.mp4"
 OUTPUT="${2:-$OUT_DEFAULT}"
 
 # Prompt Question

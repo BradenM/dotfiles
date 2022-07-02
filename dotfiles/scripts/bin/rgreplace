@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o pipefail
+
 # Colors
 . "$HOME/.scripts/colors"
 
@@ -7,18 +9,19 @@
 
 FIND="$1"
 REPLACE="$2"
+shift; shift
 
 echo "Finding and replacing all instances of < ${BOLD}${MAGENTA}${FIND}${NORMAL} > with < ${BOLD}${CYAN}${REPLACE}${NORMAL} >"
 echo 
 sleep 1
 
-rg -F "$FIND" "${@:2}"
+rg -F "$FIND" "${@}"
 
 sleep 3
 
-rg -F "$FIND" --files-with-matches "${@:2}" | xargs sed -i "s#$FIND#$REPLACE#g"
+rg -F "$FIND" --files-with-matches "${@}" | xargs sed -i "s#$FIND#$REPLACE#g"
 
 printf "\n\nResults:\n\n"
 
-rg -F "$REPLACE" "${@:2}"
+rg -F "$REPLACE" "${@}"
 

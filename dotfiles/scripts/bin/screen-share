@@ -34,4 +34,4 @@ else
 	fi
 	notify-send -t 2000 "Wayland recording has been started"
 fi
-} > ~/.wayland-share-screen.log 2>&1
+} >> ~/.wayland-share-screen.log 2>&1

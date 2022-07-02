@@ -4,18 +4,35 @@
 # See @ http://zsh.sourceforge.net/Intro/intro_3.html
 
 # GNUPG Agent
-gpg-connect-agent updatestartuptty /bye >/dev/null
+#nohup gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
+gpg-connect-agent updatestartuptty /bye > /dev/null
 
 # Keychain
-keychain id_git --agents ssh --quiet
+#keychain id_git --agents ssh,gpg --quiet
+#keychain --quiet --systemd --agents gpg,ssh id_rsa id_git aur 35FB154C
+#keychain --quick --agents gpg,ssh --quiet id_rsa id_git aur 35FB154C
+#[ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
+#[ -f $HOME/.keychain/$HOSTNAME-sh ] && \
+#       . $HOME/.keychain/$HOSTNAME-sh
+#[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && \
+#       . $HOME/.keychain/$HOSTNAME-sh-gpg
+
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init --path)"
+#eval "$(pyenv virtualenv-init -)"
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
+##: init direnv (see: https://github.com/romkatv/powerlevel10k/blob/master/README.md#how-do-i-initialize-direnv-when-using-instant-prompt)
+. $HOME/.asdf/asdf.sh
+(( ${+commands[direnv]} )) && emulate zsh -c "$(asdf exec direnv export zsh)"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+(( ${+commands[direnv]} )) && emulate zsh -c "$(asdf exec direnv hook zsh)"
 
 # Enable ZSH Profiling
 #zmodload zsh/zprof
@@ -36,35 +53,49 @@ DISABLE_UPDATE_PROMPT=true
 
 # Oh-My-Zsh Plugins
 plugins=(
+  archlinux		     # httpie completions
   httpie		     # httpie completions
   adb   		     # adb completions
+  dnote   		     # dnote completions
   yarn			     # yarn completions
   pnpm			     # pnpm completions
-  asdf                       # extendable version manager
+  extract                    # determines and uses tar/7z/unzip/gzip etc
+  transfer                   # transfer cmd for transfer.sh
+  nmap                       # common nmap cmd aliases 
+  #asdf                       # extendable version manager
   eksctl                     # eksctl completions
   helm                       # helm completions
   minikube                   # minikube completions
+  cmctl                      # cert-manager cli completions
   fd 			     # find replacement
   aws 			     # aws completions
   rsync			     # rsync aliases
-  flutter                    # flutter autocompletion
+  #flutter                    # flutter autocompletion
   python                     # python helpers
-  #poetry                     # poetry completions
+  poetry                     # poetry completions
+  #pyenv
   #catimg                     # cat img to terminal
   colored-man-pages	     # colorize man pages
   common-aliases             # colorize man pages
   copybuffer                 # binds ctrl-o to copy currently typed cmd
+  docker                     # docker
   docker-compose             # docker-compose aliases
-  django                     # django aliases
+  #django                     # django aliases
   autojump		     # 'j' command - smart cd
   git                        # git alias/completions   
   gitfast		     # git... but fast
   git-extras		     # awesome git scripts
+  git-escape-magic	     # escapes zsh stuff 
   gh		             # github cli
-  gpg-agent                  # enables gpg agent if not running
+  git-machete	             # git repo organize+rebase/merge workflow autom
+  #ssh-agent                  # enables ssh-agent on startup
+  #gpg-agent                  # enables gpg agent if not running
   evalcache		     # cache 'eval' commands
+  alias-finder		     # informs you of an alias if one exists
   #alias-tips		     # informs you of an alias if one exists
   #copyzshell		     # copy zsh config over ssh
+  tmux                       # tmux
+  ripgrep                    # rg completions
   taskwarrior                # taskwarrior 
   timewarrior                # timewarrior aliases / completion   
   systemd		     # systemd aliases
@@ -74,9 +105,15 @@ plugins=(
   encode64                   # encode/decode64 cmds
   kubectl                    # kubctl autocompletion
   helm                       # helm autocompletion
+  #please                     # plz.build autocompletion
   autoupdate                 # auto update zsh plugins
-  #keep                       # keep cli completions
-  zsh_reload                 # reload function
+  fzf                        # fzf plugin
+  a5r                        # adstakr completions
+  #keybase                    # keybase completions
+  #keep                      # keep cli completions
+  #zsh_reload                 # reload function
+  per-directory-history      # 
+  zoxide                     # better jump
   zsh-interactive-cd         # interactive tab completion for cd
   zsh-navigation-tools       # history (and more) nav tools
   zsh-autosuggestions	     # auto suggestions
@@ -108,12 +145,33 @@ fi
 ZSH_HIGHLIGHT_STYLES[path]=cyan
 
 # ZSH-NVM Config
-export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_LOAD=true # Get rid of a 3s startup time
-export NVM_NO_USE=true
+#export NVM_DIR="$HOME/.nvm"
+#export NVM_LAZY_LOAD=true # Get rid of a 3s startup time
+#export NVM_NO_USE=true
+
+# SSH Agent Config
+##: enables ssh agent forwarding support
+#zstyle :omz:plugins:ssh-agent agent-forwarding on
+##: identites to load
+#zstyle :omz:plugins:ssh-agent identities id_rsa id_git aur
+##: helper
+#zstyle :omz:plugins:ssh-agent helper ksshaskpass
+
+# Zsh Alias Finder
+ZSH_ALIAS_FINDER_AUTOMATIC=true
+
+# Zsh Alias Tips
+export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_ ll vi vim l la g ls cat"
+
 
 # Load Oh-My-Zsh
 source $ZSH/oh-my-zsh.sh
+
+# (asdf) compinit
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 
 ## User configuration
 
@@ -130,7 +188,23 @@ export AUTO_NTFY_DONE_IGNORE="nvim aws vim tmux git lazygit make"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+#export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+
+#autoload -Uz compinit
+#zstyle ':completion:*' menu select
+#fpath+=~/.zfunc
+
+
+# tabtab source for packages
+# uninstall by removing these lines
+#[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+
+#eval "$(asdf exec direnv hook zsh)"
+
+
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 

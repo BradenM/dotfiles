@@ -2,14 +2,17 @@
 # For a list of devices run: swaymsg -t get_inputs
 
 # Variables
-set $mouse "5426:67:Razer_Razer_DeathAdder_Chroma"
+#set $mouse "5426:67:Razer_Razer_DeathAdder_Chroma"
+set $mouse "1578:16642:MOSART_Semi._2.4G_Wireless_Mouse_Consumer_Control"
 
 # Keyboard
 input type:keyboard {
     xkb_layout us
     xkb_options caps:swapescape
-    repeat_delay 250
+    repeat_delay 300
     repeat_rate 45
+    #repeat_delay 500
+    #repeat_rate 5
 
 }
 
@@ -20,4 +23,4 @@ input type:pointer {
 }
 
 # Seats
-seat seat0 hide_cursor 5000
+#seat seat0 hide_cursor 15000

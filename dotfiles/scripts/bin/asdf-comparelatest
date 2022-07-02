@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# shellcheck source=/home/bradenmars/.scripts/colors
+. ~/.scripts/colors
+
+DO_UPDATE=0
+
+main() {
+	plugin="${1}"
+	current="$(asdf current "${plugin}" | awk '{print $2}')"
+	latest=$(asdf latest "${plugin}")
+	if [ "$current" = "$latest" ]; then
+		printf "%s%s | Current: %s | Latest: %s\n%s" "$DIM" "$plugin" "$current" "$latest" "$NORMAL"
+	else
+		printf "%s%s | Current: %s | Latest: %s%s\n%s" "$RED" "$plugin" "$current" "$BOLD" "$latest" "$NORMAL"
+		if [ $DO_UPDATE -eq 1 ]; then
+			printf "Updating: %s (%s) => (%s)\n" "$plugin" "${RED}${current}${NORMAL}" "${GREEN}${latest}${NORMAL}"
+			asdf install "$plugin" "$latest"
+			asdf local "$plugin" "$latest"
+		fi
+	fi
+}
+
+plugin="${1}"
+shift 1
+
+while [[ ${1} != "" ]]; do
+	case "${1}" in
+	-u)
+		DO_UPDATE=1
+		;;
+	--update)
+		DO_UPDATE=1
+		;;
+	esac
+	shift 1
+done
+
+main "$plugin"

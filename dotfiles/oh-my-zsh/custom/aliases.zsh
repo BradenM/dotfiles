@@ -3,10 +3,11 @@
 # Replacements
 alias vim="nvim"	# neovim
 alias rm='trash'	# deletes to trash
-unalias gcp
+#unalias gcp
 alias cat='bat'  # Bat
-alias cp='gcp -v'	# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
-alias ls='colorls --gs' # Colorls
+#alias cp='gcp -v'	# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
+#alias ls='colorls --gs' # Colorls
+alias ls='exa --icons --git'
 alias sudo='sudo -v; sudo ' # Refresh timestamp timeout each time
 alias p='pnpm'
 
@@ -18,10 +19,11 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias swaycfg="$EDITOR ~/.config/sway"
 
 # Colored HowDoI
-alias howdoi='howdoi -c -e duckduckgo'
+alias howdoi='howdoi -c -e google'
 alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
 
 # Common Helpers 
+alias l='ls'
 alias ll="ls -l"
 alias la="ls -al"
 
@@ -33,8 +35,28 @@ alias myip="ip addr | grep -m 1 -o '192.*.*.*' | cut -d '/' -f 1"
 alias wanip="curl -s -X GET https://checkip.amazonaws.com"
 
 # Copy/Paste PWD
-alias cpwd='pwd | wl-copy'
+alias cpwd='pwd | wl-copy -n'
 alias ppwd='cd $(wl-paste)'
+
+# Copy/Paste
+alias wcp='wl-copy -n'
+alias wpp='wl-paste -n'
+alias wpick="clipman pick --print0 --tool=CUSTOM --tool-args=\"fzf --prompt 'pick > ' --bind 'tab:up' --cycle --read0\""
+
+alias w3mimgdisplay='/usr/lib/w3m/w3mimgdisplay'
+
+# Remove bad aliases
+unalias duf  # duf is an improved/modern version of du
+unalias ps   # a really bad alias for some pnpm command that came from pnpm zsh plugin
+
+alias j='z'
+
+# Explain Shell Shortcut
+eshell() {
+  local url
+  url="https://explainshell.com/explain?cmd=${1}"
+  open_command "$url"
+}
 
 # ZSH Time
 alias zshtime='for i in $(seq 1 10); do /usr/bin/time -f "| Real: %es | User: %Us | Sys: %Ss |" zsh -i -c exit; done'
@@ -78,13 +100,13 @@ alias lpfind="search_lastpass"
 alias sysinfo='inxi -Fxxxz'
 
 # Task Warrior
-alias in='task add +in'
+alias tin='task add +in'
 
 #: GTD Tickle
 tickle () {
     deadline=$1
     shift
-    in +tickle wait:$deadline $@
+    task add +in +tickle wait:$deadline $@
 }
 alias tick=tickle
 
@@ -94,13 +116,14 @@ alias think='tickle +1d'
 direnv() { asdf exec direnv "$@"; } # asdf shortcut
 alias dallow='asdf exec direnv allow'
 #: Wrap tmux (see: https://github.com/direnv/direnv/wiki/Tmux)
-alias tmux='direnv exec / tmux'
+#alias tmux='direnv exec / tmux'
 
 # System Errors
 alias errors="journalctl -b -p err|less"
 
 # Git
 alias g="git"
+alias lg="lazygit"
 
 # Minikube
 alias mk='minikube'
@@ -158,3 +181,22 @@ adb-replay() {
   adb_args="${@: 1:-1}"
   awk '{printf "%s %d %d %d\n", substr($1, 1, length($1) -1), strtonum("0x"$2), strtonum("0x"$3), strtonum("0x"$4)}' $record_path | xargs -l adb $adb_args shell sendevent
 }
+
+# AWS Utils
+auth-ecr() {
+  if [[ $# -ge 2 ]]; then
+    account_id="$1"
+    ecr_repo="$2"
+    region="${3:-us-east-1}"
+    printf "Authenticating w/ ECS: (%s @ %s) [%s]" "${account_id}" "${ecr_repo}" "${region}"
+    aws ecr get-login-password --region "$region" | docker login --username AWS --password-stdin "${account_id}.dkr.ecr.${region}.amazonaws.com/${ecr_repo}"
+  else
+    echo 1>&2 "Usage: auth-ecr [ACCOUNT_ID] [ECR_REPO] (REGION=us-east-1)"
+  fi
+}
+
+# GTK List Themes
+gtk-lsthemes() {
+  find $(find ~/.themes /usr/share/themes/ -wholename "*/gtk-3.0" | sed -e "s/^\(.*\)\/gtk-3.0$/\1/") -wholename "*/gtk-2.0" | sed -e "s/.*\/\(.*\)\/gtk-2.0/\1"/
+}
+
