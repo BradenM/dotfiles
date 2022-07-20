@@ -38,6 +38,7 @@ config:
   longkey: false
   showdiff: false
   workdir: ~/.config/dotdrop
+  minversion: 1.10.3
 dotfiles:
   d_fontconfig:
     dst: ~/.config/fontconfig
@@ -70,23 +71,23 @@ dotfiles:
     - fontcache
   f_czrc:
     dst: ~/.czrc
-    link: link
+    link: absolute
     src: czrc
   f_gitconfig:
     dst: ~/.gitconfig
-    link: link
+    link: absolute
     src: gitconfig
   f_vimrc:
     dst: ~/.vimrc
-    link: link
+    link: absolute
     src: vimrc
   f_zshenv:
     dst: ~/.zshenv
-    link: link
+    link: absolute
     src: zshenv
   f_zshrc:
     dst: ~/.zshrc
-    link: link
+    link: absolute
     src: zshrc
     actions:
     - install_pyenv
@@ -114,11 +115,11 @@ dotfiles:
   f_xresources:
     src: Xresources
     dst: ~/.Xresources
-    link: link
+    link: absolute
   f_xdefaults:
     src: Xdefaults
     dst: ~/.Xdefaults
-    link: link
+    link: absolute
   d_environment.d:
     src: config/environment.d
     dst: ~/.config/environment.d
@@ -142,19 +143,19 @@ dotfiles:
   f_aliases.zsh:
     src: oh-my-zsh/custom/aliases.zsh
     dst: ~/.oh-my-zsh/custom/aliases.zsh
-    link: link
+    link: absolute
   f_loadenv.zsh:
     src: oh-my-zsh/custom/loadenv.zsh
     dst: ~/.oh-my-zsh/custom/loadenv.zsh
-    link: link
+    link: absolute
   f_color.zsh:
     src: oh-my-zsh/custom/color.zsh
     dst: ~/.oh-my-zsh/custom/color.zsh
-    link: link
+    link: absolute
   f_p10k.zsh:
     src: p10k.zsh
     dst: ~/.p10k.zsh
-    link: link
+    link: absolute
   d_qutebrowser:
     src: config/qutebrowser
     dst: ~/.config/qutebrowser
@@ -173,11 +174,11 @@ dotfiles:
   f_taskrc:
     src: taskrc
     dst: ~/.taskrc
-    link: link
+    link: absolute
   f_tmux.conf:
     src: tmux.conf
     dst: ~/.tmux.conf
-    link: link
+    link: absolute
   f_ideavimrc:
     src: ideavimrc
     dst: ~/.ideavimrc
