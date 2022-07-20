@@ -18,7 +18,8 @@ local config = {
   },
 
   -- Set colorscheme
-  colorscheme = "default_theme",
+  -- colorscheme = "default_theme",
+  colorscheme = "sonokai",
 
   -- Override highlight groups in any theme
   highlights = {
@@ -40,6 +41,7 @@ local config = {
     },
     g = {
       mapleader = " ", -- sets vim.g.mapleader
+      sonokai_style = "espresso" -- set sonokai colorscheme variant.
     },
   },
 
@@ -93,6 +95,8 @@ local config = {
       --     require("lsp_signature").setup()
       --   end,
       -- },
+    -- Sonokai theme.
+      { "sainnhe/sonokai" },
     },
     -- All other entries override the setup() call for default plugins
     ["null-ls"] = function(config)
@@ -126,7 +130,7 @@ local config = {
       ensure_installed = { "sumneko_lua" },
     },
     packer = {
-      compile_path = vim.fn.stdpath "data" .. "/packer_compiled.lua",
+      compile_path = vim.fn.stdpath "data" .. "/packer_compiled.lua"
     },
   },
 
