@@ -97,12 +97,6 @@ dotfiles:
     src: hotkeys
     dst: ~/.hotkeys
     link: link_children
-  d_nvim:
-    src: config/nvim
-    dst: ~/.config/nvim
-    link: link_children
-    actions:
-    - install_vimplug
   d_direnv:
     src: config/direnv
     dst: ~/.config/direnv
@@ -170,6 +164,7 @@ dotfiles:
     - .idearc
     - teamwork*
     - extensions
+    - '*tmp*'
     - '*.data'
   f_taskrc:
     src: taskrc
@@ -182,6 +177,11 @@ dotfiles:
   f_ideavimrc:
     src: ideavimrc
     dst: ~/.ideavimrc
+  d_astronvim_user:
+    src: config/nvim/lua/user
+    dst: ~/.config/nvim/lua/user
+    actions:
+      - install_astronvim
 profiles:
   braden-desktop:
     dotfiles:
@@ -195,7 +195,6 @@ profiles:
     - d_scripts
     - d_hotkeys
     - d_autofs
-    - d_nvim
     - d_direnv
     - d_sway
     - f_xresources
@@ -215,6 +214,7 @@ profiles:
     - f_taskrc
     - f_tmux.conf
     - f_ideavimrc
+    - d_astronvim_user
     variables:
       dpi: 109
       system_font: Noto Sans Display
