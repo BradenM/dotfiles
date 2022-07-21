@@ -41,7 +41,8 @@ local config = {
     },
     g = {
       mapleader = " ", -- sets vim.g.mapleader
-      sonokai_style = "espresso" -- set sonokai colorscheme variant.
+      sonokai_style = "espresso", -- set sonokai colorscheme variant.
+      suda_smart_edit = 1, -- enable suda auto buffer switch.
     },
   },
 
@@ -95,8 +96,10 @@ local config = {
       --     require("lsp_signature").setup()
       --   end,
       -- },
-    -- Sonokai theme.
+      -- Sonokai theme.
       { "sainnhe/sonokai" },
+      -- Suda plugin.
+      { "lambdalisue/suda.vim" },
     },
     -- All other entries override the setup() call for default plugins
     ["null-ls"] = function(config)
