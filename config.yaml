@@ -11,7 +11,7 @@ actions:
     test -e ~/.config/nvim/init.lua || (
     mkdir -p ~/.config/nvim
     git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-    nvim +PackerSync
+    nvim  --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
     )
   exec_yay: yay -S --needed --noconfirm --useask {0}
   exec_pipenv: pipenv install --dev && pipenv run {0}
