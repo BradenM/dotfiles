@@ -101,6 +101,8 @@ local config = {
       { "sainnhe/sonokai" },
       -- Suda plugin.
       { "lambdalisue/suda.vim" },
+      -- Adds ShebangInsert and other related commands.
+      { "sbdchd/vim-shebang" },
     },
     -- All other entries override the setup() call for default plugins
     ["null-ls"] = function(config)
