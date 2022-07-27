@@ -127,7 +127,6 @@ use_sync_tools() {
     fi
 }
 
-
 layout_poetry() {
   if [[ ! -f pyproject.toml ]]; then
     log_error 'No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.'
@@ -136,10 +135,13 @@ layout_poetry() {
 
   # create venv if it doesn't exist
   poetry run true
+  local poetry_env_path
+  poetry_env_path=$(poetry env info --path)
 
-  export VIRTUAL_ENV=$(poetry env info --path)
+  export VIRTUAL_ENV=$poetry_env_path
   export POETRY_ACTIVE=1
   PATH_add "$VIRTUAL_ENV/bin"
+  log_status "Poetry layout using venv @ ${VIRTUAL_ENV}"
 }
 
 
