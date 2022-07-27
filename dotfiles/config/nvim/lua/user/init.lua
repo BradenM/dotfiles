@@ -43,6 +43,7 @@ local config = {
       mapleader = " ", -- sets vim.g.mapleader
       sonokai_style = "shusia", -- set sonokai colorscheme variant.
       suda_smart_edit = 1, -- enable suda auto buffer switch.
+      python3_host_prog = "/home/bradenmars/.pyenv/versions/py3nvim/bin/python" -- nvim python executable.
     },
   },
 
