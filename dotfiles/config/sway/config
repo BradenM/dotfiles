@@ -40,8 +40,8 @@ font pango:Noto Sans Mono 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ~/.scripts/bin/alacritty-adjust
-bindsym $mod+Shift+Return exec ~/.scripts/bin/alacritty-float
+bindsym $mod+Return exec ~/.scripts/alacritty-adjust
+bindsym $mod+Shift+Return exec ~/.scripts/alacritty-float
 
 # kill focused window
 bindsym $mod+Shift+q kill

@@ -1,10 +1,13 @@
+# vim: set ft=i3config:
+
 ####
 ## Sway WM Generic Keybinds
 ####
 
+
 ## Variables
 #set $menu exec alacritty -d 55 30 -t launcher -e env TERMINAL_COMMAND="alacritty -e" "sway-launcher-desktop"
-#set $browser /home/bradenmars/.scripts/bin/qutebrowser
+#set $browser /home/bradenmars/.scripts/qutebrowser
 #set $browser 'env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox'
 set $browser 'chromium --disable-gpu-driver-bug-workarounds --enable-accelerated-video-decode --enable-features=UseOzonePlatform,VaapiVideoDecoder --ignore-gpu-blocklist --ozone-platform=wayland --profile'
 set $browserAlt 'env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox/firefox'
@@ -22,11 +25,11 @@ bindsym $mod+Shift+G exec $browserAlt
 bindsym $mod+Shift+P exec makoctl dismiss -a
 
 # Take a screenshot (to clipboard)
-bindsym $mod+Print exec grim -g "$(~/.scripts/bin/select-area)" - | wl-copy
+bindsym $mod+Print exec grim -g "$(~/.scripts/select-area)" - | wl-copy
 
 # Take a screenshot (to editor)
 #bindsym $mod+Ctrl+Print exec 'grim -g "$(slurp)" - | swappy -f -'
-bindsym $mod+Ctrl+Print exec 'grim -g "$(~/.scripts/bin/select-area)" - | swappy -f -'
+bindsym $mod+Ctrl+Print exec 'grim -g "$(~/.scripts/select-area)" - | swappy -f -'
 
 # Take a video (~/.scripts/sway.sh)
 bindsym $mod+Shift+Print exec ~/.config/sway/scripts/screenrec.sh

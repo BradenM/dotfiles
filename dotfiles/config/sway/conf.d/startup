@@ -1,4 +1,5 @@
 # SwayWM startup applications
+# vim: set ft=i3config:
 
 # Set GTK Settings
 set $gnome-schema org.gnome.desktop.interface
@@ -24,6 +25,7 @@ for_window [app_id="firefoxdeveloperedition"] border none
 for_window [title="PomoDoneApp"] border none
 for_window [title="PomoDoneApp"] layout floating
 for_window [app_id="AlacrittyOL"] floating true
+for_window [app_id="scrcpy"] floating true
 #: Comms Workspace
 #for_window [instance="mailspring"] move to workspace $ws10
 #for_window [instance="discord"] move to workspace $ws10
@@ -72,7 +74,7 @@ exec_always ~/.config/sway/scripts/swaywsr.sh
 #exec xsettingsd
 
 # keepassxc
-exec_always '~/.scripts/bin/launch-single env QT_QPA_PLATFORM=xcb keepassxc'
+exec_always '~/.scripts/launch-single env QT_QPA_PLATFORM=xcb keepassxc'
 
 # noisetorch
 #exec_always /usr/bin/noisetorch -i

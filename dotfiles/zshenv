@@ -90,9 +90,6 @@ export PROJECT_HOME=$HOME/projects
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CURRENT_DESKTOP=sway
 
-# Scripts
-export PATH="$PATH:/home/bradenmars/.scripts/bin"
-
 # Android Env
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:~/.android/avd
@@ -115,9 +112,6 @@ export ROFI_ARGS="--conf $XDG_CONFIG_HOME/wofi/quteconfig -d"
 # Informs mesa-git PKGBUILD to use the llvm from mesa-git repo.
 #export MESA_WHICH_LLVM=3
 
-# ASDF Version Management
-#export PATH="$HOME/.asdf/bin:$PATH"
-
 # Jetbrains use JBR
 #export IDEA_JDK=/usr/lib/jvm/jre-jetbrains
 #export PHPSTORM_JDK=/usr/lib/jvm/jre-jetbrains
@@ -133,3 +127,6 @@ unset MYVIMRC
 # PNPM Global
 export PNPM_HOME="/home/bradenmars/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+
+# Scripts
+export PATH="${PATH}:${HOME}/.scripts"
