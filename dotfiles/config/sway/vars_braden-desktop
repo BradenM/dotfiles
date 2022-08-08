@@ -3,20 +3,23 @@
 
 # Display Config
 #: Primary
-set $D1 DP-3
+#set $D1 DP-1
+set $D1 "GIGA-BYTE TECHNOLOGY CO., LTD. AORUS FI32U 21300B000416"
 set $D1mode 3840x2160@144Hz
 set $D1posX 1440
-set $D1posY 1440
+set $D1posY 400
+
 ##: Secondary
-set $D2 DP-2
+set $D2 "Ancor Communications Inc ROG PG279Q #ASNsEVlx76Xd"
 set $D2mode 2560x1440@165Hz
-set $D2posX 1440
+set $D2posX 5280
 set $D2posY 0
+
 #: Tertiary
-set $D3 DP-1
+set $D3 "Ancor Communications Inc ROG PG279Q #ASNgB4KRr/rd"
 set $D3mode 2560x1440@165Hz
 set $D3posX 0
-set $D3posY 912
+set $D3posY 0
 
 
 #: Tertiary
