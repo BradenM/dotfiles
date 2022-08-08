@@ -182,7 +182,11 @@ dotfiles:
     src: config/nvim/lua/user
     dst: ~/.config/nvim/lua/user
     actions:
-      - install_astronvim
+    - install_astronvim
+  f_zprofile:
+    src: zprofile
+    dst: ~/.zprofile
+    chmod: '755'
 profiles:
   braden-desktop:
     dotfiles:
@@ -214,6 +218,7 @@ profiles:
     - f_tmux.conf
     - f_ideavimrc
     - d_astronvim_user
+    - f_zprofile
     variables:
       dpi: 109
       system_font: Noto Sans Display

@@ -1,0 +1,77 @@
+find_boot_drm_device() {
+	local boot_drm_id
+	boot_drm_id=$(udevadm info -a -n /dev/dri/card1 | grep boot_vga | rev | cut -c 2)
+	boot_drm_id="${boot_drm_id:-0}"
+	printf "/dev/dri/card%s" "${boot_drm_id}"
+}
+
+## WLR
+# shellcheck disable=SC2120
+setup_wlr_env() {
+	local drm_device
+	drm_device=$(find_boot_drm_device)
+	export WLR_DRM_DEVICES=$drm_device
+	# for using alternative backend (i.e, vulkan)
+	[ -n "$1" ] && export WLR_RENDERER="$1"
+}
+
+setup_key_agents() {
+	gpg-connect-agent updatestartuptty /bye >/dev/null
+	keychain --quick --agents gpg,ssh --quiet id_rsa id_git aur 35FB154C
+	[ -z "$HOSTNAME" ] && HOSTNAME=$(uname -n)
+	[ -f $HOME/.keychain/$HOSTNAME-sh ] &&
+		. $HOME/.keychain/$HOSTNAME-sh
+	[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] &&
+		. $HOME/.keychain/$HOSTNAME-sh-gpg
+}
+
+setup_desktop_env() {
+	### XDG ###
+	export XDG_CURRENT_DESKTOP=sway
+	export CURRENT_DESKTOP=sway
+	### XKB ###
+	export XKB_DEFAULT_LAYOUT=us
+	### Qt ###
+	export QT_WAYLAND_FORCE_DPI=physical
+	export QT_QPA_PLATFORM=wayland
+	export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+	export QT_QPA_PLATFORMTHEME=qt5ct
+	### GTK ###
+	export GTK_THEME=Arc-Dark
+	### Java ###
+	export _JAVA_AWT_WM_NONREPARENTING=1
+	export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true ${_JAVA_OPTIONS}"
+	### Clutter ###
+	export CLUTTER_BACKEND=wayland
+	### SDL ###
+	export SDL_VIDEODRIVER=wayland
+	### Mozilla ###
+	export MOZ_DBUS_REMOTE=1
+	### VAAPI/VDPAU
+	export LIBVA_DRIVER_NAME=radeonsi
+	export VDPAU_DRIVER=radeonsi
+}
+
+setup() {
+	setup_desktop_env
+	setup_wlr_env
+	setup_key_agents
+}
+
+
+setup
+
+# If running from tty1 start sway
+if [ "$(tty)" = "/dev/tty1" ]; then
+	exec sway
+fi
+
+# If running from tty2 start sway w/ debug logs
+if [ "$(tty)" = "/dev/tty2" ]; then
+	exec sway -d 2>~/sway.log
+fi
+
+# If running from tty3 start bash
+if [ "$(tty)" = "/dev/tty2" ]; then
+	exec bash
+fi
