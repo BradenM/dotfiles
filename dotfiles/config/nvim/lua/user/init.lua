@@ -43,7 +43,7 @@ local config = {
       mapleader = " ", -- sets vim.g.mapleader
       sonokai_style = "shusia", -- set sonokai colorscheme variant.
       suda_smart_edit = 1, -- enable suda auto buffer switch.
-      python3_host_prog = "/home/bradenmars/.pyenv/versions/py3nvim/bin/python" -- nvim python executable.
+      python3_host_prog = "/home/bradenmars/.pyenv/versions/neovim/bin/python" -- nvim python executable.
     },
   },
 
@@ -103,6 +103,14 @@ local config = {
       { "lambdalisue/suda.vim" },
       -- Adds ShebangInsert and other related commands.
       { "sbdchd/vim-shebang" },
+      -- adds window picking to file explorer (among generic window picking).
+      { "s1n7ax/nvim-window-picker",
+        config = function()
+          require("window-picker").setup()
+        end
+      },
+      -- Code refactoring.
+      { "ThePrimeagen/refactoring.nvim" }
     },
     -- All other entries override the setup() call for default plugins
     ["null-ls"] = function(config)
@@ -111,10 +119,21 @@ local config = {
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
       config.sources = {
-        -- Set a formatter
-        null_ls.builtins.formatting.rufo,
-        -- Set a linter
-        null_ls.builtins.diagnostics.rubocop,
+        -- Formatters
+        -- null_ls.builtins.formatting.rufo,
+        null_ls.builtins.formatting.black,
+        -- Linters
+        null_ls.builtins.diagnostics.actionlint,
+        null_ls.builtins.diagnostics.hadolint,
+        null_ls.builtins.diagnostics.mypy,
+        -- null_ls.builtins.diagnostics.pydocstyle,
+        null_ls.builtins.diagnostics.shellcheck,
+        -- null_ls.builtins.diagnostics.vulture,
+        -- Completions
+        null_ls.builtins.completion.tags,
+        -- Refactor
+        null_ls.builtins.code_actions.refactoring,
+        null_ls.builtins.code_actions.shellcheck
       }
       -- set up null-ls's on_attach function
       config.on_attach = function(client)
@@ -184,7 +203,7 @@ local config = {
   lsp = {
     -- enable servers that you already have installed without lsp-installer
     servers = {
-      -- "pyright"
+      "pyright"
     },
     -- easily add or disable built in mappings added during LSP attaching
     mappings = {
@@ -215,6 +234,34 @@ local config = {
       --     },
       --   },
       -- },
+      -- pylsp = {
+      --   settings = {
+      --     plugins = {
+      --       -- disable other linters
+      --       pycodestyle = {
+      --         enabled = false
+      --       },
+      --       pyflakes = {
+      --         enabled = false
+      --       },
+      --       flake8 = {
+      --         enabled = false
+      --       },
+      --       -- use black
+      --       black = {
+      --         enabled = true,
+      --         cache_config = true
+      --       },
+      --       pydocstyle = {
+      --         enabled = true,
+      --       },
+      --       -- jedi config.
+      --       jedi_completions = {
+      --         fuzzy = true  -- enable fuzzy autocomplete
+      --       }
+      --     }
+      --   }
+      -- }
     },
   },
 
@@ -261,6 +308,11 @@ local config = {
     --     ["~/%.config/foo/.*"] = "fooscript",
     --   },
     -- }
+    vim.filetype.add {
+      extension = {
+        zsh = "sh"
+      }
+    }
   end,
 }
 
