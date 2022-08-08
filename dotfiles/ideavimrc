@@ -1,8 +1,9 @@
 source ~/.vimrc
 
 " Addon Emulations
-" set easymotion
-" set surround
+set easymotion
+set surround
+set NERDTree
 
 " Editor Settings
 set ignorecase smartcase scrolloff=3 " 3 lines above/below cursor when scrolling
