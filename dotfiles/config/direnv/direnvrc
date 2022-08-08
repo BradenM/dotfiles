@@ -133,15 +133,15 @@ layout_poetry() {
     exit 2
   fi
 
-  # create venv if it doesn't exist
-  poetry run true
-  local poetry_env_path
-  poetry_env_path=$(poetry env info --path)
+  local VENV=$(poetry env list --full-path | cut -d' ' -f1)
+  if [[ -z $VENV || ! -d $VENV/bin ]]; then
+    log_error 'No poetry virtual environment found. Use `poetry install` to create one first.'
+    exit 2
+  fi
 
-  export VIRTUAL_ENV=$poetry_env_path
+  export VIRTUAL_ENV=$VENV
   export POETRY_ACTIVE=1
-  PATH_add "$VIRTUAL_ENV/bin"
-  log_status "Poetry layout using venv @ ${VIRTUAL_ENV}"
+  PATH_add "$VENV/bin"
 }
 
 
