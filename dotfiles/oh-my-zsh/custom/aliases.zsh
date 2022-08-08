@@ -125,6 +125,10 @@ alias errors="journalctl -b -p err|less"
 alias g="git"
 alias lg="lazygit"
 
+# Docker / Compose
+unalias dcrm
+alias dcrm='docker compose run --rm'
+
 # Minikube
 alias mk='minikube'
 
