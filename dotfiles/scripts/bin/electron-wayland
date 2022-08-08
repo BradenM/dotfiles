@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+APP_PATH="${1:?err}"
+shift
+
+declare -a APP_ARGS
+APP_ARGS+=( "${@}" )
+
+
+if [ "${XDG_SESSION_TYPE}" = "wayland" ]; then
+  APP_ARGS+=("--enable-accelerated-video-decode" "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,VaapiVideoDecoder" "--ozone-platform=wayland")
+fi
+
+printf "Executing electron app @ %s with (%s) args.\n" "$APP_PATH" "${APP_ARGS[@]}"
+
+exec /usr/bin/electron "$APP_PATH" "${APP_ARGS[@]}"
