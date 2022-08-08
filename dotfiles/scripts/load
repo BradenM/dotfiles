@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# Dotfile Scripts
-# Loads Scripts
-
-for f in $DOTF_SCRIPTS/*.sh; do source $f; done

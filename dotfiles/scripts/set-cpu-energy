@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Set CPU Freq Energy Perf Pref
+main() {
+  CURRENT=$(cat /sys/devices/system/cpu/cpufreq/policy*/energy_performance_preference | head -n1)
+  OPTIONS=("balance_power" "power" "performance")
+  BOLT="${BRIGHT}${YELLOW}🗲 ${NORMAL}"
+  SET_PERF=""
+  for arg in "$@"; do
+    case $arg in
+    "performance") SET_PERF=$OPTIONS[3] ;;
+    "perf") SET_PERF=$OPTIONS[3] ;;
+    "power") SET_PERF=$OPTIONS[2] ;;
+    "pwr") SET_PERF=$OPTIONS[2] ;;
+    "balance") SET_PERF=$OPTIONS[1] ;;
+    "balance_power") SET_PERF=$OPTIONS[1] ;;
+    esac
+  done
+
+  if [ $SET_PERF ]; then
+    printf "\n${BOLT}${POWDER_BLUE} Updating CPU Energy Preference ${MAGENTA}(${CURRENT} => ${SET_PERF})${NORMAL}\n"
+    echo $SET_PERF | sudo tee /sys/devices/system/cpu/cpufreq/policy*/energy_performance_preference
+    CURRENT=$(cat /sys/devices/system/cpu/cpufreq/policy*/energy_performance_preference | head -n1)
+  fi
+  printf "\n ${BOLT} ${GREEN}Active Energy Preference: ${NORMAL}${CURRENT}\n"
+
+  unset CURRENT SET_PERF OPTIONS
+}
+
+main "$@"

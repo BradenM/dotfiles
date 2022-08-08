@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Clear Font Cache
+main() {
+  echo "Clearing Font Cache..."
+  sudo fc-cache -rfv && fc-cache -rv
+  echo "Font Cache Cleared. You should reboot soon!"
+}
+
+main "$@"
