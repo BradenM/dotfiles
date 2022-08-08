@@ -140,18 +140,13 @@ dotfiles:
     src: config/mako
     dst: ~/.config/mako
     link: link_children
-  f_aliases.zsh:
-    src: oh-my-zsh/custom/aliases.zsh
-    dst: ~/.oh-my-zsh/custom/aliases.zsh
-    link: absolute
-  f_loadenv.zsh:
-    src: oh-my-zsh/custom/loadenv.zsh
-    dst: ~/.oh-my-zsh/custom/loadenv.zsh
-    link: absolute
-  f_color.zsh:
-    src: oh-my-zsh/custom/color.zsh
-    dst: ~/.oh-my-zsh/custom/color.zsh
-    link: absolute
+  d_omz_custom:
+    src: oh-my-zsh/custom
+    dst: ~/.oh-my-zsh/custom
+    link: link_children
+    upignore:
+    - plugins
+    - themes
   f_p10k.zsh:
     src: p10k.zsh
     dst: ~/.p10k.zsh
@@ -198,6 +193,7 @@ profiles:
     - f_czrc
     - f_zshrc
     - f_zshenv
+    - d_omz_custom
     - d_scripts
     - d_hotkeys
     - d_autofs
@@ -210,9 +206,6 @@ profiles:
     - d_waybar
     - d_wofi
     - d_mako
-    - f_aliases.zsh
-    - f_loadenv.zsh
-    - f_color.zsh
     - f_p10k.zsh
     - d_qutebrowser
     - d_mpv
