@@ -43,7 +43,7 @@ local config = {
       mapleader = " ", -- sets vim.g.mapleader
       sonokai_style = "shusia", -- set sonokai colorscheme variant.
       suda_smart_edit = 1, -- enable suda auto buffer switch.
-      python3_host_prog = "/home/bradenmars/.pyenv/versions/neovim/bin/python" -- nvim python executable.
+      -- python3_host_prog = "/home/bradenmars/.pyenv/versions/neovim/bin/python" -- nvim python executable.
     },
   },
 
@@ -118,21 +118,24 @@ local config = {
       -- Check supported formatters and linters
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+      local pyvenv_local = {
+        prefer_local = ".venv/bin"
+      }
       config.sources = {
         -- Formatters
         -- null_ls.builtins.formatting.rufo,
-        null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.black.with(pyvenv_local),
         -- Linters
         null_ls.builtins.diagnostics.actionlint,
         null_ls.builtins.diagnostics.hadolint,
-        null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.diagnostics.mypy.with(pyvenv_local),
         -- null_ls.builtins.diagnostics.pydocstyle,
         null_ls.builtins.diagnostics.shellcheck,
         -- null_ls.builtins.diagnostics.vulture,
         -- Completions
         null_ls.builtins.completion.tags,
         -- Refactor
-        null_ls.builtins.code_actions.refactoring,
+        null_ls.builtins.code_actions.refactoring.with(pyvenv_local),
         null_ls.builtins.code_actions.shellcheck
       }
       -- set up null-ls's on_attach function
