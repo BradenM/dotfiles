@@ -104,11 +104,11 @@ local config = {
       -- Adds ShebangInsert and other related commands.
       { "sbdchd/vim-shebang" },
       -- adds window picking to file explorer (among generic window picking).
-      { "s1n7ax/nvim-window-picker",
-        config = function()
-          require("window-picker").setup()
-        end
-      },
+      -- { "s1n7ax/nvim-window-picker",
+      --   config = function()
+      --     require("window-picker").setup()
+      --   end
+      -- },
       -- Code refactoring.
       { "ThePrimeagen/refactoring.nvim" }
     },
@@ -126,7 +126,7 @@ local config = {
         -- null_ls.builtins.formatting.rufo,
         null_ls.builtins.formatting.black.with(pyvenv_local),
         -- Linters
-        null_ls.builtins.diagnostics.actionlint,
+        -- null_ls.builtins.diagnostics.actionlint,
         null_ls.builtins.diagnostics.hadolint,
         null_ls.builtins.diagnostics.mypy.with(pyvenv_local),
         -- null_ls.builtins.diagnostics.pydocstyle,
