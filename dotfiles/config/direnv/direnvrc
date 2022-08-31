@@ -139,6 +139,18 @@ layout_poetry() {
     exit 2
   fi
 
+
+  declare -a path_array
+  IFS=: read -ra path_array <<<"${PATH}"
+
+  for path in "${path_array[@]}"; do
+    if [[ "${path}" == *"python"* ]]; then
+      log_status "removing ${path} from path."
+      PATH_rm "${path}"
+    fi
+  done
+
+
   export VIRTUAL_ENV=$VENV
   export POETRY_ACTIVE=1
   PATH_add "$VENV/bin"
