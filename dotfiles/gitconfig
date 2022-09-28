@@ -55,6 +55,11 @@
 [init]
 	defaultBranch = main
 
+
+[credential "aur.archlinux.org"]
+	helper =
+	helper = /usr/lib/git-core/git-credential-libsecret
+
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
@@ -74,3 +79,6 @@
 
 [diff]
 	colorMoved = default
+; [credential "https://gist.github.com"]
+; 	helper = 
+; 	helper = !/usr/bin/gh auth git-credential
