@@ -7,6 +7,7 @@ window:
       opacity: 0.85
       class:
         instance: AlacrittyOL
+        general: AlacrittyOL
       padding:
               x: 0
               y: 0
