@@ -1,10 +1,10 @@
 ## ZSH Aliases
 
 # Replacements
-alias vim="nvim"	# neovim
-alias rm='trash'	# deletes to trash
+alias vim="nvim" # neovim
+alias rm='trash' # deletes to trash
 #unalias gcp
-alias cat='bat'  # Bat
+alias cat='bat' # Bat
 #alias cp='gcp -v'	# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
 #alias ls='colorls --gs' # Colorls
 alias ls='exa --icons --git'
@@ -22,7 +22,7 @@ alias swaycfg="$EDITOR ~/.config/sway"
 alias howdoi='howdoi -c -e google'
 alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
 
-# Common Helpers 
+# Common Helpers
 alias l='ls'
 alias ll="ls -l"
 alias la="ls -al"
@@ -46,8 +46,8 @@ alias wpick="clipman pick --print0 --tool=CUSTOM --tool-args=\"fzf --prompt 'pic
 alias w3mimgdisplay='/usr/lib/w3m/w3mimgdisplay'
 
 # Remove bad aliases
-unalias duf  # duf is an improved/modern version of du
-unalias ps   # a really bad alias for some pnpm command that came from pnpm zsh plugin
+# unalias duf  # duf is an improved/modern version of du
+unalias ps # a really bad alias for some pnpm command that came from pnpm zsh plugin
 
 # autojump -> zoxide
 alias j='z'
@@ -64,19 +64,19 @@ alias zshtime='for i in $(seq 1 10); do /usr/bin/time -f "| Real: %es | User: %U
 
 # Time a command
 timeit() {
-    /usr/bin/time -f "| Real: %es | User: %Us | Sys: %Ss |" $@
+  /usr/bin/time -f "| Real: %es | User: %Us | Sys: %Ss |" $@
 }
 
 # Date Helpers
-conv_times () {
-    intime=("$(date +'%I:%M')" "${@}" )
-    convs=()
-    for t in "${intime[@]}"; do
-        val=$(date -d"$t" +"%H:%M" )
-        convs+="$t $val\n"
-    done
-    cols=('12hr' '24hr')
-    printf "12hr 24hr\n${convs[*]}" | column -t -s' '
+conv_times() {
+  intime=("$(date +'%I:%M')" "${@}")
+  convs=()
+  for t in "${intime[@]}"; do
+    val=$(date -d"$t" +"%H:%M")
+    convs+="$t $val\n"
+  done
+  cols=('12hr' '24hr')
+  printf "12hr 24hr\n${convs[*]}" | column -t -s' '
 }
 
 # Start SSH Agent
@@ -93,13 +93,12 @@ alias nc-conflict="fd -HIg '*conflicted*'"
 
 # LastPass - Fuzzy Search
 search_lastpass() {
-	lpass show --all $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+  lpass show --all $(lpass ls | fzf | awk '{print $(NF)}' | sed 's/\]//g')
 }
 alias lpfind="search_lastpass"
 
 # System Info
 alias sysinfo='inxi -Fxxxz'
-
 
 # Direnv Allow
 direnv() { asdf exec direnv "$@"; } # asdf shortcut
@@ -109,5 +108,3 @@ alias dallow='asdf exec direnv allow'
 
 # System Errors
 alias errors="journalctl -b -p err|less"
-
-
