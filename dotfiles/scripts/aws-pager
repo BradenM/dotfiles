@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+ARGS=$@
+
+if jq -e -r <<<"${@}" 2>&1 >/dev/null; then
+	bat -p --color=always -l json "${@}"
+else
+	bat -p --color=always "${@}"
+fi
