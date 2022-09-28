@@ -12,9 +12,8 @@ auth-ecr() {
   fi
 }
 
-
 # Get EKS token
-ekstoken () {
+ekstoken() {
   cluster=$(kubectx -c | awk -F '/' '{print $2}')
   echo "Retrieving token for: ${cluster}"
   token=$(aws eks get-token --cluster "$cluster" | jq -r '.status.token')
@@ -22,3 +21,9 @@ ekstoken () {
   echo "Copied token to clipboard:"
   echo "$token"
 }
+
+#AWSume alias to source the AWSume script
+alias awsume="source ${HOME}/.local/bin/awsume"
+
+#Auto-Complete function for AWSume
+fpath=(~/.awsume/zsh-autocomplete/ $fpath)
