@@ -91,12 +91,13 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CURRENT_DESKTOP=sway
 
 # Android Env
-export ANDROID_HOME=$HOME/Android/Sdk
+export ANDROID_HOME=/opt/android-sdk
 export PATH=$PATH:~/.android/avd
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
 
 # LastPass
@@ -121,7 +122,7 @@ export ROFI_ARGS="--conf $XDG_CONFIG_HOME/wofi/quteconfig -d"
 #export CL_JDK=/usr/lib/jvm/jre-jetbrains
 #export DATAGRIP_JDK=/usr/lib/jvm/jre-jetbrains
 #export GOLAND_JDK=/usr/lib/jvm/jre-jetbrains
-#export STUDIO_JDK=/usr/lib/jvm/jre-jetbrains
+export STUDIO_JDK=/usr/lib/jvm/jre-jetbrains
 unset MYVIMRC
 
 # PNPM Global
@@ -130,3 +131,4 @@ export PATH="$PNPM_HOME:$PATH"
 
 # Scripts
 export PATH="${PATH}:${HOME}/.scripts"
+
