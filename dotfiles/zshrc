@@ -108,7 +108,7 @@ zsh-syntax-highlighting  # !! must be last - syntx hl
 )
 
 # ZSH Autosuggest
-ZSH_AUTOSUGGEST_STRATEGY=(history match_prev_cmd completion)
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # Zsh Syntax Highlight
@@ -171,8 +171,6 @@ export AUTO_NTFY_DONE_IGNORE="nvim aws vim tmux git lazygit make"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-#export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 
@@ -184,9 +182,6 @@ systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 # tabtab source for packages
 # uninstall by removing these lines
 #[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
-
-#eval "$(asdf exec direnv hook zsh)"
 
 
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
