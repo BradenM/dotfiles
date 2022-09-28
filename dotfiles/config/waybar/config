@@ -3,7 +3,7 @@
     "position": "bottom",
     "output": ["DP-1", "DP-2", "DP-3", "DP-4"],
     "height": 26,
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/timew"],
+    "modules-left": ["sway/workspaces", "sway/mode", "custom/timew", "custom/cpupower"],
     "modules-center": ["sway/window"],
     "modules-right": ["temperature", "memory", "cpu", "custom/separator", "tray", "custom/spotify", "custom/weather", "custom/storage", "pulseaudio", "network",  "clock"],
     "sway/mode": {
@@ -129,6 +129,13 @@
         "tooltip": false,
         "escape": true,
         "exec": "~/.config/waybar/modules/taskw.py"
+    },
+    "custom/cpupower": {
+        "format": "{}",
+        "interval": 30,
+        "return-type": "json",
+        "escape": true,
+        "exec": "~/.config/waybar/modules/cpupower.sh"
     },
     "tray": {
         "icon-size": 18,
