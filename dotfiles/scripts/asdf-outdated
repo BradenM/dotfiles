@@ -4,5 +4,5 @@ tools_path="${1}"
 shift
 
 
-awk '{print $1}' "$tools_path" | xargs -I{} ~/.scripts/bin/asdf-comparelatest {} "${@}" | column --table
+awk '{print $1}' "$tools_path" | xargs -I{} ~/.scripts/asdf-comparelatest {} "${@}" | column --table
 
