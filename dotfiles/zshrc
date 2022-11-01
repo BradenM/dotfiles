@@ -4,23 +4,7 @@
 # See @ http://zsh.sourceforge.net/Intro/intro_3.html
 
 # GNUPG Agent
-#nohup gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
 gpg-connect-agent updatestartuptty /bye > /dev/null
-
-# Keychain
-#keychain id_git --agents ssh,gpg --quiet
-#keychain --quiet --systemd --agents gpg,ssh id_rsa id_git aur 35FB154C
-#keychain --quick --agents gpg,ssh --quiet id_rsa id_git aur 35FB154C
-#[ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
-#[ -f $HOME/.keychain/$HOSTNAME-sh ] && \
-#       . $HOME/.keychain/$HOSTNAME-sh
-#[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && \
-#       . $HOME/.keychain/$HOSTNAME-sh-gpg
-
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init --path)"
-#eval "$(pyenv virtualenv-init -)"
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
