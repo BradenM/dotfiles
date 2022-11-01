@@ -45,6 +45,9 @@ alias wpick="clipman pick --print0 --tool=CUSTOM --tool-args=\"fzf --prompt 'pic
 
 alias w3mimgdisplay='/usr/lib/w3m/w3mimgdisplay'
 
+# Flutter (fix colors)
+alias flutter='TERM=xterm-256color \flutter'
+
 # Remove bad aliases
 # unalias duf  # duf is an improved/modern version of du
 unalias ps # a really bad alias for some pnpm command that came from pnpm zsh plugin

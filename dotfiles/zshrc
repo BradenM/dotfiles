@@ -79,6 +79,7 @@ systemd		               # systemd aliases
 urltools		             # provides cmds urlencode/urldecode
 web-search		           # provides web_search/google cmd
 fancy-ctrl-z		         # ctrl-z opens/closes vim
+#flutter		               # flutter completions.
 encode64                 # encode/decode64 cmds
 kubectl                  # kubctl autocompletion
 helm                     # helm autocompletion
@@ -134,7 +135,6 @@ ZSH_ALIAS_FINDER_AUTOMATIC=true
 
 # Zsh Alias Tips
 export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_ ll vi vim l la g ls cat"
-
 
 # Load Oh-My-Zsh
 source $ZSH/oh-my-zsh.sh
