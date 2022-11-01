@@ -58,20 +58,19 @@ setup() {
 	setup_key_agents
 }
 
-
 setup
 
-# If running from tty1 start sway
-if [ "$(tty)" = "/dev/tty1" ]; then
+case "$(tty)" in
+/dev/tty1)
+	# If running from tty1 start sway
 	exec sway
-fi
-
-# If running from tty2 start sway w/ debug logs
-if [ "$(tty)" = "/dev/tty2" ]; then
+	;;
+/dev/tty2)
+	# If running from tty2 start sway w/ debug logs
 	exec sway -d 2>~/sway.log
-fi
-
-# If running from tty3 start bash
-if [ "$(tty)" = "/dev/tty2" ]; then
+	;;
+/dev/tty3)
+	# If running from tty3 start bash
 	exec bash
-fi
+	;;
+esac
