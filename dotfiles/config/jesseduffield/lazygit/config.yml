@@ -1,0 +1,10 @@
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+#
+reporting: "off"
+startuppopupversion: 1
+
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never

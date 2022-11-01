@@ -187,6 +187,9 @@ dotfiles:
     src: zprofile
     dst: ~/.zprofile
     chmod: '755'
+  f_config.yml:
+    src: config/jesseduffield/lazygit/config.yml
+    dst: ~/.config/jesseduffield/lazygit/config.yml
 profiles:
   braden-desktop:
     dotfiles:
@@ -219,6 +222,7 @@ profiles:
     - f_ideavimrc
     - d_astronvim_user
     - f_zprofile
+    - f_config.yml
     variables:
       dpi: 109
       system_font: Noto Sans Display
