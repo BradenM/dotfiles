@@ -27,7 +27,9 @@ gpg-connect-agent updatestartuptty /bye > /dev/null
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 ##: init direnv (see: https://github.com/romkatv/powerlevel10k/blob/master/README.md#how-do-i-initialize-direnv-when-using-instant-prompt)
-. $HOME/.asdf/asdf.sh
+# . $HOME/.asdf/asdf.sh ## skip loading asdf to _not_ setup shims.
+export ASDF_DIR="${HOME}/.asdf"
+PATH="$PATH:${ASDF_DIR}/bin"
 (( ${+commands[direnv]} )) && emulate zsh -c "$(asdf exec direnv export zsh)"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
