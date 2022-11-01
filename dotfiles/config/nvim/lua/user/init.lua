@@ -90,13 +90,13 @@ local config = {
 
       -- You can also add new plugins here as well:
       -- { "andweeb/presence.nvim" },
-      -- {
-      --   "ray-x/lsp_signature.nvim",
-      --   event = "BufRead",
-      --   config = function()
-      --     require("lsp_signature").setup()
-      --   end,
-      -- },
+      {
+        "ray-x/lsp_signature.nvim",
+        event = "BufRead",
+        config = function()
+          require("lsp_signature").setup()
+        end,
+      },
       -- Sonokai theme.
       { "sainnhe/sonokai" },
       -- Suda plugin.
@@ -112,35 +112,35 @@ local config = {
       -- Code refactoring.
       { "ThePrimeagen/refactoring.nvim" },
       -- DAP
-      { "mfussenegger/nvim-dap", 
+      { "mfussenegger/nvim-dap",
         config = function()
           local dap = require("dap")
           dap.adapters.node2 = {
             type = 'executable',
             command = 'node',
-            args = {os.getenv('HOME') .. '/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js'},
+            args = { os.getenv('HOME') .. '/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js' },
           }
           dap.configurations.javascript = {
-          {
-            name = 'Launch',
-            type = 'node2',
-            request = 'launch',
-            program = '${file}',
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-            protocol = 'inspector',
-            console = 'integratedTerminal',
-          },
-          {
-            -- For this to work you need to make sure the node process is started with the `--inspect` flag.
-            name = 'Attach to process',
-            type = 'node2',
-            request = 'attach',
-            processId = require'dap.utils'.pick_process,
-          },
-        }
+            {
+              name = 'Launch',
+              type = 'node2',
+              request = 'launch',
+              program = '${file}',
+              cwd = vim.fn.getcwd(),
+              sourceMaps = true,
+              protocol = 'inspector',
+              console = 'integratedTerminal',
+            },
+            {
+              -- For this to work you need to make sure the node process is started with the `--inspect` flag.
+              name = 'Attach to process',
+              type = 'node2',
+              request = 'attach',
+              processId = require 'dap.utils'.pick_process,
+            },
+          }
         end
-    },
+      },
     },
     -- All other entries override the setup() call for default plugins
     ["null-ls"] = function(config)
@@ -153,11 +153,12 @@ local config = {
       }
       config.sources = {
         -- Formatters
-        -- null_ls.builtins.formatting.rufo,
+        null_ls.builtins.formatting.rubocop,
         null_ls.builtins.formatting.black.with(pyvenv_local),
         -- Linters
         -- null_ls.builtins.diagnostics.actionlint,
         null_ls.builtins.diagnostics.hadolint,
+        null_ls.builtins.diagnostics.rubocop,
         null_ls.builtins.diagnostics.mypy.with(pyvenv_local),
         -- null_ls.builtins.diagnostics.pydocstyle,
         null_ls.builtins.diagnostics.shellcheck,
@@ -169,13 +170,32 @@ local config = {
         null_ls.builtins.code_actions.shellcheck
       }
       -- set up null-ls's on_attach function
-      config.on_attach = function(client)
+      -- formatting callback.
+
+
+      local lsp_formatting = function(bufnr)
+        vim.lsp.buf.format({
+          filter = function(client)
+            -- apply whatever logic you want (in this example, we'll only use null-ls)
+            return client.name == "null-ls"
+          end,
+          bufnr = bufnr,
+        })
+      end
+
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+      config.on_attach = function(client, bufnr)
         -- NOTE: You can remove this on attach function to disable format on save
-        if client.resolved_capabilities.document_formatting then
+        if client.supports_method("textDocument/formatting") then
+          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
             desc = "Auto format before save",
-            pattern = "<buffer>",
-            callback = vim.lsp.buf.formatting_sync,
+            -- pattern = "<buffer>",
+            callback = function()
+              lsp_formatting(bufnr)
+            end
           })
         end
       end
