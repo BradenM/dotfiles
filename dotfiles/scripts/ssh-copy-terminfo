@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+. utils.bash
+
+USAGE="USAGE: ssh-copy-id [<ssh options> ...] [user@]hostname"
+
+copy_terminfo() {
+	local host="$1" cmd
+	shift
+	cmd=$(printf "Executing: ssh %s %s 'tic -x /dev/stdin'" "$@" "$host")
+	log_info "$cmd"
+	infocmp | ssh $@ "$host" 'tic -x /dev/stdin'
+	log_success "Copied terminfo (for ${TERM}) to ${host}!"
+}
+
+main() {
+	[[ $# -lt 1 ]] && fail "$USAGE"
+	local length ssh_args args host_arg
+	length=$(($# - 1))
+	ssh_args=("${@:1:$length}")
+	args=("${@}")
+	host_arg="${args[-1]}"
+	copy_terminfo "$host_arg" "${ssh_args[@]}"
+}
+
+main "$@"
