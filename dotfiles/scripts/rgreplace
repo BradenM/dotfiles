@@ -2,26 +2,32 @@
 
 set -o pipefail
 
-# Colors
-. "$HOME/.scripts/colors"
+. utils.bash
 
 # Rip Grep Replace
 
-FIND="$1"
-REPLACE="$2"
-shift; shift
+main() {
+	local -A fg
+	make_colors fg
+	FIND="${1?No find arg provided.}"
+	REPLACE="${2?No replace arg provided.}"
+	shift
+	shift
 
-echo "Finding and replacing all instances of < ${BOLD}${MAGENTA}${FIND}${NORMAL} > with < ${BOLD}${CYAN}${REPLACE}${NORMAL} >"
-echo 
-sleep 1
+	echo "Finding and replacing all instances of < ${fg[bold]}${fg[magenta]}${FIND}${fg[reset]} > with < ${fg[bold]}${fg[cyan]}${REPLACE}${fg[reset]} >"
+	echo
+	sleep 1
 
-rg -F "$FIND" "${@}"
+	rg -F "$FIND" "${@}"
 
-sleep 3
+	sleep 3
 
-rg -F "$FIND" --files-with-matches "${@}" | xargs sed -i "s#$FIND#$REPLACE#g"
+	rg -F "$FIND" --files-with-matches "${@}" | xargs sed -i "s#$FIND#$REPLACE#g"
 
-printf "\n\nResults:\n\n"
+	printf "\n\nResults:\n\n"
 
-rg -F "$REPLACE" "${@}"
+	rg -F "$REPLACE" "${@}"
 
+}
+
+main "$@"
