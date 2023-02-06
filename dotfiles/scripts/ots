@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Script for creating a one time secret via:
+# onetimesecret.com
+# See: https://github.com/onetimesecret/onetimesecret
+
+API_URL=https://onetimesecret.com/api/v1
+SECRET_URL="https://onetimesecret.com/secret"
+
+get_secret_url() {
+	local secret_key="${1?}"
+	printf "%s/%s" "$SECRET_URL" "$secret_key"
+}
+
+main() {
+	local secret="${1?}"
+	# 3 days default
+	local ttl="${2:-259200}"
+	local response secret_id secret_url
+	response=$(http post "${API_URL}/share" secret=="${secret}" ttl=="$ttl")
+	secret_id=$(jq -r '.secret_key' <<<"$response")
+	secret_url=$(get_secret_url "$secret_id")
+	echo 1>&2 Response:
+	jq <<<"${response}" 1>&2
+	echo 1>&2 Copied secret url to clipboard!
+	wl-copy -n <<<"$secret_url"
+	printf "%s\n" "$secret_url"
+}
+
+main "$@"
