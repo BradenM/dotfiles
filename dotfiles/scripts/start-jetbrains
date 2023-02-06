@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+# shellcheck disable=SC2154
+trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+
+. utils.bash
+
+get_ide_path() {
+	local name="${1?}"
+	local path="${2:-$name}"
+	local base="${3:-opt}"
+	printf "/%s/%s/bin/%s.sh" "$base" "$path" "$name"
+}
+
+get_ide() {
+	local ide="${1?No ide provided!}"
+	local ide_path
+
+	case "$ide" in
+	py*)
+		ide_path=$(get_ide_path "pycharm" "pycharm-eap")
+		;;
+	web*)
+		ide_path=$(get_ide_path "webstorm" "webstorm-eap")
+		;;
+	rider*)
+		ide_path=$(get_ide_path "rider" "rider" "/usr/share")
+		;;
+	data*)
+		ide_path=$(get_ide_path "datagrip")
+		;;
+	idea*)
+		ide_path=$(get_ide_path "intellij-idea-ultimate-edition" "idea")
+		;;
+	*)
+		fail "No ide found matching: ${ide}"
+		;;
+	esac
+
+	echo -n "$ide_path"
+}
+
+ensure_xsettings() {
+	local unit_state
+	unit_state=$(systemctl --user is-active xsettingsd.service || true)
+	log_info "xsettingsd state: ${unit_state}"
+	if [[ "$unit_state" = "inactive" ]]; then
+		log_info "Starting xsettingsd.service!"
+		systemctl --user start xsettingsd.service
+	fi
+}
+
+main() {
+	local ide_path
+	ide_path=$(get_ide "${1?No IDE provided!}")
+
+	ensure_xsettings
+	log_info "Launching ide at: ${ide_path}"
+
+	vk_pro env _JAVA_AWT_WM_NONREPARENTING=1 QT_QPA_PLATFORM=xcb "$ide_path"
+
+}
+
+main "$@"
