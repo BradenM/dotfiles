@@ -3,8 +3,21 @@
 reporting: "off"
 startuppopupversion: 1
 
+gui:
+  showIcons: true
 
 git:
+  commit:
+    signOff: true
   paging:
     colorArg: always
-    pager: delta --dark --paging=never
+    pager: delta --dark --paging=never --diff-so-fancy --line-numbers
+    useConfig: false
+
+customCommands:
+  - key: "C"
+    command: "git cz c"
+    description: "commit with commitizen"
+    context: "files"
+    loadingText: "opening commitizen commit tool"
+    subprocess: true
