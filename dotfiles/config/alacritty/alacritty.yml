@@ -1,95 +1,52 @@
+import:
+  - ~/.config/alacritty/monokai-soda.yml
+
 # Window
 window:
-        padding:
-                x: 2
-                y: 2
-
-# Colors (Monokai Soda)
-#colors:
-        ## Default colors
-        #primary:
-                #background: "0x1a1a1a"
-                #foreground: "0xc4c5b5"
-
-        ## Normal colors
-        #normal:
-                #black: "0x1a1a1a"
-                #red: "0xf4005f"
-                #green: "0x98e024"
-                #yellow: "0xfa8419"
-                #blue: "0x9d65ff"
-                #magenta: "0xf4005f"
-                #cyan: "0x58d1eb"
-                #white: "0xc4c5b5"
-
-        ## Bright colors
-        #bright:
-                #black: "0x625e4c"
-                #red: "0xf4005f"
-                #green: "0x98e024"
-                #yellow: "0xe0d561"
-                #blue: "0x9d65ff"
-                #magenta: "0xf4005f"
-                #cyan: "0x58d1eb"
-                #white: "0xf6f6ef"
-
-# Colors (Monokai Soda)
-colors:
-  # Default colors
-  primary:
-    background: '#1a1a1a'
-    foreground: '#c4c5b5'
-
-  # Normal colors
-  normal:
-    black:   '#4d4d4d'
-    red:     '#f4005f'
-    green:   '#98e024'
-    yellow:  '#fa8419'
-    blue:    '#9d65ff'
-    magenta: '#f4005f'
-    cyan:    '#58d1eb'
-    white:   '#c4c5b5'
-
-  # Bright colors
-  bright:
-    black:   '#625e4c'
-    red:     '#f4005f'
-    green:   '#98e024'
-    yellow:  '#e0d561'
-    blue:    '#9d65ff'
-    magenta: '#f4005f'
-    cyan:    '#58d1eb'
-    white:   '#f6f6ef'
-
+  padding:
+    x: 2
+    y: 2
+  scrolling:
+    # doubled from 10,000 default.
+    history: 20000
+    multiplier: 3
 
 # Font Configuration
 font:
-        size: 13
-        normal:
-                family: MesloLGS NF
+  size: 12.0
+  # size: 22
+  normal:
+    family: MesloLGS NF
+  builtin_box_drawing: true
+  draw_bold_text_with_bright_colors: true
+
+colors:
+  transparent_background_colors: true
 
 # Cursor Config
 cursor:
-        style: Beam
+  style:
+    shape: Beam
+  vi_mode_style:
+    shape: Block
 
 # Mouse
 #mouse:
 #        hide_when_typing: true
-        #url:
-                #modifiers: Control
+#url:
+#modifiers: Control
 
 # Key bindings
 key_bindings:
-        - { key: L, mods: Control|Shift, action: ClearHistory }
-        - { key: Q, mods: Control|Shift, action: Quit }
-        - { key: Z, mods: Control|Shift, action: ToggleFullscreen }
+  - { key: L, mods: Control|Shift, action: ClearHistory }
+  # - { key: Q, mods: Control|Shift, action: Quit }
+  # - { key: Z, mods: Control|Shift, action: ToggleFullscreen }
 
-        - { key: Equals, mods: Control, action: ResetFontSize }
-        - { key: NumpadAdd, mods: Control|Shift, action: IncreaseFontSize }
-        - { key: NumpadSubtract, mods: Control, action: DecreaseFontSize }
+  - { key: Equals, mods: Control, action: ResetFontSize }
+  - { key: NumpadAdd, mods: Control, action: IncreaseFontSize }
+  - { key: NumpadSubtract, mods: Control, action: DecreaseFontSize }
 
-        - { key: V, mods: Control|Shift, action: Paste }
-        - { key: C, mods: Control|Shift, action: Copy }
-        - { key: Return,   mods: Shift,   chars: "\x1b[13;2u" }
-        - { key: Return,   mods: Control, chars: "\x1b[13;5u" }
+  - { key: V, mods: Control|Shift, action: Paste }
+  - { key: C, mods: Control|Shift, action: Copy }
+  - { key: Return, mods: Shift, chars: "\x1b[13;2u" }
+  - { key: Return, mods: Control, chars: "\x1b[13;5u" }

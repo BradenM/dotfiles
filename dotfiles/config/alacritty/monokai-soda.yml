@@ -1,0 +1,65 @@
+##
+# Monokai Soda Color Theme.
+#
+# Cannot recall original source,
+# but minor adjustments to make norm/bright
+# black show better against the background have been made.
+##
+
+# Original Source:
+#colors:
+## Default colors
+#primary:
+#background: "0x1a1a1a"
+#foreground: "0xc4c5b5"
+
+## Normal colors
+#normal:
+#black: "0x1a1a1a"
+#red: "0xf4005f"
+#green: "0x98e024"
+#yellow: "0xfa8419"
+#blue: "0x9d65ff"
+#magenta: "0xf4005f"
+#cyan: "0x58d1eb"
+#white: "0xc4c5b5"
+
+## Bright colors
+#bright:
+#black: "0x625e4c"
+#red: "0xf4005f"
+#green: "0x98e024"
+#yellow: "0xe0d561"
+#blue: "0x9d65ff"
+#magenta: "0xf4005f"
+#cyan: "0x58d1eb"
+#white: "0xf6f6ef"
+
+# Colors (Monokai Soda)
+colors:
+  # Default colors
+  primary:
+    background: "#1a1a1a"
+    foreground: "#c4c5b5"
+
+  # Normal colors
+  normal:
+    black: "#4d4d4d"
+    red: "#f4005f"
+    green: "#98e024"
+    yellow: "#fa8419"
+    blue: "#9d65ff"
+    magenta: "#f4005f"
+    cyan: "#58d1eb"
+    white: "#c4c5b5"
+
+  # Bright colors
+  bright:
+    black: "#625e4c"
+    red: "#f4005f"
+    green: "#98e024"
+    yellow: "#e0d561"
+    blue: "#9d65ff"
+    magenta: "#f4005f"
+    cyan: "#58d1eb"
+    white: "#f6f6ef"
