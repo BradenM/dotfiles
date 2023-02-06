@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+###
+## Download git repo directory. 
+###
+
+set -euo pipefail
+
+# shellcheck source=./utils.bash
+. utils.bash
+
+USAGE="USAGE: $(basename "$0") [-o outdir] [-r ref] <owner/repo> <directory>"
+
+print_usage() {
+  log_info "$USAGE"
+}
+
+main() {
+  local outdir ref project directory
+
+  while getopts "o:r:" op; do
+    case "${op}" in
+      o)
+        outdir="${OPTARG}"
+        ;;
+      r)
+        ref="${OPTARG}"
+        ;;
+      *)
+        print_usage
+        ;;
+    esac
+  done
+
+  shift $((OPTIND-1))
+
+  project="${1:-}"
+  directory="${2:-}"
+  outdir="${outdir:-$(basename "$directory")}"
+
+  if [ -z "${project}" ] || [ -z "${directory}" ]; then
+    print_usage
+    fail "Must provide both <project> and <directory> args!"
+  fi
+
+  local git_url
+  if [ -z "${ref:-}" ]; then
+    git_url="https://github.com/${project}/trunk/${directory}"
+  else
+    git_url="https://github.com/${project}/branches/${ref}/${directory}"
+  fi
+  
+  local project_ref
+  project_ref=$(printf '%s @ %s' "$directory" "$git_url")
+  log_title "Downloading ($project_ref) ~> $outdir"
+
+  mkdir -p "$(dirname $outdir)"
+  /usr/bin/svn export "${git_url}" "$outdir"
+  log_success "Done!"
+
+}
+
+main "$@"
