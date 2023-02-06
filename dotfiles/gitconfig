@@ -1,7 +1,7 @@
 [user]
 	email = bradenmars@bradenmars.me
 	name = Braden Mars
-	signingKey = 034B589A81A5E04F9F60BF7D6337007435FB154C
+	signingKey = 6337007435FB154C
 [core]
 	editor = nvim
         #pager = diff-so-fancy | less --tabs=4 -RFX
