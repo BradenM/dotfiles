@@ -11,4 +11,3 @@ _evalcache ntl completion:generate --shell=zsh
 
 # flux
 _evalcache flux completion zsh
-

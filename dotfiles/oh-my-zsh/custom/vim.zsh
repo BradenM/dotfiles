@@ -11,7 +11,8 @@ function nvimvenv {
   fi
 }
 
-alias nvim=nvimvenv
-unalias vim
-alias vim=nvimvenv
+# alias nvim=nvimvenv
+# unalias vim
+# alias vim=nvimvenv
+alias vim=nvim
 
