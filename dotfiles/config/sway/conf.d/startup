@@ -6,8 +6,9 @@ set $gnome-schema org.gnome.desktop.interface
 #set $xsettings-schema org.gnome.settings-daemon.plugins.xsettings
 
 exec_always {
-    gsettings set $gnome-schema gtk-theme 'Arc'
-    gsettings set $gnome-schema icon-theme 'Numix-Circle'
+    # gsettings set $gnome-schema gtk-theme 'Arc'
+    # gsettings set $gnome-schema icon-theme 'Numix-Circle'
+    gsettings set $gnome-schema icon-theme 'Adwaita'
     gsettings set $gnome-schema cursor-theme 'Xcursor-breeze'
     #gsettings set $gnome-schema application-prefer-dark-theme '1'
     #gsettings set $xsettings-schema hinting 'full'
@@ -35,17 +36,6 @@ for_window [app_id="scrcpy"] floating true
 #exec "xdg-settings set default-web-browser firefox-developer-edition.desktop >/dev/null"
 exec "xdg-settings set default-web-browser firefox.desktop >/dev/null"
 
-# Nextcloud
-#exec nextcloud
-
-# SSH/GPG Agents
-#exec_always "keychain --quiet id_git aur id_git aur --agents ssh,gpg"
-# exec "keychain --systemd  --agents gpg,ssh id_rsa id_git aur 35FB154C"
-# exec_always "gpg-connect-agent updatestartuptty /bye >/dev/null"
-
-
-# Waybar
-exec_always ~/.config/waybar/waybar.sh
 
 # Network Manager
 exec nm-applet --indicator

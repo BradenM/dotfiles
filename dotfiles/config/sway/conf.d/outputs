@@ -13,13 +13,13 @@ output $D1 subpixel rgb
 output $D2 mode $D2mode pos $D2posX $D2posY
 output $D2 transform 90
 output $D2 max_render_time 1
-output $D2 subpixel rgb
+output $D2 subpixel vrgb
 #output $D2 render_bit_depth 10
 
 output $D3 mode $D3mode pos $D3posX $D3posY
 output $D3 transform 270
 output $D3 max_render_time 1
-output $D3 subpixel rgb
+output $D3 subpixel vbgr
 #output $D3 render_bit_depth 10
 
 #output $D3 mode $D3mode pos $D3posX $D3posY

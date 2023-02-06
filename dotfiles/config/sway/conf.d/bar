@@ -1,5 +1,6 @@
 # SwayWM statusbar configuration.  
 
-#bar {
-#  swaybar_command ~/.config/waybar/waybar.sh
-#}
+bar {
+ mode hide
+ swaybar_command waybar
+}
