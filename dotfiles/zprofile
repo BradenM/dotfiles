@@ -1,3 +1,5 @@
+#!/hint/bash
+
 find_boot_drm_device() {
 	local boot_drm_id
 	boot_drm_id=$(udevadm info -a -n /dev/dri/card1 | grep boot_vga | rev | cut -c 2)
@@ -10,6 +12,8 @@ find_boot_drm_device() {
 setup_wlr_env() {
 	local drm_device
 	drm_device=$(find_boot_drm_device)
+	id_path=$(udevadm info -n "$drm_device" -q property --property=ID_PATH --value)
+	echo 1>&2 "DRM Device: ${id_path}"
 	export WLR_DRM_DEVICES=$drm_device
 	# for using alternative backend (i.e, vulkan)
 	[ -n "$1" ] && export WLR_RENDERER="$1"
@@ -35,9 +39,9 @@ setup_desktop_env() {
 	export QT_WAYLAND_FORCE_DPI=physical
 	export QT_QPA_PLATFORM=wayland
 	export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-	export QT_QPA_PLATFORMTHEME=qt5ct
+	export QT_QPA_PLATFORMTHEME=qt6ct
 	### GTK ###
-	export GTK_THEME=Arc-Dark
+	#export GTK_THEME=Arc-Dark
 	### Java ###
 	export _JAVA_AWT_WM_NONREPARENTING=1
 	export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true ${_JAVA_OPTIONS}"
@@ -54,19 +58,19 @@ setup_desktop_env() {
 
 setup() {
 	setup_desktop_env
-	setup_wlr_env
+	setup_wlr_env 
 	setup_key_agents
 }
 
-setup
-
 case "$(tty)" in
 /dev/tty1)
+	setup
 	# If running from tty1 start sway
 	exec sway
 	;;
 /dev/tty2)
 	# If running from tty2 start sway w/ debug logs
+	echo 1>&2 "Launching w/ sway debug logs enabled."; sleep 1
 	exec sway -d 2>~/sway.log
 	;;
 /dev/tty3)

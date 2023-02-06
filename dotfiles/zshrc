@@ -51,6 +51,7 @@ nmap                     # common nmap cmd aliases
 eksctl                   # eksctl completions
 helm                     # helm completions
 minikube                 # minikube completions
+ansible                  # ansible completions/aliases
 cmctl                    # cert-manager cli completions
 fd 			                 # find replacement
 aws 			               # aws completions
@@ -58,11 +59,13 @@ rsync			               # rsync aliases
 python                   # python helpers
 poetry                   # poetry completions
 pip                      # pip completions 
+command-not-found        # use pkgfile to find unknown commands
 colored-man-pages	       # colorize man pages
 common-aliases           # colorize man pages
 copybuffer               # binds ctrl-o to copy currently typed cmd
 docker                   # docker
 docker-compose           # docker-compose aliases
+dotnet                   # dotnet completion / aliases
 git                      # git alias/completions 
 gitfast		               # git... but fast
 git-extras		           # awesome git scripts
@@ -71,6 +74,7 @@ gh		                   # github cli
 git-machete	             # git repo organize+rebase/merge workflow autom
 evalcache		             # cache 'eval' commands
 alias-finder		         # informs you of an alias if one exists
+aliases		               # cheatsheet for aliases
 tmux                     # tmux
 ripgrep                  # rg completions
 taskwarrior              # taskwarrior 
@@ -79,19 +83,21 @@ systemd		               # systemd aliases
 urltools		             # provides cmds urlencode/urldecode
 web-search		           # provides web_search/google cmd
 fancy-ctrl-z		         # ctrl-z opens/closes vim
+trash		                 # trash-cli completions
 #flutter		               # flutter completions.
 encode64                 # encode/decode64 cmds
 kubectl                  # kubctl autocompletion
 helm                     # helm autocompletion
 autoupdate               # auto update zsh plugins
 fzf                      # fzf plugin
-a5r                      # adstakr completions
+#a5r                      # adstakr completions
 per-directory-history    # directory history.
 zoxide                   # better jump
 zsh-interactive-cd       # interactive tab completion for cd
 zsh-navigation-tools     # history (and more) nav tools
 zsh-autosuggestions	     # auto suggestions
 zsh-syntax-highlighting  # !! must be last - syntx hl
+#zsh-vim-mode
 )
 
 # ZSH Autosuggest
@@ -106,7 +112,7 @@ if [ -n "$ZSH_REC_MODE" ]; then
   echo "ZSH LOADED IN REC MODE"
   noload=(zsh-autosuggestions)
   for p in ${noload[@]}; do
-    plugins=(${plugins[@]/$p/})
+    plugins=(${plugins[@]/$p/} zsh-vim-mode)
   done
   echo $plugins
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
@@ -139,37 +145,22 @@ export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_ ll vi vim l la g ls cat"
 # Load Oh-My-Zsh
 source $ZSH/oh-my-zsh.sh
 
+
+## User configuration
+
+# Report ZSH Profiling
+#zprof
+
+systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
 # (asdf) compinit
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
 
-## User configuration
-
-# Ntfy Ignores
-export AUTO_NTFY_DONE_IGNORE="nvim aws vim tmux git lazygit make"
-
-# Report ZSH Profiling
-#zprof
-
 ## Powershell10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
-
-#autoload -Uz compinit
-#zstyle ':completion:*' menu select
-#fpath+=~/.zfunc
-
-
-# tabtab source for packages
-# uninstall by removing these lines
-#[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
-
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-
-
