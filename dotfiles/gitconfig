@@ -5,7 +5,7 @@
 [core]
 	editor = nvim
         #pager = diff-so-fancy | less --tabs=4 -RFX
-        pager = delta
+  pager = delta
 	autocrlf = input
 	excludesfile = ~/.gitignore_global
 [credential]
@@ -22,9 +22,10 @@
         #cz = !npx -y git-cz
 	nv = cz --no-verify
 	pr = gh pr
-        patch = !git --no-pager diff --no-color
+  patch = !git --no-pager diff --no-color
 	issue = gh issue
 	search = log -p --all -S
+	mc = machete
 
 [color]
 	ui = true
@@ -45,6 +46,7 @@
         
 [commit]
 	gpgSign = true
+	signOff = true
 
 [diff "sopsdiffer"]
 	textconv = sops -d
