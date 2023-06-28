@@ -48,5 +48,5 @@ key_bindings:
 
   - { key: V, mods: Control|Shift, action: Paste }
   - { key: C, mods: Control|Shift, action: Copy }
-  - { key: Return, mods: Shift, chars: "\x1b[13;2u" }
-  - { key: Return, mods: Control, chars: "\x1b[13;5u" }
+  - { key: Return, mods: Shift, chars: "\e[13;2u" }
+  - { key: Return, mods: Control, chars: "\e[13;5u" }

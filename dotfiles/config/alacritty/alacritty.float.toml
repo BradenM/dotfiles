@@ -1,0 +1,17 @@
+import = ["~/.config/alacritty/alacritty.toml"]
+
+[window]
+opacity = 0.85
+class.instance = "AlacrittyOL"
+class.general = "AlacrittyOL"
+padding.x = 0
+padding.y = 0
+
+[font]
+size = 10
+
+[font.normal]
+family = "MesloLGS NF"
+
+[cursor]
+style = "Beam"

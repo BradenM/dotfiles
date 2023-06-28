@@ -1,0 +1,65 @@
+import = [
+  "~/.config/alacritty/monokai-soda.toml"
+]
+ipc_socket = true
+
+[window]
+  [window.padding]
+    x = 2
+    y = 2
+
+[scrolling]
+  history = 20000
+  multiplier = 3
+
+[font]
+  size = 12.0
+  builtin_box_drawing = true
+  # draw_bold_text_with_bright_colors = true
+  [font.normal]
+  family = "MesloLGS NF"
+  style = "Regular"
+
+
+[colors]
+  # draw_bold_text_with_bright_colors = true
+  transparent_background_colors = true
+
+[cursor]
+  [cursor.style]
+    shape = "Beam"
+  [cursor.vi_mode_style]
+    shape = "Block"
+
+[[keyboard.bindings]]
+  key = "L"
+  mods = "Control|Shift"
+  action = "ClearHistory"
+[[keyboard.bindings]]
+  key = "Equals"
+  mods = "Control"
+  action = "ResetFontSize"
+[[keyboard.bindings]]
+  key = "NumpadAdd"
+  mods = "Control"
+  action = "IncreaseFontSize"
+[[keyboard.bindings]]
+  key = "NumpadSubtract"
+  mods = "Control"
+  action = "DecreaseFontSize"
+[[keyboard.bindings]]
+  key = "V"
+  mods = "Control|Shift"
+  action = "Paste"
+[[keyboard.bindings]]
+  key = "C"
+  mods = "Control|Shift"
+  action = "Copy"
+[[keyboard.bindings]]
+  key = "Return"
+  mods = "Shift"
+  chars = "\\e[13;2u"
+[[keyboard.bindings]]
+  key = "Return"
+  mods = "Control"
+  chars = "\\e[13;5u"
