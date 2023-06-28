@@ -38,12 +38,6 @@ report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +P
 _forcecolor=on
 rc.defaultwidth=120
 rc.detection=off
-taskd.certificate=/home/bradenmars/.task/private.cert
-taskd.key=/home/bradenmars/.task/private.key
-taskd.ca=/home/bradenmars/.task/ca.cert.pem
-taskd.server=taskwarrior.inthe.am:53589
-taskd.credentials=inthe_am/bradenmars02/28a2082a-d725-42cc-b86b-6b7d08c92ca4
-taskd.trust=ignore hostname
 
 
 report.in.columns           = id,description
