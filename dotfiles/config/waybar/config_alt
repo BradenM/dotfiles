@@ -1,8 +1,9 @@
   {
-    "layer": "bottom",
+    "layer": "top",
     "position": "bottom",
     "output": [
-      "DP-1"
+      "DP-2",
+      "DP-3"
     ],
     "height": 0,
     "spacing": 8,
@@ -182,7 +183,7 @@
       "return-type": "json",
       "tooltip": false,
       "escape": true,
-      "exec": "~/.config/waybar/modules/timew.py"
+      "exec": "~/.config/waybar/modules/timew.py short"
     },
     "custom/taskw": {
       "format": "{} ",
@@ -216,10 +217,10 @@
       "max-length": 10
     },
     "temperature": {
+      "interval": 10,
       "format": "{temperatureC}\u00b0C \uf2c9 ",
       "hwmon-path": "/sys/class/hwmon/hwmon10/temp1_input",
-      "critical-threshold": 82,
-      "interval": 10
+      "critical-threshold": 82
     },
     "memory": {
       "interval": 30,
