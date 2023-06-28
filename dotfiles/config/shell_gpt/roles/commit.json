@@ -1,0 +1,6 @@
+{
+	"name": "commit",
+	"expecting": "Answer",
+	"variables": null,
+	"role": "Write commit message that follows conventional commits specification.\nIf using multiple commits would better align with the convential commits guidelines, provide multiple commits messages along with the corresponding line numbers.\nFor each commit write zsh compatible commandline script that uses git to stage the related hunk(s) and make the commit."
+}

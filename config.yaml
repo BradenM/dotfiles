@@ -26,11 +26,9 @@ actions:
       poetry completions zsh > $ZSH/plugins/poetry/_poetry
       )
   post:
-    loginstall:
-      echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst
+    loginstall: echo {{@@ _dotfile_abs_src @@}} installed to {{@@ _dotfile_abs_dst
       @@}} >> {0}
-    make_pkg:
-      pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck
+    make_pkg: pushd /tmp && yay -G {0} && cd {0} && makepkg -sci --noconfirm --skippgpcheck
       && popd
 config:
   backup: true
@@ -38,11 +36,9 @@ config:
   create: true
   dotpath: dotfiles
   default_actions:
-    - loginstall "/tmp/dotdrop-installation.log"
+  - loginstall "/tmp/dotdrop-installation.log"
   ignoreempty: false
   keepdot: false
-  # link_dotfile_default: link_children
-  # link_on_import: link_children
   longkey: false
   showdiff: false
   workdir: ~/.config/dotdrop
@@ -53,7 +49,7 @@ dotfiles:
     link: link_children
     src: config/fontconfig
     actions:
-      - fontcache
+    - fontcache
   d_kitty:
     dst: ~/.config/kitty
     link: link_children
@@ -63,9 +59,9 @@ dotfiles:
     link: link_children
     src: config/autofs
     actions:
-      - install_pip
-      - make_pkg "autofs"
-      - exec_pipenv "sudo python ./dotfiles/config/autofs/install.py"
+    - install_pip
+    - make_pkg "autofs"
+    - exec_pipenv "sudo python ./dotfiles/config/autofs/install.py"
   d_scripts:
     dst: ~/.scripts
     link: link_children
@@ -75,8 +71,8 @@ dotfiles:
     link: link_children
     src: config/yay
     actions:
-      - install_pkgs
-      - fontcache
+    - install_pkgs
+    - fontcache
   f_czrc:
     dst: ~/.czrc
     link: absolute
@@ -98,9 +94,9 @@ dotfiles:
     link: absolute
     src: zshrc
     actions:
-      - install_pyenv
-      - install_pip
-      - install_poetry
+    - install_pyenv
+    - install_pip
+    - install_poetry
   d_hotkeys:
     src: hotkeys
     dst: ~/.hotkeys
@@ -110,7 +106,7 @@ dotfiles:
     dst: ~/.config/direnv
     link: link_children
     upignore:
-      - allow
+    - allow
   d_sway:
     src: config/sway
     dst: ~/.config/sway
@@ -147,8 +143,8 @@ dotfiles:
     dst: ~/.oh-my-zsh/custom
     link: link_children
     upignore:
-      - plugins
-      - themes
+    - plugins
+    - themes
   f_p10k.zsh:
     src: p10k.zsh
     dst: ~/.p10k.zsh
@@ -164,13 +160,13 @@ dotfiles:
     dst: ~/.timewarrior
     link: link_children
     upignore:
-      - "*.pyc"
-      - "**/__pycache__**"
-      - .idearc
-      - teamwork*
-      - extensions
-      - "*tmp*"
-      - "*.data"
+    - '*.pyc'
+    - '**/__pycache__**'
+    - .idearc
+    - teamwork*
+    - extensions
+    - '*tmp*'
+    - '*.data'
   f_taskrc:
     src: taskrc
     dst: ~/.taskrc
@@ -184,11 +180,11 @@ dotfiles:
     src: config/nvim/lua/user
     dst: ~/.config/nvim/lua/user
     actions:
-      - install_astronvim
+    - install_astronvim
   f_zprofile:
     src: zprofile
     dst: ~/.zprofile
-    chmod: "755"
+    chmod: '755'
   f_config.yml:
     src: config/jesseduffield/lazygit/config.yml
     dst: ~/.config/jesseduffield/lazygit/config.yml
@@ -204,43 +200,51 @@ dotfiles:
   f_electron20-flags.conf:
     src: config/electron-flags.conf
     dst: ~/.config/electron20-flags.conf
+  f_code-flags.conf:
+    src: config/code-flags.conf
+    dst: ~/.config/code-flags.conf
+  d_roles:
+    src: config/shell_gpt/roles
+    dst: ~/.config/shell_gpt/roles
 profiles:
   braden-desktop:
     dotfiles:
-      - f_vimrc
-      - d_fontconfig
-      - f_gitconfig
-      - d_yay
-      - f_czrc
-      - f_zshrc
-      - f_zshenv
-      - d_omz_custom
-      - d_scripts
-      - d_hotkeys
-      - d_autofs
-      - d_direnv
-      - d_sway
-      - f_xresources
-      - f_xdefaults
-      - d_environment.d
-      - d_alacritty
-      - d_waybar
-      - d_wofi
-      - d_mako
-      - f_p10k.zsh
-      - d_qutebrowser
-      - d_mpv
-      - d_timewarrior
-      - f_taskrc
-      - f_tmux.conf
-      - f_ideavimrc
-      - d_astronvim_user
-      - f_zprofile
-      - f_config.yml
-      - f_electron-flags.conf
-      - f_electron12-flags.conf
-      - f_electron18-flags.conf
-      - f_electron20-flags.conf
+    - f_vimrc
+    - d_fontconfig
+    - f_gitconfig
+    - d_yay
+    - f_czrc
+    - f_zshrc
+    - f_zshenv
+    - d_omz_custom
+    - d_scripts
+    - d_hotkeys
+    - d_autofs
+    - d_direnv
+    - d_sway
+    - f_xresources
+    - f_xdefaults
+    - d_environment.d
+    - d_alacritty
+    - d_waybar
+    - d_wofi
+    - d_mako
+    - f_p10k.zsh
+    - d_qutebrowser
+    - d_mpv
+    - d_timewarrior
+    - f_taskrc
+    - f_tmux.conf
+    - f_ideavimrc
+    - d_astronvim_user
+    - f_zprofile
+    - f_config.yml
+    - f_electron-flags.conf
+    - f_electron12-flags.conf
+    - f_electron18-flags.conf
+    - f_electron20-flags.conf
+    - f_code-flags.conf
+    - d_roles
     variables:
       dpi: 109
       system_font: Noto Sans Display
@@ -248,7 +252,7 @@ profiles:
       gpu_vdpau: nouveau
   braden-pc:
     include:
-      - braden-desktop
+    - braden-desktop
     variables:
       dpi: 192
       system_font: Noto Sans Display
