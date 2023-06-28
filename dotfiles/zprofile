@@ -17,11 +17,17 @@ setup_wlr_env() {
 	export WLR_DRM_DEVICES=$drm_device
 	# for using alternative backend (i.e, vulkan)
 	[ -n "$1" ] && export WLR_RENDERER="$1"
+	# other
+	# possibly fix disappearing cursors
+	# export WLR_NO_HARDWARE_CURSORS=1
 }
 
 setup_key_agents() {
-	gpg-connect-agent updatestartuptty /bye >/dev/null
-	keychain --quick --agents gpg,ssh --quiet id_rsa id_git aur 35FB154C
+	export GPG_TTY=$(tty)
+	gpg-connect-agent updatestartuptty /bye
+	# gpg-connect-agent updatestartuptty /bye >/dev/null
+	# keychain --quick --agents gpg,ssh --quiet id_rsa id_git aur 35FB154C
+	keychain --quick --systemd --agents gpg,ssh --quiet id_rsa id_git aur '0x6337007435FB154C' '0xEE67D8AA78A257AF'
 	[ -z "$HOSTNAME" ] && HOSTNAME=$(uname -n)
 	[ -f $HOME/.keychain/$HOSTNAME-sh ] &&
 		. $HOME/.keychain/$HOSTNAME-sh
@@ -39,18 +45,20 @@ setup_desktop_env() {
 	export QT_WAYLAND_FORCE_DPI=physical
 	export QT_QPA_PLATFORM=wayland
 	export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-	export QT_QPA_PLATFORMTHEME=qt6ct
+	export QT_QPA_PLATFORMTHEME=qt5ct
 	### GTK ###
 	#export GTK_THEME=Arc-Dark
 	### Java ###
 	export _JAVA_AWT_WM_NONREPARENTING=1
-	export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true ${_JAVA_OPTIONS}"
+	#export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true ${_JAVA_OPTIONS}"
 	### Clutter ###
 	export CLUTTER_BACKEND=wayland
 	### SDL ###
 	export SDL_VIDEODRIVER=wayland
 	### Mozilla ###
 	export MOZ_DBUS_REMOTE=1
+	export MOZ_ENABLE_WAYLAND=1
+	export GTK_CSD=0
 	### VAAPI/VDPAU
 	export LIBVA_DRIVER_NAME=radeonsi
 	export VDPAU_DRIVER=radeonsi
@@ -74,7 +82,15 @@ case "$(tty)" in
 	exec sway -d 2>~/sway.log
 	;;
 /dev/tty3)
-	# If running from tty3 start bash
+	# tty3 - vulkan backend
+	setup_desktop_env
+	setup_wlr_env "vulkan"
+	setup_key_agents
+	echo 1>&2 "Launching w/ WLR DRM vulkan backend w/ sway debug logs enabled."; sleep 1
+	exec sway -d 2>~/sway.log
+	;;
+/dev/tty7)
+	# If running from tty7 start bash
 	exec bash
 	;;
 esac
