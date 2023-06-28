@@ -11,7 +11,7 @@ export PATH=/usr/local/bin:$HOME/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 export SSH_KEY_PATH="~/.ssh/id_rsa"
 export MANPATH="/usr/local/man:$MANPATH"
-export LD_LIBRARY_PATH="/usr/lib:/usr/lib32"
+export LD_LIBRARY_PATH="/usr/lib:/usr/lib32:/usr/lib/jvm/$(archlinux-java get)/lib/server:${LD_LIBRARY_PATH}"
 
 # make flags
 export MAKEFLAGS="-j$(($(nproc)+1))"
@@ -61,7 +61,15 @@ export CFLAGS='-O2'
 export RUSTFLAGS="-C opt-level=2"
 
 # GNUPG
-# export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
+# Keychain (load only)
+[ -z "$HOSTNAME" ] && HOSTNAME=$(uname -n)
+[ -f $HOME/.keychain/$HOSTNAME-sh ] &&
+	. $HOME/.keychain/$HOSTNAME-sh
+[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] &&
+	. $HOME/.keychain/$HOSTNAME-sh-gpg
 
 # Dotfiles
 export DOTFILES="$HOME/dotfiles"
