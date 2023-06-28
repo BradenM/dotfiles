@@ -6,11 +6,11 @@ set $gnome-schema org.gnome.desktop.interface
 #set $xsettings-schema org.gnome.settings-daemon.plugins.xsettings
 
 exec_always {
-    # gsettings set $gnome-schema gtk-theme 'Arc'
+    gsettings set $gnome-schema gtk-theme 'Arc'
     # gsettings set $gnome-schema icon-theme 'Numix-Circle'
     gsettings set $gnome-schema icon-theme 'Adwaita'
     gsettings set $gnome-schema cursor-theme 'Xcursor-breeze'
-    #gsettings set $gnome-schema application-prefer-dark-theme '1'
+    gsettings set $gnome-schema application-prefer-dark-theme '1'
     #gsettings set $xsettings-schema hinting 'full'
     #gsettings set $xsettings-schema antialiasing 'rgba'
     #gsettings set $xsettings-schema rgba 'rgb'
@@ -27,6 +27,44 @@ for_window [title="PomoDoneApp"] border none
 for_window [title="PomoDoneApp"] layout floating
 for_window [app_id="AlacrittyOL"] floating true
 for_window [app_id="scrcpy"] floating true
+
+
+#: general
+
+# set floating mode for specific applications
+for_window [instance="lxappearance"] floating enable
+for_window [app_id="pamac-manager"] floating enable
+for_window [app_id="blueberry.py"] floating enable
+for_window [app_id="dragon-drop"] floating enable, sticky enable
+for_window [app_id="firefox" title="^Library$"] floating enable, border pixel 1, sticky enable
+for_window [app_id="thunderbird" title=".*Reminder"] floating enable
+for_window [app_id="floating_shell"] floating enable, border pixel 1, sticky enable
+for_window [app_id="Manjaro.manjaro-settings-manager"] floating enable
+for_window [app_id="" title="Picture in picture"] floating enable, sticky enable
+for_window [app_id="" title="Picture-in-Picture"] floating enable, sticky enable
+for_window [instance="around"] floating enable, sticky enable
+for_window [app_id="xsensors"] floating enable
+for_window [title="Save File"] floating enable
+for_window [title="Firefox .*— Sharing Indicator"] floating enable, sticky enable, move to scratchpad
+for_window [app_id="" title=".* is sharing your screen."] floating enable
+for_window [title="^wlay$"] floating enable
+
+for_window [instance="keepassxc"] floating enable, sticky enable, move to scratchpad
+bindsym --release Escape [instance="keepassxc"] move to scratchpad
+
+# inhibit idle
+for_window [app_id="microsoft teams - preview"] inhibit_idle fullscreen
+for_window [app_id="chromium"] inhibit_idle fullscreen
+for_window [app_id="google-chrome"] inhibit_idle fullscreen
+for_window [app_id="google-chrome-beta"] inhibit_idle fullscreen
+for_window [app_id="google-chrome-unstable"] inhibit_idle fullscreen
+
+# Don't allow applications to inhibit shortcuts, i.e. grab total control of the
+# keyboard. Chrome currently abuses this by enabling it for all "--app=..."
+# shortcuts.
+seat * shortcuts_inhibitor disable
+
+
 #: Comms Workspace
 #for_window [instance="mailspring"] move to workspace $ws10
 #for_window [instance="discord"] move to workspace $ws10
@@ -34,7 +72,7 @@ for_window [app_id="scrcpy"] floating true
 
 # Set Default Browser
 #exec "xdg-settings set default-web-browser firefox-developer-edition.desktop >/dev/null"
-exec "xdg-settings set default-web-browser firefox.desktop >/dev/null"
+# exec "xdg-settings set default-web-browser firefox.desktop >/dev/null"
 
 
 # Network Manager
@@ -46,8 +84,12 @@ exec nm-applet --indicator
 #exec slack
 #exec mailspring
 
+# Waybar
+exec waybar -c /home/bradenmars/.config/waybar/config_alt -s /home/bradenmars/.config/waybar/style-alt.css -b 1
+
 # Smart Autotiling
-exec_always ~/.config/sway/scripts/autotiling.sh
+# exec_always ~/.config/sway/scripts/autotiling.sh
+exec_always '~/.scripts/launch-single autotiling-rs'
 
 # Mako Notification Manager
 exec mako

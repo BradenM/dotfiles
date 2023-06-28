@@ -9,13 +9,14 @@
 #set $menu exec alacritty -d 55 30 -t launcher -e env TERMINAL_COMMAND="alacritty -e" "sway-launcher-desktop"
 #set $browser /home/bradenmars/.scripts/qutebrowser
 #set $browser 'env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox'
-set $browser 'vk_pro chromium --enable-accelerated-video-decode --enable-features=UseOzonePlatform,VaapiVideoDecoder,VaapiIgnoreDriverChecks --ignore-gpu-blocklist --enable-gpu-rasterization --enable-zero-copy --ozone-platform=wayland'
+# set $browser 'vk_pro chromium --enable-accelerated-video-decode --enable-features=UseOzonePlatform,VaapiVideoDecoder,VaapiIgnoreDriverChecks --ignore-gpu-blocklist --enable-gpu-rasterization --enable-zero-copy --ozone-platform=wayland'
+set $browser 'vk_pro brave --enable-accelerated-video-decode --enable-features=UseOzonePlatform,VaapiVideoDecoder --enable-gpu-rasterization --enable-zero-copy --ozone-platform=wayland --enable-vulkan'
 set $browserAlt 'vk_pro env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox/firefox'
 set $menu wofi
 
 # Launcher
 #for_window [app_id="Alacritty" title="launcher"] floating enable, border pixel 10, sticky enable
-bindsym $mod+d exec $menu
+bindsym $mod+d exec yofi apps
 
 # Open Browser
 bindsym $mod+g exec $browser 
@@ -37,17 +38,6 @@ bindsym $mod+Shift+Print exec ~/.config/sway/scripts/screenrec.sh
 # Clipman Wofi
 bindsym $mod+p exec 'clipman pick --tool=wofi --tool-args="--dmenu"'
 
-# Voice PTT Mode
-mode "voice" {
-        # back to normal: Enter or Escape or $mod+r
-   	bindsym Escape [con_mark="swapee"] focus; unmark "swapee"; mode "default"; 
-        bindsym $mod+Scroll_Lock [con_mark="swapee"]; mode "default";
-	
-}
-
-# Discord PTT
-bindsym $mod+Scroll_Lock mark --add swapee; exec 'swaymsg [instance="discord]" focus'; mode "voice";
-
 # Media Controls
 #bindsym $mod+n exec mpc toggle
 #bindsym $mod+Shift+N exec mpc next
@@ -55,3 +45,69 @@ bindsym $mod+Scroll_Lock mark --add swapee; exec 'swaymsg [instance="discord]" f
 bindsym $mod+n exec playerctl play-pause
 bindsym $mod+Shift+N exec playerctl next
 bindsym $mod+Ctrl+n exec playerctl previous
+
+
+
+# Screenshot mode.
+set $mode_screenshot "<span foreground='$color10'></span>  \
+<span foreground='$color5'><b>Pick</b></span> <span foreground='$color10'>(<b>p</b>)</span> \
+<span foreground='$color5'><b>Output</b></span> <span foreground='$color10'>(<b>o</b>)</span> \
+<span foreground='$color7'>+ <span foreground='$color10'><b>Shift</b></span> for </span>"
+
+
+set $screenshot_screen 'grimshot --notify copy output'
+set $screenshot_selection_upload 'grimshot --notify save output - | swappy -f -'
+
+set $screenshot_selection 'grim -g "$(~/.scripts/select-area)" - | wl-copy'
+set $screenshot_selection_upload 'grim -g "$(~/.scripts/select-area)" - | swappy -f -'
+
+mode --pango_markup $mode_screenshot {
+    # output = currently active output
+    bindsym o mode "default", exec $screenshot_screen
+    bindsym Shift+o mode "default", exec $screenshot_screen_upload
+
+    # pick the region to screenshot
+    bindsym p mode "default", exec $screenshot_selection
+    bindsym Shift+p mode "default", exec $screenshot_selection_upload
+
+    # Return to default mode.
+    bindsym Escape mode "default"
+}
+
+## Launch // Screenshot Mode ##
+bindsym Print mode $mode_screenshot
+
+# workspace memorize & switch mode
+set $mode_set_switch_window "set_switch_window: [0]-[9]"
+mode $mode_set_switch_window {
+    bindsym 1 mark 1; mode "default"
+    bindsym 2 mark 2; mode "default"
+    bindsym 3 mark 3; mode "default"
+    bindsym 4 mark 4; mode "default"
+    bindsym 5 mark 5; mode "default"
+    bindsym 6 mark 6; mode "default"
+    bindsym 7 mark 7; mode "default"
+    bindsym 8 mark 8; mode "default"
+    bindsym 9 mark 9; mode "default"
+    bindsym 0 mark 0; mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+ctrl+t mode $mode_set_switch_window
+set $mode_switch_window "switch_window: [0]-[9]"
+mode $mode_switch_window {
+    bindsym 1 [con_mark="1"] focus; mode "default"
+    bindsym 2 [con_mark="2"] focus; mode "default"
+    bindsym 3 [con_mark="3"] focus; mode "default"
+    bindsym 4 [con_mark="4"] focus; mode "default"
+    bindsym 5 [con_mark="5"] focus; mode "default"
+    bindsym 6 [con_mark="6"] focus; mode "default"
+    bindsym 7 [con_mark="7"] focus; mode "default"
+    bindsym 8 [con_mark="8"] focus; mode "default"
+    bindsym 9 [con_mark="9"] focus; mode "default"
+    bindsym 0 [con_mark="0"] focus; mode "default"
+    bindsym t mode $mode_set_switch_window
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+t mode $mode_switch_window
