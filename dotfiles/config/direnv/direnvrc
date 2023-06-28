@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# https://github.com/nix-community/nix-direnv
+source "$HOME/.config/direnv/lib/nix-direnv/direnvrc"
+
 shopt -s gnu_errfmt
 shopt -s nullglob
 shopt -s extglob
@@ -128,21 +131,23 @@ layout_poetry() {
 		return 2
 	fi
 
-	local VENV=$(poetry env list --full-path | cut -d' ' -f1)
+	#local VENV=$(poetry env list --full-path | cut -d' ' -f1)
+	local VENV=$(cache_output --file-dependency pyproject.toml --name poetry --expect-dir -- poetry env info --path)
+	
 	if [[ -z $VENV || ! -d $VENV/bin ]]; then
 		log_error 'No poetry virtual environment found. Use `poetry install` to create one first.'
 		return 2
 	fi
 
-	declare -a path_array
-	IFS=: read -ra path_array <<<"${PATH}"
-
-	for path in "${path_array[@]}"; do
-		if [[ "${path}" == *"python"* ]]; then
-			log_status "removing ${path} from path."
-			PATH_rm "${path}"
-		fi
-	done
+	# declare -a path_array
+	# IFS=: read -ra path_array <<<"${PATH}"
+	#
+	# for path in "${path_array[@]}"; do
+	# 	if [[ "${path}" == *"python"* ]]; then
+	# 		log_status "removing ${path} from path."
+	# 		PATH_rm "${path}"
+	# 	fi
+	# done
 
 	export VIRTUAL_ENV=$VENV
 	export POETRY_ACTIVE=1
