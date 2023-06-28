@@ -26,6 +26,9 @@ alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
 alias l='ls'
 alias ll="ls -l"
 alias la="ls -al"
+takeown() {
+  sudo -E chown -R "${USER}:${USER}" "$@"
+}
 
 # Dotdrop Dotfiles
 alias dotdrop="$DOTFILES/dotdrop.sh --cfg=$DOTFILES/config.yaml"
@@ -83,6 +86,7 @@ conv_times() {
 }
 
 # Start SSH Agent
+alias ssh='TERM=xterm-256color command ssh'
 alias ssha='eval $(ssh-agent)'
 
 # LS with numerical permission values
@@ -104,8 +108,8 @@ alias lpfind="search_lastpass"
 alias sysinfo='inxi -Fxxxz'
 
 # Direnv Allow
-direnv() { asdf exec direnv "$@"; } # asdf shortcut
-alias dallow='asdf exec direnv allow'
+direnv() { rtx exec direnv -- direnv "$@"; } # asdf shortcut
+alias dallow='rtx exec direnv -- direnv allow'
 #: Wrap tmux (see: https://github.com/direnv/direnv/wiki/Tmux)
 #alias tmux='direnv exec / tmux'
 
