@@ -1,6 +1,6 @@
 layer=overlay
 
-font=Noto Sans Display, Font Awesome 5 Free 12
+font=NotoMono Nerd Font 12,monospace 12,Font Awesome 5 Free 12
 background-color=#29313f
 text-color=#c7cfe1
 width=300
