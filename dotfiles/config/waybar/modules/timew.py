@@ -10,7 +10,9 @@ from datetime import datetime
 import subprocess as sp
 import json
 
-icon=""
+# icon=""
+icon=""
+args = sys.argv[1:]
 
 try:
     data = json.loads(sp.run(['timew', 'get', 'dom.active.json'], stdout=sp.PIPE, stderr=sp.PIPE).stdout)
@@ -39,7 +41,10 @@ desc = data['tags'][1]
 desc = f" # {desc}"
 proj = ' '.join([t.capitalize() for t in data['tags'][2].split('.')])
 
-result = f"{icon}  {proj}{annotation or desc} - {duration}"
+if len(args) and args[0].strip() == "short":
+    result = f"{icon}  {duration}"
+else:
+    result = f"{icon}  {proj}{annotation or desc} - {duration}"
 
 output = dict(text=result)
 print(json.dumps(output))
