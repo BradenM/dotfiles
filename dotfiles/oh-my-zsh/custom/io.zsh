@@ -4,7 +4,7 @@
 
 ## Kill process(es) listening on tcp port
 kill-port() {
-  sudo lsof -t -i tcp:$1 | xargs kill
+  sudo lsof -t -i tcp:$1 | xargs kill -9
 }
 
 ## List processes listening on a tcp port
