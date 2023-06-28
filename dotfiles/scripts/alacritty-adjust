@@ -6,8 +6,8 @@ trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 
 CONFIG_DIR="$XDG_CONFIG_HOME/alacritty"
 
-CONFIG_FILE="${CONFIG_DIR}/alacritty.yml"
-CONFIG_SM_FILE="${CONFIG_DIR}/alacritty.sm.yml"
+CONFIG_FILE="${CONFIG_DIR}/alacritty.toml"
+CONFIG_SM_FILE="${CONFIG_DIR}/alacritty.sm.toml"
 
 get_focused_width() {
 	swaymsg -t get_outputs --raw | jq -r '..|select(.focused?)|select(.focused==true)|.current_mode.width'

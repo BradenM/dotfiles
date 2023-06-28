@@ -5,7 +5,7 @@ set -o pipefail
 trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 
 CONFIG_DIR="$XDG_CONFIG_HOME/alacritty"
-CONFIG_FILE="${CONFIG_DIR}/alacritty.float.yml"
+CONFIG_FILE="${CONFIG_DIR}/alacritty.float.toml"
 
 
 ac_float_do() {
