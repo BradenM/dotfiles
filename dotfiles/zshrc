@@ -6,7 +6,6 @@
 # GNUPG Agent
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -45,7 +44,10 @@ adb 		                 # adb completions
 dnote 		               # dnote completions
 yarn			               # yarn completions
 pnpm			               # pnpm completions
+bit			                 # bit completions
 extract                  # determines and uses tar/7z/unzip/gzip etc
+universalarchive         # defines ua; inverse of extract
+cp                       # defines cpv (rsync alias w/ progress)
 transfer                 # transfer cmd for transfer.sh
 nmap                     # common nmap cmd aliases 
 eksctl                   # eksctl completions
@@ -57,8 +59,9 @@ fd 			                 # find replacement
 aws 			               # aws completions
 rsync			               # rsync aliases
 python                   # python helpers
-poetry                   # poetry completions
+# poetry                   # poetry completions
 pip                      # pip completions 
+procs                    # procs completions 
 command-not-found        # use pkgfile to find unknown commands
 colored-man-pages	       # colorize man pages
 common-aliases           # colorize man pages
@@ -80,6 +83,7 @@ ripgrep                  # rg completions
 taskwarrior              # taskwarrior 
 timewarrior              # timewarrior aliases / completion 
 systemd		               # systemd aliases
+rtx		                   # rtx completions
 urltools		             # provides cmds urlencode/urldecode
 web-search		           # provides web_search/google cmd
 fancy-ctrl-z		         # ctrl-z opens/closes vim
@@ -89,9 +93,13 @@ encode64                 # encode/decode64 cmds
 kubectl                  # kubctl autocompletion
 helm                     # helm autocompletion
 autoupdate               # auto update zsh plugins
+micropy
+shell-proxy
 fzf                      # fzf plugin
 #a5r                      # adstakr completions
-per-directory-history    # directory history.
+# zsh in
+nix-zsh-completions      # nix completions
+# per-directory-history    # directory history.
 zoxide                   # better jump
 zsh-interactive-cd       # interactive tab completion for cd
 zsh-navigation-tools     # history (and more) nav tools
@@ -101,7 +109,7 @@ zsh-syntax-highlighting  # !! must be last - syntx hl
 )
 
 # ZSH Autosuggest
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
+# ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # Zsh Syntax Highlight
