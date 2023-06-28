@@ -19,10 +19,12 @@ get_ide() {
 
 	case "$ide" in
 	py*)
-		ide_path=$(get_ide_path "pycharm" "pycharm-eap")
+		# ide_path=$(get_ide_path "pycharm" "pycharm-eap")
+		ide_path=$(get_ide_path "pycharm" "pycharm-professional")
 		;;
 	web*)
-		ide_path=$(get_ide_path "webstorm" "webstorm-eap")
+		# ide_path=$(get_ide_path "webstorm" "webstorm-eap")
+		ide_path=$(get_ide_path "webstorm" "webstorm")
 		;;
 	rider*)
 		ide_path=$(get_ide_path "rider" "rider" "/usr/share")
@@ -58,7 +60,7 @@ main() {
 	ensure_xsettings
 	log_info "Launching ide at: ${ide_path}"
 
-	vk_pro env _JAVA_AWT_WM_NONREPARENTING=1 QT_QPA_PLATFORM=xcb "$ide_path"
+	nohup vk_pro env _JAVA_AWT_WM_NONREPARENTING=1 QT_QPA_PLATFORM=xcb "$ide_path" &
 
 }
 
