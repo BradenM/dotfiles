@@ -18,9 +18,9 @@
   /*overflow-wrap: break-word;*/
 }
 
-#entry * {
-  overflow-wrap: break-word;
-}
+/* #entry * { */
+/*   overflow-wrap: break-word; */
+/* } */
 
 #input {
   margin: 5px;
@@ -76,5 +76,5 @@
   color: #fa8419;
   font-weight: 600;
   /*border: 3px solid red;*/
-  word-wrap: break-word;
+  /*word-wrap: break-word;*/
 }
