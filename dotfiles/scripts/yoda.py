@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/env nix-shell
+#! nix-shell -I /home/bradenmars/.nix-defexpr/channels --pure -i python -p "python311.withPackages (ps: with ps; [ liquidctl psutil ])"
 
 """yoda – dynamically adjust liquidctl device pump and fan speeds.
 
