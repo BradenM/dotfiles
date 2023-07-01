@@ -206,6 +206,9 @@ dotfiles:
   d_roles:
     src: config/shell_gpt/roles
     dst: ~/.config/shell_gpt/roles
+  d_yofi:
+    src: config/yofi
+    dst: ~/.config/yofi
 profiles:
   braden-desktop:
     dotfiles:
@@ -245,6 +248,7 @@ profiles:
     - f_electron20-flags.conf
     - f_code-flags.conf
     - d_roles
+    - d_yofi
     variables:
       dpi: 109
       system_font: Noto Sans Display
