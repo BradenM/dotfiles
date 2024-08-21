@@ -11,7 +11,7 @@
 #set $browser 'env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-developer-edition/firefox'
 # set $browser 'vk_pro chromium --enable-accelerated-video-decode --enable-features=UseOzonePlatform,VaapiVideoDecoder,VaapiIgnoreDriverChecks --ignore-gpu-blocklist --enable-gpu-rasterization --enable-zero-copy --ozone-platform=wayland'
 set $browser 'vk_pro brave --enable-accelerated-video-decode --enable-features=UseOzonePlatform,VaapiVideoDecoder --enable-gpu-rasterization --enable-zero-copy --ozone-platform=wayland --enable-vulkan'
-set $browserAlt 'vk_pro env MOZ_DBUS_REMOTE=1 GDK_BACKEND=wayland MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox/firefox'
+set $browserAlt '~/.scripts/launch-firefox'
 set $menu wofi
 
 # Launcher

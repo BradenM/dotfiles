@@ -27,6 +27,7 @@ for_window [title="PomoDoneApp"] border none
 for_window [title="PomoDoneApp"] layout floating
 for_window [app_id="AlacrittyOL"] floating true
 for_window [app_id="scrcpy"] floating true
+for_window [title="IllumiUI"] move to workspace number 8, floating true, border none, sticky disable
 
 
 #: general
@@ -98,7 +99,7 @@ exec mako
 #exec [ -x $HOME/.config/sway/scripts/tamefox ] && $HOME/.config/sway/scripts/tamefox
 
 # WayVNC
-exec [ -x $HOME/.config/sway/scripts/startvnc.sh ] && $HOME/.config/sway/scripts/startvnc.sh
+# exec [ -x $HOME/.config/sway/scripts/startvnc.sh ] && $HOME/.config/sway/scripts/startvnc.sh
 
 # swaywsr
 exec_always ~/.config/sway/scripts/swaywsr.sh

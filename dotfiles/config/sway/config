@@ -59,7 +59,7 @@ gaps outer 0
 no_focus [window_role="pop-up"]
 
 # Sway Idle
-#exec swayidle -w timeout 300 ~/.config/scripts/lock.sh
+exec_always swayidle -w timeout 1200 ~/.config/sway/scripts/lock.sh
 
 # change focus
 bindsym $mod+$left focus left
