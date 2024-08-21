@@ -2,7 +2,8 @@
     "layer": "bottom",
     "position": "bottom",
     "output": [
-      "DP-1"
+      "DP-1",
+      "HDMI-A-1"
     ],
     "height": 0,
     "spacing": 8,
