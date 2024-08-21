@@ -35,6 +35,12 @@ get_ide() {
 	idea*)
 		ide_path=$(get_ide_path "intellij-idea-ultimate-edition" "idea")
 		;;
+	rust*)
+		ide_path=$(get_ide_path "rustrover")
+		;;
+	go*)
+		ide_path=$(get_ide_path "goland")
+		;;
 	*)
 		fail "No ide found matching: ${ide}"
 		;;
@@ -53,14 +59,27 @@ ensure_xsettings() {
 	fi
 }
 
+ensure_asd() {
+	local asd_marker="/tmp/jetbrains.did_asd"
+	if [[ -f "$asd_marker" ]]; then
+		log_info "asd already resynced, skipping" 
+	else
+		sudo asd resync
+		touch "$asd_marker"
+	fi
+}
+
 main() {
-	local ide_path
-	ide_path=$(get_ide "${1?No IDE provided!}")
+	local ide_target ide_path ide_proc_log
+	ide_target=${1?No IDE provided!}
+	ide_path=$(get_ide "${ide_target}")
+	ide_proc_log="/tmp/jetbrains_${ide_target}.log"
 
 	ensure_xsettings
+	ensure_asd
 	log_info "Launching ide at: ${ide_path}"
 
-	nohup vk_pro env _JAVA_AWT_WM_NONREPARENTING=1 QT_QPA_PLATFORM=xcb "$ide_path" &
+	nohup vk_pro env _JAVA_AWT_WM_NONREPARENTING=1 QT_QPA_PLATFORM=xcb "$ide_path" >> "${ide_proc_log}" &
 
 }
 
