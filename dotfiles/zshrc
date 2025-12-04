@@ -13,11 +13,11 @@ gpg-connect-agent updatestartuptty /bye > /dev/null
 # . $HOME/.asdf/asdf.sh ## skip loading asdf to _not_ setup shims.
 export ASDF_DIR="${HOME}/.asdf"
 PATH="$PATH:${ASDF_DIR}/bin"
-(( ${+commands[direnv]} )) && emulate zsh -c "$(asdf exec direnv export zsh)"
+(( ${+commands[direnv]} )) && emulate zsh -c "$(mise exec direnv -- direnv export zsh)"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-(( ${+commands[direnv]} )) && emulate zsh -c "$(asdf exec direnv hook zsh)"
+(( ${+commands[direnv]} )) && emulate zsh -c "$(mise exec direnv -- direnv hook zsh)"
 
 # Enable ZSH Profiling
 #zmodload zsh/zprof
@@ -40,9 +40,9 @@ DISABLE_UPDATE_PROMPT=true
 plugins=(
 archlinux		             # httpie completions
 httpie		               # httpie completions
-adb 		                 # adb completions
+#adb 		                 # adb completions
 dnote 		               # dnote completions
-yarn			               # yarn completions
+# yarn			               # yarn completions
 pnpm			               # pnpm completions
 bit			                 # bit completions
 extract                  # determines and uses tar/7z/unzip/gzip etc
@@ -55,7 +55,7 @@ helm                     # helm completions
 minikube                 # minikube completions
 ansible                  # ansible completions/aliases
 cmctl                    # cert-manager cli completions
-fd 			                 # find replacement
+#fd 			                 # find replacement
 aws 			               # aws completions
 rsync			               # rsync aliases
 python                   # python helpers
@@ -79,11 +79,12 @@ evalcache		             # cache 'eval' commands
 alias-finder		         # informs you of an alias if one exists
 aliases		               # cheatsheet for aliases
 tmux                     # tmux
-ripgrep                  # rg completions
+#ripgrep                  # rg completions
 taskwarrior              # taskwarrior 
 timewarrior              # timewarrior aliases / completion 
 systemd		               # systemd aliases
-rtx		                   # rtx completions
+#rtx		                   # rtx completions
+mise		                 # mise completions
 urltools		             # provides cmds urlencode/urldecode
 web-search		           # provides web_search/google cmd
 fancy-ctrl-z		         # ctrl-z opens/closes vim
@@ -97,6 +98,8 @@ micropy
 shell-proxy
 fzf                      # fzf plugin
 #a5r                      # adstakr completions
+do-prompt                # hordelib auto completions
+illumi-prompt                # hordelib auto completions
 # zsh in
 nix-zsh-completions      # nix completions
 # per-directory-history    # directory history.
@@ -110,6 +113,7 @@ zsh-syntax-highlighting  # !! must be last - syntx hl
 
 # ZSH Autosuggest
 # ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # Zsh Syntax Highlight
@@ -151,7 +155,7 @@ ZSH_ALIAS_FINDER_AUTOMATIC=true
 export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_ ll vi vim l la g ls cat"
 
 # Load Oh-My-Zsh
-source $ZSH/oh-my-zsh.sh
+source ~/.oh-my-zsh/oh-my-zsh.sh
 
 
 ## User configuration
@@ -161,14 +165,35 @@ source $ZSH/oh-my-zsh.sh
 
 systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+
+#source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
 # (asdf) compinit
 # append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
+#fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
 
 ## Powershell10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/bradenmars/.local/share/echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrcmise/installs/python/miniconda3-3.10-23.11.0-2/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/bradenmars/.local/share/mise/installs/python/miniconda3-3.10-23.11.0-2/etc/profile.d/conda.sh" ]; then
+#         . "/home/bradenmars/.local/share/mise/installs/python/miniconda3-3.10-23.11.0-2/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/bradenmars/.local/share/mise/installs/python/miniconda3-3.10-23.11.0-2/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
+
+# eval "$(mise activate zsh)"
