@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+. utils.bash
+
+USAGE="USAGE: docker-stream-image [<ssh options>...] <IMAGE:TAG> [user@]hostname"
+
+
+main() {
+	[[ $# -lt 2 ]] && fail "$USAGE"
+	local length ssh_args args host_arg tag_arg
+	length=$(($# - 2))
+	ssh_args=("${@:1:$length}")
+	args=("${@}")
+	host_arg="${args[-1]}"
+	tag_arg="${args[-2]}"
+	log_info "Host ($host_arg) | Image ($tag_arg) | SSH (${ssh_args[*]})"
+	docker save "$tag_arg" | gzip | ssh ${ssh_args[@]} "$host_arg" 'gunzip | docker load'
+}
+
+main "$@"
