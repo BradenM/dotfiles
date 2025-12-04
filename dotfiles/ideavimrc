@@ -1,35 +1,64 @@
-source ~/.vimrc
+"" source ~/.vimrc
 
-" Addon Emulations
+"" Addon Emulations
 set easymotion
 set surround
 set NERDTree
+"set which-key
 
-" Editor Settings
-set ignorecase smartcase scrolloff=3 " 3 lines above/below cursor when scrolling
-
+"" Editor Settings
+set number
+set relativenumber
+set hlsearch
+" set incsearch
+set smartcase
+set showcmd
+set showmode
+set ignorecase
+set smartcase
+" set scrolloff=3
+" set ignorecase smartcase scrolloff=10 " 3 lines above/below cursor when scrolling
 
 " Clipboard
 "set clipboard=cb
 "set clipboard-=ideaput
 set clipboard+=unnamed
+set clipboard+=ideaput
+set clipboard+=unnamedplus
 
-" IdeaVim Settings
+"" IdeaVim Settings
 set ideajoin " Join Lines intelligently
-set multiple-cursors " Enabled multi cursor support
+" set multiple-cursors " Enabled multi cursor support
 set ideamarks " Sync marks and idea bookmarks
 
+"" Leader
+set mapleader=" "
+
+"" Key remappings
+" do not store c/cc in default register
+nnoremap c "_c
+nnoremap C "_C
+nnoremap cc "_cc
+" only yank til eol
+nnoremap Y y$
+" No Highlight Map
+map <C-n> :nohl<CR>
+" JK Remap
+inoremap jk <esc>
+inoremap <esc> <nop>
+inoremap <C-c> <nop>
+
 " Use Q for formatting the current paragraph (or visual selection)
-#vmap Q gq
-#nmap Q gqap
+"vmap Q gq
+"nmap Q gqap
 
 " Use <leader>f for formatting the current paragraph (or visual selection)
 vmap <leader>f gq
-
+"vnoremap jk <Esc>
 
 " These create newlines like o and O but stay in normal mode
-#map zj o<Esc>k
-#nmap zk O<Esc>j
+"map zj o<Esc>k
+"nmap zk O<Esc>j
 
 " Refactorings
 vmap T <Action>(Refactorings.QuickListPopupAction)
@@ -88,3 +117,14 @@ endif
 " map p <Action>($Paste)
 
 
+" Code navigation (leader c)
+nnoremap <leader>cd :action GotoDeclaration<cr>
+nnoremap <leader>ct :action GotoTypeDeclaration<cr>
+nnoremap <leader>ci :action GotoImplementation<cr>
+nnoremap <leader>cs :action GotoSuperMethod<cr>
+nnoremap <leader>cr :action ShowUsages<cr>
+nnoremap <leader>cu :action HighlightUsagesInFile<cr>
+nnoremap <leader>cv :action QuickJavaDoc<cr>
+nnoremap <leader>cc :action CallHierarchy<CR>  
+nnoremap <leader>cn :action ShowNavBar<CR>
+nnoremap <leader>cx :action FileStructurePopup<CR> 
