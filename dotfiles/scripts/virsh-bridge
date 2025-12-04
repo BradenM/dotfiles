@@ -6,7 +6,7 @@ NAME=""
 BRIF=""
 
 main() {
-    sudo brctl addbr "$NAME"
+    sudo brctl addbr "$NAME" || echo "Bridge with name ($NAME) already exists. Reusing"
     sudo brctl addif "$NAME" "$BRIF"
     sudo dhclient "$NAME"
     echo "Created new bridge [${NAME}] (IF: ${BRIF})."
