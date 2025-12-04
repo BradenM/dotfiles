@@ -1,10 +1,17 @@
 #!/hint/bash
 
+log() {
+	echo "$*" >> /tmp/profile.log
+}
+
 find_boot_drm_device() {
-	local boot_drm_id
-	boot_drm_id=$(udevadm info -a -n /dev/dri/card1 | grep boot_vga | rev | cut -c 2)
-	boot_drm_id="${boot_drm_id:-0}"
-	printf "/dev/dri/card%s" "${boot_drm_id}"
+	# local boot_drm_id
+	# boot_drm_id=$(udevadm info -a -n /dev/dri/card1 | grep boot_vga | rev | cut -c 2)
+	# boot_drm_id="${boot_drm_id:-0}"
+	# printf "/dev/dri/card%s" "${boot_drm_id}"
+	boot_card=$(for c in /dev/dri/card*; do udevadm info -a -n "$c" | grep -q 'ATTRS{boot_vga}=="1"' && { echo "$c"; break; }; done)
+	log "Found boot device: ${boot_card}"
+	echo "$boot_card"
 }
 
 ## WLR
@@ -17,6 +24,7 @@ setup_wlr_env() {
 	export WLR_DRM_DEVICES=$drm_device
 	# for using alternative backend (i.e, vulkan)
 	[ -n "$1" ] && export WLR_RENDERER="$1"
+	[ -n "$1" ] && export WLR_BACKEND="$1"
 	# other
 	# possibly fix disappearing cursors
 	# export WLR_NO_HARDWARE_CURSORS=1
@@ -62,11 +70,13 @@ setup_desktop_env() {
 	### VAAPI/VDPAU
 	export LIBVA_DRIVER_NAME=radeonsi
 	export VDPAU_DRIVER=radeonsi
+	# export LIBVA_DRIVER_NAME=nvidia
+	# export VDPAU_DRIVER=nvidia
 }
 
 setup() {
 	setup_desktop_env
-	setup_wlr_env 
+	setup_wlr_env
 	setup_key_agents
 }
 
@@ -74,20 +84,31 @@ case "$(tty)" in
 /dev/tty1)
 	setup
 	# If running from tty1 start sway
+	# # FOR NVIDIA
+	#exec sway --unsupported-gpu
 	exec sway
 	;;
 /dev/tty2)
+	setup
+	# If running from tty1 start sway
+	# # FOR NVIDIA
+	#exec sway --unsupported-gpu
+	export LIBVA_DRIVER_NAME=nvidia
+	export VDPAU_DRIVER=nvidia
+	exec sway --unsupported-gpu
+	;;
+/dev/tty3)
 	# If running from tty2 start sway w/ debug logs
 	echo 1>&2 "Launching w/ sway debug logs enabled."; sleep 1
 	exec sway -d 2>~/sway.log
 	;;
-/dev/tty3)
+/dev/tty4)
 	# tty3 - vulkan backend
 	setup_desktop_env
 	setup_wlr_env "vulkan"
 	setup_key_agents
 	echo 1>&2 "Launching w/ WLR DRM vulkan backend w/ sway debug logs enabled."; sleep 1
-	exec sway -d 2>~/sway.log
+	exec vk_pro sway -d 2>~/sway_vulkan.log
 	;;
 /dev/tty7)
 	# If running from tty7 start bash
