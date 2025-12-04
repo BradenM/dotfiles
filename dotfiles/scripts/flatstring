@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# # Check if a file path was provided
+# if [ -n "$1" ]; then
+#     # If a file path was provided, use awk on the file
+#     awk 'NF {printf "%s ",$0}' "$1" | sed 's/[ \t]*$//'
+# else
+#     # If no file path was provided, use awk on stdin
+#     awk 'NF {printf "%s ",$0}' | sed 's/[ \t]*$//'
+# fi
+#
+
+#!/usr/bin/env bash
+
+# Default separator
+separator=' '
+
+# Parse command line options
+while getopts "s:" opt; do
+  case ${opt} in
+    s )
+      separator=$OPTARG
+      ;;
+    \? )
+      echo "Invalid option: -$OPTARG" 1>&2
+      exit 1
+      ;;
+    : )
+      echo "Invalid option: -$OPTARG requires an argument" 1>&2
+      exit 1
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+# Check if a file path was provided
+if [ -n "$1" ]; then
+    # If a file path was provided, use awk on the file
+    awk -v sep="$separator" 'NF {printf "%s"sep,$0}' "$1" | sed 's/[ \t]*$//'
+else
+    # If no file path was provided, use awk on stdin
+    awk -v sep="$separator" 'NF {printf "%s"sep,$0}' | sed 's/[ \t]*$//'
+fi
