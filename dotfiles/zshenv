@@ -149,6 +149,10 @@ export PATH="$PNPM_HOME:$PATH"
 # GTK2
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 
+# Kubectl Krew
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 # Scripts
 export PATH="${PATH}:${HOME}/.scripts"
 
+export STREAMLIT_TELEMETRY_ENABLED=false
