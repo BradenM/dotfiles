@@ -141,3 +141,14 @@ log_header() {
 	[ "$2" ] && log_subtitle " ${c[white]}${c[dim]}$2${c[reset]} "
 	echo "$bar" 1>&2
 }
+
+ do_confirm() {
+ 	 local msg
+ 	 msg="${1:-Confirm? (y/n): }"
+ 	 read -p "$msg" yn
+   case $yn in
+       [Yy]* ) return;;
+       [Nn]* ) exit;;
+       * ) echo "Please answer yes or no.";;
+   esac
+ }
