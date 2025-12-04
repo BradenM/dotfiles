@@ -17,6 +17,12 @@ return {
     ["<leader>b"] = { name = "Buffers" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    -- redirect c/cc/C to blackhole register instead of default
+    ["c"] = { '"_c', noremap = true },
+    ["cc"] = { '"_cc', noremap = true },
+    ["C"] = { '"_C', noremap = true },
+    -- make Y only yank up to eol, not include it
+    ["Y"] = { "y$", noremap = true }
   },
   t = {
     -- setting a mapping to false will disable it
