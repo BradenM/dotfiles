@@ -5,6 +5,7 @@
 
   [colors.normal]
     black = "#4d4d4d"
+    # black = "#2D2A2E"
     red = "#f4005f"
     green = "#98e024"
     yellow = "#fa8419"
