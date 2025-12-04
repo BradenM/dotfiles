@@ -93,10 +93,10 @@ dotfiles:
     dst: ~/.zshrc
     link: absolute
     src: zshrc
-    actions:
-    - install_pyenv
-    - install_pip
-    - install_poetry
+    # actions:
+    # - install_pyenv
+    # # - install_pip
+    # - install_poetry
   d_hotkeys:
     src: hotkeys
     dst: ~/.hotkeys
