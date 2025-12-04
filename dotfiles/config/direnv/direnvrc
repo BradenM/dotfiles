@@ -53,7 +53,9 @@ use_minikube() {
 	if [ -n "$(which minikube)" ]; then
 		MINIKUBE_PROFILE="$minikube_profile"
 		export MINIKUBE_PROFILE
-		minikube profile "$minikube_profile"
+		if minikube profile list 1>&2 2>/dev/null; then
+			minikube profile "$minikube_profile"
+		fi
 	fi
 }
 
@@ -97,21 +99,6 @@ use_sops() {
 	watch_file "$path"
 }
 
-export_function() {
-	local name=$1
-	local alias_dir=$PWD/.direnv/aliases
-	mkdir -p "$alias_dir"
-	PATH_add "$alias_dir"
-	local target="$alias_dir/$name"
-	if declare -f "$name" >/dev/null; then
-		echo "#!$SHELL" >"$target"
-		declare -f "$name" >>"$target" 2>/dev/null
-		# Notice that we add shell variables to the function trigger.
-		echo "$name \$*" >>"$target"
-		chmod +x "$target"
-	fi
-}
-
 get_hash() {
 	md5sum "$1" -z | awk '{print $1}'
 }
@@ -132,8 +119,12 @@ layout_poetry() {
 	fi
 
 	#local VENV=$(poetry env list --full-path | cut -d' ' -f1)
-	local VENV=$(cache_output --file-dependency pyproject.toml --name poetry --expect-dir -- poetry env info --path)
-	
+	_direnv_root=$(dirname "$(find_up .envrc)")
+	_venv_config="${_direnv_root}/.venv/pyvenv.cfg"
+	# local VENV=$(cache_output --file-dependency pyproject.toml --file-dependency "$_venv_config" --name poetry --expect-dir -- poetry env info --path)
+	local VENV
+	VENV=$(poetry env list --full-path | awk '{print $1}')
+
 	if [[ -z $VENV || ! -d $VENV/bin ]]; then
 		log_error 'No poetry virtual environment found. Use `poetry install` to create one first.'
 		return 2
@@ -162,7 +153,8 @@ layout_ipython() {
 			log_error "No base profile found at: ${base_path}"
 			exit 2
 		)
-		_direnv_root=$(dirname "$(find_up .envrc)")
+		# _direnv_root=$(dirname "$(find_up .envrc)")
+		_direnv_root=$(direnv_layout_dir)
 		ipython_dir="${_direnv_root}/.direnv/ipython"
 		profile_dir="${ipython_dir}/profile_default"
 		[ ! -e "${profile_dir}" ] && (
@@ -175,6 +167,20 @@ layout_ipython() {
 	fi
 }
 
+# store direnv layout dirs in tmpfs
+# see: https://github.com/direnv/direnv/wiki/Customizing-cache-location
+#: ${XDG_RUNTIME_DIR:=/run/user/$UID}
+: "${XDG_CACHE_HOME:="${HOME}/.cache"}"
+declare -A direnv_layout_dirs
+direnv_layout_dir() {
+	local hash path
+	echo "${direnv_layout_dirs[$PWD]:=$(
+		hash="$(sha1sum - <<<"$PWD" | head -c40)"
+		path="${PWD//[^a-zA-Z0-9]/-}"
+		echo "${XDG_CACHE_HOME}/direnv/layouts/${hash}${path}"
+	)}"
+}
+
 ### Global common setup
 # executed for all .envrc files
 
@@ -182,8 +188,8 @@ layout_ipython() {
 # Direnv bin dir
 # ==============
 #
-_direnv_root=$(dirname "$(find_up .envrc)")
-DIRENV_TMP_DIR="${_direnv_root}/.direnv"
+#_direnv_root=$(dirname "$(find_up .envrc)")
+DIRENV_TMP_DIR="$(direnv_layout_dir)/.direnv"
 DIRENV_BIN_DIR="${DIRENV_TMP_DIR}/bin"
 [ ! -e "${DIRENV_BIN_DIR}" ] && mkdir -p "${DIRENV_BIN_DIR}"
 export PATH="${DIRENV_BIN_DIR}:${PATH}"
