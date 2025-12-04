@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+. utils.bash
+
+if [ "$#" -ne 1 ]; then
+  fail "Usage: $0 <AMI ID>"
+fi
+
+AMI_ID=$1
+
+find_snapshot() {
+  local ami_id=${1?Must provide ami id.}
+  aws ec2 describe-snapshots \
+    --filters Name=description,Values="*${ami_id}*" \
+    --query "Snapshots[].SnapshotId" \
+    --output text \
+    --no-paginate
+}
+
+deregister_ami() {
+  local ami_id=${1?Must provide ami id.}
+  log_info "Deregistering AMI: ${ami_id}"
+  aws ec2 deregister-image --image-id "${ami_id}"
+}
+
+delete_snapshot() {
+  local snapshot_id=${1?Must provide snapshot id.}
+  aws ec2 delete-snapshot --snapshot-id "${snapshot_id}"
+}
+
+main()  {
+  local snapshot_id
+  log_title "Deleting AMI: ${AMI_ID}"
+  snapshot_id=$(find_snapshot "$AMI_ID")
+  log_info "Found snapshot id: ${snapshot_id}"
+  do_confirm "Are you sure you want to delete this ami? (y/n): "
+  deregister_ami "$AMI_ID"
+  sleep 1
+  delete_snapshot "${snapshot_id}"
+  log_success "Deleted AMI ($AMI_ID) and snapshot (${snapshot_id})"
+}
+
+main "$@"
