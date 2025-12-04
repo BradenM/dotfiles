@@ -7,7 +7,7 @@ alias rm='trash' # deletes to trash
 alias cat='bat' # Bat
 #alias cp='gcp -v'	# Gcp CoPier (https://code.lm7.fr/mcy/gcp)
 #alias ls='colorls --gs' # Colorls
-alias ls='exa --icons --git'
+alias ls='eza --icons --git'
 alias sudo='sudo -v; sudo ' # Refresh timestamp timeout each time
 alias p='pnpm'
 
@@ -26,6 +26,7 @@ alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
 alias l='ls'
 alias ll="ls -l"
 alias la="ls -al"
+alias c='clear'
 takeown() {
   sudo -E chown -R "${USER}:${USER}" "$@"
 }
@@ -108,10 +109,15 @@ alias lpfind="search_lastpass"
 alias sysinfo='inxi -Fxxxz'
 
 # Direnv Allow
-direnv() { rtx exec direnv -- direnv "$@"; } # asdf shortcut
-alias dallow='rtx exec direnv -- direnv allow'
+#direnv() { mise exec direnv@2.36.0 -- direnv "$@"; } # asdf shortcut
+alias dallow='mise exec direnv -- direnv allow'
 #: Wrap tmux (see: https://github.com/direnv/direnv/wiki/Tmux)
 #alias tmux='direnv exec / tmux'
 
 # System Errors
 alias errors="journalctl -b -p err|less"
+
+# Mise
+alias m="mise"
+alias x="mise exec --"
+alias r="mise run --"
