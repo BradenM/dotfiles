@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+##
+# Search for string within git stashes
+##
+
+set -euo pipefail
+
+# shellcheck source=./utils.bash
+. utils.bash
+
+# Check if a search string was provided
+if [ "$#" -ne 1 ]; then
+	echo "Usage: $0 <search_string>"
+	exit 1
+fi
+
+SEARCH_STRING=$1
+
+# Get the list of stash references
+STASHES=$(git stash list | awk -F: '{print $1}')
+
+# Search each stash for the given string
+for stash in $STASHES; do
+	log_info "Searching in $stash..."
+	if git stash show -p $stash | grep --color=always -Hn "$SEARCH_STRING"; then
+		log_title "Found in $stash"
+		git stash show --patch $stash
+		do_confirm "Continue searching? (y/n): "
+	fi
+done
