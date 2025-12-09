@@ -15,6 +15,10 @@ while [[ $# -gt 0 ]]; do
 		DELETE_KEY="$2"
 		shift 2
 		;;
+	-p | --aws-profile)
+		AWS_PROFILE="$2"
+		shift 2
+		;;
 	-*)
 		echo "Unknown option: $1" >&2
 		exit 1
@@ -25,6 +29,8 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
+AWS_PROFILE="${AWS_PROFILE:-${MKCLIP_AWS_PROFILE:-default}}"
+
 BUCKET="${BUCKET:-$MKCLIP_BUCKET}"
 
 if [[ -z $BUCKET ]]; then
@@ -34,7 +40,7 @@ if [[ -z $BUCKET ]]; then
 fi
 
 if [[ -n $LIST_MEDIA ]]; then
-	AWS_PROFILE=default aws s3 ls "${BUCKET}/media/" | while read -r line; do
+	AWS_PROFILE="$AWS_PROFILE" aws s3 ls "${BUCKET}/media/" | while read -r line; do
 		key=$(echo "$line" | awk '{print $NF}')
 		echo "$line  https://clips.bradenmars.me/media/${key}"
 	done
@@ -42,7 +48,7 @@ if [[ -n $LIST_MEDIA ]]; then
 fi
 
 if [[ -n $DELETE_KEY ]]; then
-	AWS_PROFILE=default aws s3 rm "${BUCKET}/media/${DELETE_KEY}"
+	AWS_PROFILE="$AWS_PROFILE" aws s3 rm "${BUCKET}/media/${DELETE_KEY}"
 	exit $?
 fi
 
@@ -86,7 +92,7 @@ make_thumb() {
 do_upload() {
 	local key="${BUCKET}/${2}"
 	echo 1>&2 "Uploading ($1) -> $key"
-	AWS_PROFILE=default aws s3 cp --acl public-read "${1}" "$key" 1>&2
+	AWS_PROFILE="$AWS_PROFILE" aws s3 cp --acl public-read "${1}" "$key" 1>&2
 }
 
 get_format() {
