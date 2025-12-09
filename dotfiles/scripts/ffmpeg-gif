@@ -5,4 +5,4 @@ OUTPUT="$(pwd)/gif_out.gif"
 
 ffmpeg -i "$INPUT" -vf "fps=15,scale=1080:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 -threads 4 "$OUTPUT"
 
-echo "\nWrote gif to: $OUTPUT"
+printf "\nWrote gif to: %s\n" "$OUTPUT"

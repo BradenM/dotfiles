@@ -20,25 +20,25 @@ boot_mount_point="${4:-$mount_point/boot}" # Default boot_mount_point to $mount_
 
 # Mount the root filesystem
 echo "Mounting the root filesystem..."
-sudo mount $root_partition $mount_point
+sudo mount "$root_partition" "$mount_point"
 
 # Mount the boot partition if specified
 if [ -n "$boot_partition" ]; then
     echo "Mounting the boot partition..."
-    sudo mount $boot_partition $boot_mount_point
+    sudo mount "$boot_partition" "$boot_mount_point"
 fi
 
 # Mount essential virtual filesystems
 echo "Mounting essential virtual filesystems..."
-sudo mount --types proc /proc $mount_point/proc
-sudo mount --rbind /sys $mount_point/sys
-sudo mount --make-rslave $mount_point/sys
-sudo mount --rbind /dev $mount_point/dev
-sudo mount --make-rslave $mount_point/dev
-sudo mount --bind /run $mount_point/run
+sudo mount --types proc /proc "$mount_point"/proc
+sudo mount --rbind /sys "$mount_point"/sys
+sudo mount --make-rslave "$mount_point"/sys
+sudo mount --rbind /dev "$mount_point"/dev
+sudo mount --make-rslave "$mount_point"/dev
+sudo mount --bind /run "$mount_point"/run
 
 # Chroot into the new environment
 echo "Entering chroot environment..."
-sudo chroot $mount_point /bin/bash
+sudo chroot "$mount_point" /bin/bash
 
 echo "You are now in the chroot environment. To exit, type 'exit' or press Ctrl+D."

@@ -54,8 +54,8 @@ main() {
   project_ref=$(printf '%s @ %s' "$directory" "$git_url")
   log_title "Downloading ($project_ref) ~> $outdir"
 
-  mkdir -p "$(dirname $outdir)"
-  /usr/bin/svn export "${git_url}" "$outdir"
+  mkdir -p "$(dirname "$outdir")"
+  svn export "${git_url}" "$outdir"
   log_success "Done!"
 
 }

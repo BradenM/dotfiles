@@ -13,8 +13,8 @@ OUT_DEFAULT="$(basename -s .mp4 $INPUT)-trimmed.mp4"
 OUTPUT="${2:-$OUT_DEFAULT}"
 
 # Prompt Question
-prompt_q() { 
- printf "%s? %s%s %s(HH:MM:SS)%s: " "$BOLD" "$1" "$NORMAL" "$DIM" "$NORMAL"
+prompt_q() {
+	printf "%s? %s%s %s(HH:MM:SS)%s: " "$BOLD" "$1" "$NORMAL" "$DIM" "$NORMAL"
 }
 
 # Trim area
@@ -30,20 +30,20 @@ printf "\n%sTrimming %s -> [%s - %s] ==> %s\n" "$BOLD" "$INPUT" "$TRIM_START" "$
 tput clear
 
 # Report
-read -d '' report <<- EOF
+read -d '' report <<-EOF
 
 
-| ${BRIGHT}${BOLD}~~ FFMPEG TRIM ~~${NORMAL}
-|
-| ${BOLD}==> ${CYAN}Trimming: ${NORMAL}${INPUT}
-| ${BOLD}==> ${CYAN}Range: ${NORMAL}${TRIM_START} - ${TRIM_END}
-|
-|
-| ${BOLD}==> ${CYAN}Output: ${NORMAL}${OUTPUT}
-|
+	| ${BRIGHT}${BOLD}~~ FFMPEG TRIM ~~${NORMAL}
+	|
+	| ${BOLD}==> ${CYAN}Trimming: ${NORMAL}${INPUT}
+	| ${BOLD}==> ${CYAN}Range: ${NORMAL}${TRIM_START} - ${TRIM_END}
+	|
+	|
+	| ${BOLD}==> ${CYAN}Output: ${NORMAL}${OUTPUT}
+	|
 EOF
 
 # Trim
-ffmpeg -ss "$TRIM_START" -i "$INPUT" -to "$TRIM_END" -c copy "$OUTPUT" 
+ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -i "$INPUT" -ss "$TRIM_START" -to "$TRIM_END" -c copy "$OUTPUT"
 
 echo "$report"

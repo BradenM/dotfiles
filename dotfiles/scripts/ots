@@ -12,8 +12,23 @@ get_secret_url() {
 	printf "%s/%s" "$SECRET_URL" "$secret_key"
 }
 
+get_data() {
+	local input
+	if [ "$#" -gt 0 ]; then
+		input="${1}"
+	else
+		while IFS= read -r line
+		do
+			input="$input$line"
+		done
+	fi
+	result="${input?Missing input}"
+	printf "%s" "$result"
+}
+
 main() {
-	local secret="${1?}"
+	local secret
+	secret=$(get_data "$@")
 	# 3 days default
 	local ttl="${2:-259200}"
 	local response secret_id secret_url

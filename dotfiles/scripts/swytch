@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2034,SC2004,SC2086
 
 #    Swytch is a script providing a window switcher for sway using rofi, awk and jq.
 #    The script is based on:

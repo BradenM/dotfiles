@@ -9,7 +9,7 @@ copy_terminfo() {
 	shift
 	cmd=$(printf "Executing: ssh %s %s 'tic -x /dev/stdin'" "$@" "$host")
 	log_info "$cmd"
-	infocmp | ssh $@ "$host" 'tic -x /dev/stdin'
+	infocmp | ssh "$@" "$host" 'tic -x /dev/stdin'
 	log_success "Copied terminfo (for ${TERM}) to ${host}!"
 }
 

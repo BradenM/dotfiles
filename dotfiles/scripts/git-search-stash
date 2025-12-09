@@ -21,11 +21,12 @@ SEARCH_STRING=$1
 STASHES=$(git stash list | awk -F: '{print $1}')
 
 # Search each stash for the given string
+# shellcheck disable=SC2086
 for stash in $STASHES; do
 	log_info "Searching in $stash..."
-	if git stash show -p $stash | grep --color=always -Hn "$SEARCH_STRING"; then
+	if git stash show -p "$stash" | grep --color=always -Hn "$SEARCH_STRING"; then
 		log_title "Found in $stash"
-		git stash show --patch $stash
+		git stash show --patch "$stash"
 		do_confirm "Continue searching? (y/n): "
 	fi
 done

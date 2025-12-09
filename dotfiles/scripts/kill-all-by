@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-procs $1 --no-header
+procs "$1" --no-header
 sleep 2
-procs $1 --no-header | awk '{print $1}' | xargs kill -9
+procs "$1" --no-header | awk '{print $1}' | xargs kill -9

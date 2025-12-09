@@ -33,7 +33,8 @@ class BucketWrapper:
             logger.info("Got presigned POST URL: %s", response["url"])
         except ClientError:
             logger.exception(
-                "Couldn't get a presigned POST URL for bucket '%s' and object '%s'",
+                "Couldn't get a presigned POST URL for bucket '%s' "
+                "and object '%s'",
                 self.bucket.name,
                 object_key,
             )
@@ -41,7 +42,9 @@ class BucketWrapper:
         return response
 
 
-def generate_presigned_url(s3_client, client_method, method_parameters, expires_in):
+def generate_presigned_url(
+    s3_client, client_method, method_parameters, expires_in
+):
     """
     Generate a presigned Amazon S3 URL that can be used to perform an action.
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # https://gitlab.com/wef/dotfiles/-/blob/master/bin/sway-prop
+# shellcheck disable=SC2034,SC2016
 
 TIME_STAMP="20211102.175342"
 
@@ -18,12 +19,13 @@ TIME_STAMP="20211102.175342"
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-PROG=$( basename $0 )
+PROG=$( basename "$0" )
 
 case "$1" in
     -h|--help)
         echo "Usage: $PROG"
         echo
+        # shellcheck disable=SC2016
         echo 'shows the properties of the focused window
 
 best bindings:
@@ -38,7 +40,7 @@ esac
 
 TMP=/tmp/sway-prop-$$.tmp
 
-trap "rm $TMP" EXIT
+trap 'rm $TMP' EXIT
 
 swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused==true)' > "$TMP"
 

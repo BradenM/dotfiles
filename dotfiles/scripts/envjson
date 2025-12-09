@@ -41,7 +41,7 @@ for line in content.splitlines():
             print("Item:", item)
         key = item[0].strip()
         val = item[1].strip('"')
-    except:
+    except (IndexError, ValueError):
         if "-d" in sys.argv:
             print("Failed to parse:", line)
     else:

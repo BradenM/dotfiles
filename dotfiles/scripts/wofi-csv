@@ -14,21 +14,19 @@
 
 WORKINGDIR="$HOME/.config/wofi"
 
-[ ! -f "$WORKINGDIR/$@.csv" ] && exit 0
+[ ! -f "$WORKINGDIR/$*.csv" ] && exit 0
 
 
-MAP=($WORKINGDIR/*.csv)
-LINES="$(wc -l < $MAP)"
-
-NUM_LINES=$(( $LINES+6 ))
+MAP="$WORKINGDIR/$*.csv"
+LINES="$(wc -l < "$MAP")"
 
 cat "$MAP" \
     | cut -d ',' -f 1 \
-    | wofi -k /dev/null -d -p "$@ " --width 600 -L $LINES \
+    | wofi -k /dev/null -d -p "$* " --width 600 -L "$LINES" \
     | head -n 1 \
-    | xargs -i --no-run-if-empty grep "{}" "$MAP" \
+    | xargs -I{} --no-run-if-empty grep "{}" "$MAP" \
     | cut -d ',' -f 2 \
     | head -n 1 \
-    | xargs -i --no-run-if-empty /bin/bash -c "{}"
+    | xargs -I{} --no-run-if-empty /bin/bash -c "{}"
 
 exit 0

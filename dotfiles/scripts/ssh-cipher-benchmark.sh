@@ -23,16 +23,16 @@ shift
 
 set -o pipefail
 
-ciphers="$@"
+ciphers="$*"
 if [[ -n "$ciphers" ]]; then echo "User-supplied ciphers: $ciphers"; fi
 
 if [[ -z "$ciphers" ]]; then
-  ciphers=$(egrep '^\s*Ciphers' /etc/ssh/sshd_config|sed 's/Ciphers//; s/,/ /g')
+  ciphers=$(grep -E '^\s*Ciphers' /etc/ssh/sshd_config|sed 's/Ciphers//; s/,/ /g')
   if [[ -n "$ciphers" ]]; then echo "/etc/ssh/sshd_config allows these ciphers: $ciphers"; fi
 fi
 
 if [[ -z "$ciphers" ]]; then
-  ciphers=$(echo $(ssh -Q cipher))
+  ciphers=$(ssh -Q cipher | tr '\n' ' ')
   if [[ -n "$ciphers" ]]; then echo "ssh -Q cipher reports these ciphers: $ciphers"; fi
 fi
 
@@ -50,14 +50,13 @@ echo "For each cipher, will transfer 1000 MB of zeros to/from ${remote}."
 echo
 
 tmp=$(mktemp)
+# shellcheck disable=SC2086
 for i in $ciphers
 do
   echo -n "$i: "
-  dd if=/dev/zero bs=1000000 count=1000 2> /dev/null |
-  ssh -c $i -o Compression=no ${remote} "(time -p cat) > /dev/null" > $tmp 2>&1
-  
-  if [[ $? == 0 ]]; then
-      grep real $tmp | awk '{print 1000 / $2" MB/s" }'
+  if dd if=/dev/zero bs=1000000 count=1000 2> /dev/null |
+     ssh -c "$i" -o Compression=no "${remote}" "(time -p cat) > /dev/null" > "$tmp" 2>&1; then
+      grep real "$tmp" | awk '{print 1000 / $2" MB/s" }'
   else
       echo "failed, for why run: ssh -vc $i ${remote}"
   fi

@@ -16,12 +16,12 @@ _EOF_
 scan_port() {
         domain=$1
         echo "Scanning ports for $1...."
-        nmap -sT -T4 $domain | sed '/^\(Nmap scan\|PORT\|[0-9]\)/!d' | tee -a $port_scan_result_file
+        nmap -sT -T4 "$domain" | sed '/^\(Nmap scan\|PORT\|[0-9]\)/!d' | tee -a "$port_scan_result_file"
 }
 
 create_port_scan_result_file() {
-        port_scan_result_file=port-scan-`date "+%Y-%m-%d-%H:%M:%S"`.txt
-	touch $port_scan_result_file
+        port_scan_result_file="port-scan-$(date "+%Y-%m-%d-%H:%M:%S").txt"
+	touch "$port_scan_result_file"
 }
 
 while getopts "f:d:" opt; do
@@ -41,16 +41,15 @@ scan_port_flow() {
 
 if [ -n "$domain" ]; then
 	create_port_scan_result_file
-	scan_port $domain
+	scan_port "$domain"
 	echo "Scan result:$port_scan_result_file"
 fi
 
 if [ -n "$file" ]; then
 	create_port_scan_result_file
-	for domain in $(cat $file)
-	do
-		scan_port $domain
-	done
+	while IFS= read -r domain; do
+		scan_port "$domain"
+	done < "$file"
 	echo "Scan result: $port_scan_result_file"
 fi
 }

@@ -55,8 +55,9 @@ fi
 FILE="$1"
 FILE_PATH=$(realpath "$FILE")
 KEY="${2:-$(basename "$FILE")}"
+# shellcheck disable=SC2034
 MEDIA_KEY="media/${KEY}"
-
+# shellcheck disable=SC2034
 TARGET="${BUCKET}/${KEY}"
 
 is_video() {
@@ -131,7 +132,7 @@ upload_media() {
 }
 
 upload_file() {
-	file_name="$(basename $FILE_PATH)"
+	file_name="$(basename "$FILE_PATH")"
 	do_upload "$FILE_PATH" "media/${file_name}"
 	echo "media/${file_name}"
 }
