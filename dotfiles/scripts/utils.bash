@@ -5,6 +5,7 @@
 ##
 
 make_colors() {
+	# shellcheck disable=SC2178
 	local -n color="$1"
 
 	[[ ${TERM} == "" ]] && export TERM="xterm-256color"
@@ -49,6 +50,7 @@ make_colors() {
 }
 
 make_truecolors() {
+	# shellcheck disable=SC2178
 	local -n color="$1"
 
 	[[ ${TERM} == "" ]] && export TERM="xterm-truecolor"
@@ -133,7 +135,7 @@ log_header() {
 	line1len=$(echo -n "$1" | wc -c)
 	line2len=$(echo -n "$2" | wc -c)
 	len=$line2len
-	[ $line1len -gt $line2len ] && len=$line1len
+	[ "$line1len" -gt "$line2len" ] && len=$line1len
 	len=$((len + 2))
 	bar=$(printf "%${len}s" | tr ' ' '*')
 	echo "$bar" 1>&2
@@ -145,7 +147,7 @@ log_header() {
  do_confirm() {
  	 local msg
  	 msg="${1:-Confirm? (y/n): }"
- 	 read -p "$msg" yn
+ 	 read -rp "$msg" yn
    case $yn in
        [Yy]* ) return;;
        [Nn]* ) exit;;
