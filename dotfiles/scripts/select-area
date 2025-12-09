@@ -6,4 +6,4 @@ windowGeometries=$(
 )
 geometry=$(slurp -b "#45858820" -c "#45858880" -w 3 -d <<< "$windowGeometries") || exit $?
 notify-send -t 5000 "Area Selection" "Geometry: ${geometry}" || true
-echo $geometry
+echo "$geometry"
