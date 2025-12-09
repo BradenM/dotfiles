@@ -2,27 +2,39 @@
 
 BUCKET=""
 while [[ $# -gt 0 ]]; do
-  case "$1" in
-    -b|--bucket)
-      BUCKET="$2"
-      shift 2
-      ;;
-    -*)
-      echo "Unknown option: $1" >&2
-      exit 1
-      ;;
-    *)
-      break
-      ;;
-  esac
+	case "$1" in
+	-b | --bucket)
+		BUCKET="$2"
+		shift 2
+		;;
+	-l | --list)
+		LIST_MEDIA=1
+		shift
+		;;
+	-*)
+		echo "Unknown option: $1" >&2
+		exit 1
+		;;
+	*)
+		break
+		;;
+	esac
 done
 
 BUCKET="${BUCKET:-$MKCLIP_BUCKET}"
 
-if [[ -z "$BUCKET" ]]; then
-  echo "Error: No bucket specified." >&2
-  echo "Provide a bucket via --bucket/-b flag or MKCLIP_BUCKET environment variable." >&2
-  exit 1
+if [[ -z $BUCKET ]]; then
+	echo "Error: No bucket specified." >&2
+	echo "Provide a bucket via --bucket/-b flag or MKCLIP_BUCKET environment variable." >&2
+	exit 1
+fi
+
+if [[ -n $LIST_MEDIA ]]; then
+	AWS_PROFILE=default aws s3 ls "${BUCKET}/media/" | while read -r line; do
+		key=$(echo "$line" | awk '{print $NF}')
+		echo "$line  https://clips.bradenmars.me/media/${key}"
+	done
+	exit 0
 fi
 
 FILE="$1"
@@ -33,100 +45,100 @@ MEDIA_KEY="media/${KEY}"
 TARGET="${BUCKET}/${KEY}"
 
 is_video() {
-  input="$1"
-  mime_type=$(file --brief --mime-type "${input}")
-  case "$mime_type" in
-  video/*)
-    return 1
-    ;;
-  *)
-    return 0
-    ;;
-  esac
+	input="$1"
+	mime_type=$(file --brief --mime-type "${input}")
+	case "$mime_type" in
+	video/*)
+		return 1
+		;;
+	*)
+		return 0
+		;;
+	esac
 }
 
 append_name() {
-  input="${1}"
-  new_stem="${2}"
-  stem=$(basename "$input" | cut -f1 -d'.')
-  ext=$(basename "$input" | cut -f2- -d'.')
-  echo 1>&2 "Stem: ${stem} | New Stem: ${new_stem} | Ext: ${ext}"
-  printf '%s%s.%s' "$stem" "$new_stem" "$ext"
+	input="${1}"
+	new_stem="${2}"
+	stem=$(basename "$input" | cut -f1 -d'.')
+	ext=$(basename "$input" | cut -f2- -d'.')
+	echo 1>&2 "Stem: ${stem} | New Stem: ${new_stem} | Ext: ${ext}"
+	printf '%s%s.%s' "$stem" "$new_stem" "$ext"
 }
 
 make_thumb() {
-  input="$1"
-  output="/tmp/$(basename "$input" | cut -f1 -d'.').thumb.jpg"
-  echo 1>&2 "Writing thumbnail to: ${output}"
-  ffmpeg -i "${input}" -ss 00:00:01.000 -vframes 1 "${output}"
-  echo -n "$output"
+	input="$1"
+	output="/tmp/$(basename "$input" | cut -f1 -d'.').thumb.jpg"
+	echo 1>&2 "Writing thumbnail to: ${output}"
+	ffmpeg -i "${input}" -ss 00:00:01.000 -vframes 1 "${output}"
+	echo -n "$output"
 }
 
 do_upload() {
-  local key="${BUCKET}/${2}"
-  echo 1>&2 "Uploading ($1) -> $key"
-  AWS_PROFILE=default aws s3 cp --acl public-read "${1}" "$key" 1>&2
+	local key="${BUCKET}/${2}"
+	echo 1>&2 "Uploading ($1) -> $key"
+	AWS_PROFILE=default aws s3 cp --acl public-read "${1}" "$key" 1>&2
 }
 
 get_format() {
-  ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$1" || echo "h264"
+	ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 "$1" || echo "h264"
 }
 
 convert() {
-  local input="$1" format
-  format=$(get_format "$input")
-  if [[ $format == "hevc" ]]; then
-    output="/tmp/$(basename "$input" | cut -f1 -d'.').h264.mp4"
-    echo 1>&2 "Converting hevc -> ${output}"
-    ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -i "$input" -c:v libx264 -preset slow -crf 18 -c:a copy "$output" 1>&2
-    echo -n "$output"
-  else
-    echo "$input"
-  fi
+	local input="$1" format
+	format=$(get_format "$input")
+	if [[ $format == "hevc" ]]; then
+		output="/tmp/$(basename "$input" | cut -f1 -d'.').h264.mp4"
+		echo 1>&2 "Converting hevc -> ${output}"
+		ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -i "$input" -c:v libx264 -preset slow -crf 18 -c:a copy "$output" 1>&2
+		echo -n "$output"
+	else
+		echo "$input"
+	fi
 }
 
 upload_video() {
-  res=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "${FILE_PATH}")
-  thumb_path=$(make_thumb "$FILE_PATH")
-  thumb_name=$(append_name "$thumb_path" "_$res")
-  do_upload "$thumb_path" "thumbs/$thumb_name"
-  file_path=$(convert "$FILE_PATH")
-  file_name=$(append_name "$file_path" "_$res")
-  do_upload "$file_path" "media/${file_name}"
-  echo "$file_name"
+	res=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "${FILE_PATH}")
+	thumb_path=$(make_thumb "$FILE_PATH")
+	thumb_name=$(append_name "$thumb_path" "_$res")
+	do_upload "$thumb_path" "thumbs/$thumb_name"
+	file_path=$(convert "$FILE_PATH")
+	file_name=$(append_name "$file_path" "_$res")
+	do_upload "$file_path" "media/${file_name}"
+	echo "$file_name"
 }
 
 upload_media() {
-  res=$(identify -format '%wx%h' "$FILE_PATH")
-  file_name=$(append_name "$FILE_PATH" "_$res")
-  do_upload "$FILE_PATH" "media/${file_name}"
-  echo "media/${file_name}"
+	res=$(identify -format '%wx%h' "$FILE_PATH")
+	file_name=$(append_name "$FILE_PATH" "_$res")
+	do_upload "$FILE_PATH" "media/${file_name}"
+	echo "media/${file_name}"
 }
 
 upload_file() {
-  file_name="$(basename $FILE_PATH)"
-  do_upload "$FILE_PATH" "media/${file_name}"
-  echo "media/${file_name}"
+	file_name="$(basename $FILE_PATH)"
+	do_upload "$FILE_PATH" "media/${file_name}"
+	echo "media/${file_name}"
 }
 
 main() {
-  mime_type=$(file --brief --mime-type "${FILE_PATH}")
-  echo 1>&2 "Mimetype: ${mime_type}"
-  case "$mime_type" in
-  video/*)
-    key=$(upload_video)
-    ;;
-  image/*)
-    key=$(upload_media)
-    ;;
-  *)
-    key=$(upload_file)
-    ;;
-  esac
-  RESULT_URL="https://clips.bradenmars.me/${key}"
-  echo "Result:"
-  echo "$RESULT_URL"
-  wl-copy -n <<<"$RESULT_URL"
+	mime_type=$(file --brief --mime-type "${FILE_PATH}")
+	echo 1>&2 "Mimetype: ${mime_type}"
+	case "$mime_type" in
+	video/*)
+		key=$(upload_video)
+		;;
+	image/*)
+		key=$(upload_media)
+		;;
+	*)
+		key=$(upload_file)
+		;;
+	esac
+	RESULT_URL="https://clips.bradenmars.me/${key}"
+	echo "Result:"
+	echo "$RESULT_URL"
+	wl-copy -n <<<"$RESULT_URL"
 }
 
 # AWS_PROFILE=default aws s3 cp --acl public-read "${FILE_PATH}" "${TARGET}"
