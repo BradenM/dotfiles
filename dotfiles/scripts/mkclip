@@ -31,7 +31,7 @@ done
 
 AWS_PROFILE="${AWS_PROFILE:-${MKCLIP_AWS_PROFILE:-default}}"
 
-BUCKET="${BUCKET:-$MKCLIP_BUCKET}"
+BUCKET="${BUCKET:-${MKCLIP_BUCKET?No bucket defined.}}"
 
 if [[ -z $BUCKET ]]; then
 	echo "Error: No bucket specified." >&2
